@@ -5,4 +5,15 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>FPGA routing and switching using evolutionary algorithms and simple heuristics</name>
   <description>Bachelor's thesis. </description>
+  
+  <dependencies>
+    
+    <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-engine</artifactId>
+        <version>5.4.0</version>
+        <scope>test</scope>
+    </dependency>
+  
+</dependencies>
 </project>
