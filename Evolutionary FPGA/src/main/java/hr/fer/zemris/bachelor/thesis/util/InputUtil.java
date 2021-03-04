@@ -68,8 +68,6 @@ public class InputUtil {
 	 */
 	public static InputData readInputData() {
 		return null;
-		
-		
 	}
 	
 	
