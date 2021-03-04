@@ -1,4 +1,6 @@
 language: java
+script:
+  - cd "Evolutionary FPGA"
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
