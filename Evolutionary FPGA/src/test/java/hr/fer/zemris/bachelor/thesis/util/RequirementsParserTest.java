@@ -18,13 +18,12 @@ import hr.fer.zemris.bachelor.thesis.models.Pair;
  */
 class RequirementsParserTest {
 
-	//@Disabled
+
 	@Test
 	public void emptyString() {
 		assertNull(InputUtil.readInputRequirements(""));
 	}
 	
-	//@Disabled
 	@Test
 	public void oneObject() {
 		String s = "A=>7";
@@ -35,7 +34,6 @@ class RequirementsParserTest {
 		assertEquals("A", pinsToInput.get(7));
 	}
 	
-	//@Disabled
 	@Test
 	public void invalidInputTooManyLetters() {
 		String s = "AVB=>7";
@@ -44,7 +42,6 @@ class RequirementsParserTest {
 		});
 	}
 	
-	//@Disabled
 	@Test
 	public void invalidInputNotALetter() {
 		String s = "2=>7";
@@ -53,7 +50,6 @@ class RequirementsParserTest {
 		});
 	}
 	
-	//@Disabled
 	@Test
 	public void invalidPinNotConvertable() {
 		String s = "A=>7A";
@@ -62,7 +58,6 @@ class RequirementsParserTest {
 		});
 	}
 	
-	//@Disabled
 	@Test
 	public void twoObjectsSpaceNotImportantAfterComa() {
 		String s = "A=>7, B=>8";
@@ -75,7 +70,6 @@ class RequirementsParserTest {
 		assertEquals("B", pinsToInput.get(8));
 	}
 	
-	//@Disabled
 	@Test
 	public void twoObjectsSpaceNotImportantAfterInput() {
 		String s = "A =>7, B=>8";
@@ -88,7 +82,7 @@ class RequirementsParserTest {
 		assertEquals("B", pinsToInput.get(8));
 	}
 	
-	//@Disabled
+	
 	@Test
 	public void twoObjectsSpaceNotImportantAfterPin() {
 		String s = "A=>7 , B=>8";
