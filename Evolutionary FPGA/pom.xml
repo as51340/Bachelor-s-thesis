@@ -62,7 +62,28 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<extensions>
+			<extension>
+				<groupId>io.packagecloud.maven.wagon</groupId>
+				<artifactId>maven-packagecloud-wagon</artifactId>
+				<version>0.0.6</version>
+			</extension>
+		</extensions>
 	</build>
 
+	<distributionManagement>
+		<repository>
+			<id>fpga-routing-switching</id>
+			<url>
+				packagecloud+https://packagecloud.io/andi8647/maven
+			</url>
+		</repository>
+		<snapshotRepository>
+			<id>fpga-routing-switching</id>
+			<url>
+				packagecloud+https://packagecloud.io/andi8647/maven
+			</url>
+		</snapshotRepository>
+	</distributionManagement>
 
 </project>
