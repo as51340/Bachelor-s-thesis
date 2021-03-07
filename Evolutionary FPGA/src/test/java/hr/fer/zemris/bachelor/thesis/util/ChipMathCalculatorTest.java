@@ -34,6 +34,27 @@ class ChipMathCalculatorTest {
 		assertEquals(17 , calc.getNumberOfSegments());	
 	}
 	
+	@Test
+	void numberOfTwoWayJunctionConnections() {
+		InputData data = createInputData();
+		ChipMathCalculator calc = new ChipMathCalculator(data);
+		assertEquals(4, calc.getNumberOfTwoWayConnectedJunctionBoxes());
+	}
+	
+	@Test
+	void numberOfThreeWayJunctionConnections() {
+		InputData data = createInputData();
+		ChipMathCalculator calc = new ChipMathCalculator(data);
+		assertEquals(6, calc.getNumberOfThreeWayConnectedJunctionBoxes());
+	}
+	
+	@Test
+	void numberOfFourWayJunctionConnections() {
+		InputData data = createInputData();
+		ChipMathCalculator calc = new ChipMathCalculator(data);
+		assertEquals(2, calc.getNumberOfFourWayConnectedJunctionBoxes());
+	}
+	
 	/**
 	 * @return {@linkplain InputData} for testing
 	 */
