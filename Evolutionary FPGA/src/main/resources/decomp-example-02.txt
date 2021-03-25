@@ -1,0 +1,12 @@
+#f = a xor b; g = f xor c; h = g xor d
+Architecture: 2, 4
+Variables: [A,B,C,D]
+Function(s) [F,G,H] is/are at outputs: [0, 2, 3]
+CLB(0): A B
+0110
+CLB(1): D A
+0000
+CLB(2): C CLB(0)
+0110
+CLB(3): D CLB(2)
+0110

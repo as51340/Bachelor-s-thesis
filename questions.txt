@@ -1,0 +1,47 @@
+1. Što je architecture u inputu? Da li je ovaj # u prvoj liniji, zato jer je to zakomentirano ili? Što s ovim outputima funkcije [1, 2, 3] - to još uvijek nije u funkciji jelda, pitaj za parser requirementsa 
+	koje sam napravio.
+2. Provjeri sve ove enumeracije(switch boxeva, wire segmenata itd). Wire segmenti, ide li 0, 1, 2, 3 u smjeru CW s time da je 0 gore. 
+3. Kako pokrenuti sve skupa cijeli program?
+4. Drugi primjer ima bugova vjv.je typo da je funkcija f na inputu 0.
+5. Nije sve počišćeno kako treba, zar ne bi bilo dovoljno u simplify imat umjesto && ||. 
+6. Kako radi generiranje lijevih i donjih pinova, meni ne štima? Za donje inpute za konfiguraciju 2,2 početak je 4, a uzima desni wire segment 6. switch boxa. Primjer za lijeve pinove: početni je 6.pin, a uzima 
+	se donji wire segment nultog switch boxa.n
+7. Kako funkcionira pin? On ima referencu na wire segmente. Input je 0/1,i value 0/1 to štima, što je title=vjv. ulazna varijabla? Što je connectionIndex, je to index wire segmenta na koji je spojen ako da zašto je byte?
+8. Kako funkcionira wire segment? Što je label tamo, oznaka kao za kvadratić? Da li je first index i second index način kako dobiti taj isti wire segment preko firstBox odnosno secondBox ako da onda ne štima? Npr. 
+	brojZica=3 i sad ako upišemo wireSegment s firstIndex=3, a secondIndex=9 onda on ne pokazuje na dobru žicu? Analogno za vertikalno.
+9.  Što znači da je konfiguracija switchBoxa[][] == 1 ili 2 ili 0. Da li je conf[i][j] == conf[j][i]?
+10. Bajtovi se koriste za prikazivanje A,B,C,D itd...
+11. Da li jedna žica u konfiguraciji switch boxa može biti spojena s više njih? Po meni da.
+12, Gdje je zapisano na koju je žicu spojen neki pin?
+13. Da li ja stvaram novi fpgaMapper koji će onda vratiti rezultat pa da od tamo dolje isto kao dosad? Onako samo pitanje zašto GUI-ju treba i sfpga?
+14. Da li genetski algoritam radim na fpgaModelConfiguration ili na nekoj svojoj novoj konfiguraciji?
+15. Kako stvoriti neku novu početnu konfiguraciju? Što randomizirat jer nema smisla sve randomizirat(switch boxeve i clbInpute i pineve). Postoji li algoritam koji "traži" vrijednost wire segmenta?
+16. Mora vrijediti da su na clb-ima spojeni dobri inputi, hoću li uopće dopustiti da se takva konfiguracija stvori pa to ekstremno kazniti ili?
+17. Općenito tijek tog genetskog, što napraviti, nakon svake neke promjene tražiti novu vrijednost preko switch boxeva ili? 
+18. Od koga startati, od pinova, wire segmenata ili ...
+19. Operatori križanja i mutacije: križanje => uzmi s jednakom vjerojatnošću gen jednog ili drugog. Mutacija promijeni gen( za pin to znači odaberi nešto iz skupa iz svih ulaza/izlaza + prazno)-
+20. Prema čemu evaluirati, kakve konfiguracije nagrađivati, kakve kažnjavati...  
+21. fpga map task što su aliasi, aliasMap, dataPositions. 
+22. FillLabels što onaj algoritam radi. 
+21. Ajoj.
+
+FPGAMapTask
+aliases su nam funkcije
+aliasMap su nam funkcije na izlazima, ne na pinovima, nego na clbovima
+varijable su nam inputi
+Clbovi sadržavaju detaljne upute: alias => da li je na tom clbu neki izlaz funkcije, na kojem indexu clba 
+	se ta funkcija nalazi, koje je ime tog clba. I njegovi inputi.
+Positions: 
+	za sve varijable printa isPin = true. Position je samo neka vrijednost koja ne znam za šta služi, 
+	ulazne varijable idu redoslijedom, a clbovi po tome pod kojim je rednim brojem neka funkcija na njima 
+	ostvarena
+
+FPGAMapperResult-nad konfiguracijom mi radimo genetski. Model i task dobivam to je okej, ali odkud nam 
+clbIndexi i pinIndexi?
+
+Radim svoj AiMapper. Jedan paket za GUI, vjv. JFreeChart. Jedan paket za AI u kojem će biti sučelja za selekciju, crossover, mutaciju, sam genetski algoritam itd. Evaluator koji kažnjava i ima statičku metodu evaluate na temelju
+modela i configurationa(zasad). Koristim gotov FPGAMapTask. Generacijski algoritam posebno implementiran s nekim propertyima o duplikatima i slično. Idealno bi bilo da mi GUI prima taj model i nekako prikazuje=> definirati način
+dodavanja GUI-ja u vizualizaciju. Switch boxevi imaju 1 i 2. 2 znači da je od tamo početak, 1 da tamo završava. Iz 2 može ići više njih. U 1 ne više njih niti može ona postati ulaz. Razmotri opcije u kojima onda nešto promijeniš
+ako nije zadovoljen neki od zahtjeva.
+MAVEN handles tests as other project something like that.
+Maybe add that after initialization, inputs cannot be connected to the same wire.
