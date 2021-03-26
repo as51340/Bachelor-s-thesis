@@ -8,8 +8,6 @@
 	<name>FPGA routing and switching using evolutionary algorithms and simple heuristics</name>
 	<description>Bachelor's thesis. </description>
 
-
-
 	<developers>
 		<developer>
 			<id>as</id>
@@ -26,11 +24,16 @@
 		<maven.compiler.target>15</maven.compiler.target>
 		<junit.jupiter.version>5.5.2</junit.jupiter.version>
 		<junit.platform.version>1.5.2</junit.platform.version>
-		<scope>system</scope>
-		<systemPath>lib/mc-fpga-x.jar</systemPath>
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>hr.fer.zemris.bachelor-thesis</groupId>
+			<artifactId>fpga-mapiranje</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/mc-fpga-x.jar</systemPath>
+		</dependency>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-engine</artifactId>
