@@ -8,6 +8,8 @@
 	<name>FPGA routing and switching using evolutionary algorithms and simple heuristics</name>
 	<description>Bachelor's thesis. </description>
 
+
+
 	<developers>
 		<developer>
 			<id>as</id>
@@ -24,6 +26,8 @@
 		<maven.compiler.target>15</maven.compiler.target>
 		<junit.jupiter.version>5.5.2</junit.jupiter.version>
 		<junit.platform.version>1.5.2</junit.platform.version>
+		<scope>system</scope>
+		<systemPath>lib/mc-fpga-x.jar</systemPath>
 	</properties>
 
 	<dependencies>
@@ -68,11 +72,11 @@
 			</plugin>
 		</plugins>
 		<resources>
-        <resource>
-            <directory>src/main/resources</directory>
-            <filtering>false</filtering>
-        </resource>
-    </resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>false</filtering>
+			</resource>
+		</resources>
 	</build>
 
 
