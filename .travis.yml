@@ -11,10 +11,4 @@ script:
 
 after_success:
   - bash <(curl -s https://codecov.io/bash) -t 0d2ded24-da20-471d-8efa-2c0052ea24cc
- 
-deploy:
-  provider: script
-  script: "cp .travis.settings.xml $HOME/.m2/settings.xml && mvn deploy"
-  skip_cleanup: true
-  on:
-    tags: true
+
