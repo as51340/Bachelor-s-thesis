@@ -7,7 +7,7 @@ jdk:
   - openjdk15
 script:
   - cd "Evolutionary FPGA"
-  #- "mvn cobertura:cobertura"
+  ##- "mvn cobertura:cobertura"
   - mvn test
 
 after_success:
