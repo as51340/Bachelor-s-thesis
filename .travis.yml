@@ -8,6 +8,7 @@ jdk:
 script:
   - cd "Evolutionary FPGA"
   #- "mvn cobertura:cobertura"
+  - mvn test
 
 after_success:
   #- bash <(curl -s https://codecov.io/bash) -t 0d2ded24-da20-471d-8efa-2c0052ea24cc
