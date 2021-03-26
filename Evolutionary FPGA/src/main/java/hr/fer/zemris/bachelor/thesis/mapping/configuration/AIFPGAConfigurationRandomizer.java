@@ -3,8 +3,10 @@ package hr.fer.zemris.bachelor.thesis.mapping.configuration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import hr.fer.zemris.fpga.FPGAModel;
@@ -41,9 +43,9 @@ public class AIFPGAConfigurationRandomizer {
 		conf.clbIndexes= randomizeArray(conf.clbIndexes); //clbs
 		conf.pinIndexes = randomizeArray(conf.pinIndexes); //pins
 		modelConf.clbOutIndexes = randomizeByteArray((byte) model.wiresCount, modelConf.clbOutIndexes); //clbs outputs, first argument should be wires count I think
-		modelConf.pinIndexes = randomizeByteArray((byte) model.wiresCount, modelConf.clbOutIndexes);
+		modelConf.pinIndexes = randomizeByteArray((byte) model.wiresCount, modelConf.pinIndexes);
 		for(int i = 0; i < model.clbs.length; i++) {
-			modelConf.clbInIndexes[i] = randomizeByteArray((byte) model.wiresCount, modelConf.clbInIndexes[i]);
+			modelConf.clbInIndexes[i] = randomizeDistinctByteArray((byte) model.wiresCount, modelConf.clbInIndexes[i]);
 		}
 		for(int i = 0; i < model.switchBoxes.length; i++) {
 			for(int j = 0; j < 4* model.wiresCount; j++) {
@@ -76,6 +78,25 @@ public class AIFPGAConfigurationRandomizer {
 		for(int i = 0; i < arr.length; i++) {
 			int rnd = random.nextInt(boundary);
 			arr[i] = (byte) rnd;
+		}
+		return arr;
+	}
+	
+	/**
+	 * Creates random byte array
+	 * @param boundary
+	 * @param arr
+	 */
+	public byte[] randomizeDistinctByteArray(byte boundary, byte[] arr) {
+		Set<Byte> visited = new HashSet<>();
+		for(int i = 0; i < arr.length; i++) {
+			while(true) {
+				int rnd = random.nextInt(boundary);
+				if(visited.add((byte)rnd)) {
+					arr[i] = (byte) rnd;
+					break;
+				}
+			}
 		}
 		return arr;
 	}

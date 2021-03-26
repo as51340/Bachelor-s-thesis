@@ -24,12 +24,12 @@ class AIFPGAConfigurationInitialierTest {
 		assertEquals(population.length, 50);
 		for(int i = 0; i < population.length; i++) {
 			assertEquals(rows*columns, population[i].clbIndexes.length);
-			for(int j = 0; j < population[i].getClbIndexes().length; j++) {
-				assertEquals(population[i].getClbIndexes()[j], -1);
+			for(int j = 0; j < population[i].clbIndexes.length; j++) {
+				assertEquals(population[i].clbIndexes[j], -1);
 			}
 			assertEquals(2*pins*(rows + columns), population[i].pinIndexes.length);
-			for(int j = 0; j < population[i].getPinIndexes().length; j++) {
-				assertEquals(population[i].getPinIndexes()[j], -1);
+			for(int j = 0; j < population[i].pinIndexes.length; j++) {
+				assertEquals(population[i].pinIndexes[j], -1);
 			}
 		}
 	}

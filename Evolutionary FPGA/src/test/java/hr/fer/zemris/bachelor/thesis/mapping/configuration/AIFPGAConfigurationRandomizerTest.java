@@ -3,10 +3,12 @@ package hr.fer.zemris.bachelor.thesis.mapping.configuration;
 import static org.junit.Assert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Arrays;
 import java.util.Collection;
 
 import org.junit.jupiter.api.Test;
 
+import hr.fer.zemris.bachelor.thesis.mapping.configuration.cleaner.ArrayUtils;
 import hr.fer.zemris.fpga.FPGAModel;
 
 /**
@@ -33,38 +35,44 @@ class AIFPGAConfigurationRandomizerTest {
 			assertEquals(2 * pins * (rows + columns), individual.pinIndexes.length);
 			random.randomize(individual);
 			// assert clb indexes
+			// assert different
 			for (int j = 0; j < individual.clbIndexes.length; j++) {
-				//System.out.println(individual.clbIndexes[j] + " " + individual.clbIndexes.length);
-				assertTrue((individual.clbIndexes[j] < individual.clbIndexes.length) && 
-						individual.clbIndexes[j] != -1);
+				// System.out.println(individual.clbIndexes[j] + " " +
+				// individual.clbIndexes.length);
+				assertTrue((individual.clbIndexes[j] < individual.clbIndexes.length) && individual.clbIndexes[j] != -1);
 			}
+			assertTrue(ArrayUtils.validate(Arrays.stream(individual.clbIndexes).boxed().toArray(Integer[]::new)));
 			// assert pin indexes
+			// assert different
 			for (int j = 0; j < individual.pinIndexes.length; j++) {
 				assertTrue((individual.pinIndexes[j] < individual.pinIndexes.length) && individual.pinIndexes[j] != -1);
 			}
+			assertTrue(ArrayUtils.validate(Arrays.stream(individual.pinIndexes).boxed().toArray(Integer[]::new)));
 			// assert pin connection indexe
 			for (int j = 0; j < individual.configuration.pinIndexes.length; j++) {
-				assertTrue((individual.configuration.pinIndexes[j] < 3) && individual.configuration
-						.pinIndexes[j] != -1);
+				assertTrue(
+						(individual.configuration.pinIndexes[j] < 3) && individual.configuration.pinIndexes[j] != -1);
 			}
 			// assert clboutput indexe
 			for (int j = 0; j < individual.configuration.clbOutIndexes.length; j++) {
-				assertTrue((individual.configuration.clbOutIndexes[j] < 3) && individual.configuration.
-						clbOutIndexes[j] != -1);
+				assertTrue((individual.configuration.clbOutIndexes[j] < 3)
+						&& individual.configuration.clbOutIndexes[j] != -1);
 			}
 			// assert inpute
+			// assert that they are different
 			for (int j = 0; j < individual.configuration.clbInIndexes.length; j++) {
-				for (int k = 0; k < 2; k++) {
-					assertTrue((individual.configuration.clbInIndexes[j][k] < 3) && individual.
-							configuration.clbInIndexes[j][k] != -1);
+				assertTrue(ArrayUtils.validateByte(individual.configuration.clbInIndexes[j]));
+				for (int k = 0; k < variables; k++) {
+					assertTrue((individual.configuration.clbInIndexes[j][k] < 3)
+							&& individual.configuration.clbInIndexes[j][k] != -1);
 				}
 			}
 			// assert switchboxes
 			for (int j = 0; j < individual.configuration.switchBoxes.length; j++) {
 				for (int k = 0; k < individual.configuration.switchBoxes[0].length; k++) {
 					for (int y = 0; y < individual.configuration.switchBoxes[0][0].length; y++) {
-						assertTrue((individual.configuration.switchBoxes[j][k][y] < 3) && 
-								individual.configuration.switchBoxes[j][k][y] != -1);
+						assertTrue((individual.configuration.switchBoxes[j][k][y] < 3)
+								&& individual.configuration.switchBoxes[j][k][y] != -1);
 					}
 				}
 			}

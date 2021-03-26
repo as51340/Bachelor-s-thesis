@@ -15,7 +15,7 @@ public abstract class AIFPGAConfigurationCleaner {
 	public AIFPGAConfigurationCleaner(FPGAModel model, SwitchBoxCleaner swCleaner) {
 		super();
 		this.model = model;
-		this.swCleaner = this.swCleaner;
+		this.swCleaner = swCleaner;
 	}
 
 

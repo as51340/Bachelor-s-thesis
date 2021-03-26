@@ -10,5 +10,5 @@ public abstract class SwitchBoxCleaner {
 		this.model = model;
 	}
 	
-	public abstract void clean(byte[][][] swConf);
+	public abstract void clean(byte[][] swConf);
 }

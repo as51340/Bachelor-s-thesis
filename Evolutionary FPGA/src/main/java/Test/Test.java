@@ -1,15 +1,23 @@
 package Test;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import hr.fer.zemris.fpga.gui.FPGAComponent;
 
 public class Test {
 
 	public static void main(String[] args) {
-		System.out.println("Hello World!");
-		byte a = 65;
-		System.out.println(a);
-		String aa = "A" ;//every letter in string has one byte so store letters in byte array;
-		System.out.println(aa.getBytes().length);
+		Map<Integer, Integer> maps = new LinkedHashMap();
+		for(int i = 0; i < 10; i++) {
+			maps.put(i, null);
+		}
+		for(var v: maps.entrySet()) {
+			v.setValue(v.getKey() + 1);
+		}
+		for(var v: maps.entrySet()) {
+			System.out.println(v.getKey() + " " + v.getValue());
+		}
 	}
 
 }

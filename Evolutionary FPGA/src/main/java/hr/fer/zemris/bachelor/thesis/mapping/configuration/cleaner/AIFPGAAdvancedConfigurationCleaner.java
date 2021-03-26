@@ -25,17 +25,19 @@ public class AIFPGAAdvancedConfigurationCleaner extends AIFPGAConfigurationClean
 
 	@Override
 	public void clean(AIFPGAConfiguration conf) {
-		swCleaner.clean(conf.getConfiguration().switchBoxes);
-		cleanIntArray(conf.getPinIndexes());
-		cleanIntArray(conf.getClbIndexes());
-		for(int i = 0; i < conf.getConfiguration().clbInIndexes.length; i++) {
-			cleanByteArray(conf.getConfiguration().clbInIndexes[i]); //inputs must not be duplicated
+		for(int i = 0; i < conf.configuration.switchBoxes.length; i++) {
+			swCleaner.clean(conf.configuration.switchBoxes[i]);
+		}
+		cleanIntArray(conf.pinIndexes);
+		cleanIntArray(conf.clbIndexes);
+		for(int i = 0; i < conf.configuration.clbInIndexes.length; i++) {
+			cleanByteArray(conf.configuration.clbInIndexes[i]); //inputs must not be duplicated
 		}
 	}
 	
 	
 	protected void cleanIntArray(int[] array) {
-		Set<Integer> visited = new HashSet();
+		Set<Integer> visited = new HashSet<>();
 		boolean valid = true;
 		for(int i = 0; i < array.length; i++) {
 			if(!visited.add(i)) { //if adding fails
@@ -49,7 +51,7 @@ public class AIFPGAAdvancedConfigurationCleaner extends AIFPGAConfigurationClean
 	}
 	
 	protected void cleanByteArray(byte[] array) {
-		Set<Byte> visited = new HashSet();
+		Set<Byte> visited = new HashSet<>();
 		boolean valid = true;
 		for(byte i = 0; i < array.length; i++) {
 			if(!visited.add(i)) { //if adding fails

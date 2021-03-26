@@ -13,17 +13,17 @@ public class AIFPGAConfiguration {
 	/**
 	 * Saves configuration
 	 */
-	protected FPGAModelConfiguration configuration;
+	public FPGAModelConfiguration configuration;
 	
 	/**
 	 * clb indexes for saving clb positions 
 	 */
-	protected int[] clbIndexes;
+	public int[] clbIndexes;
 	
 	/**
 	 * Saves pin positions
 	 */
-	protected int[] pinIndexes;
+	public int[] pinIndexes;
 
 	
 	public AIFPGAConfiguration(FPGAModelConfiguration configuration, int[] clbIndexes, int[] pinIndexes) {
@@ -32,33 +32,5 @@ public class AIFPGAConfiguration {
 		this.clbIndexes = clbIndexes;
 		this.pinIndexes = pinIndexes;
 	}
-
-	public FPGAModelConfiguration getConfiguration() {
-		return configuration;
-	}
-
-	public void setConfiguration(FPGAModelConfiguration configuration) {
-		this.configuration = configuration;
-	}
-
-	public int[] getClbIndexes() {
-		return clbIndexes;
-	}
-
-	public void setClbIndexes(int[] clbIndexes) {
-		this.clbIndexes = clbIndexes;
-	}
-
-	public int[] getPinIndexes() {
-		return pinIndexes;
-	}
-
-	public void setPinIndexes(int[] pinIndexes) {
-		this.pinIndexes = pinIndexes;
-	}
-	
-	
-	
-	
 
 }
