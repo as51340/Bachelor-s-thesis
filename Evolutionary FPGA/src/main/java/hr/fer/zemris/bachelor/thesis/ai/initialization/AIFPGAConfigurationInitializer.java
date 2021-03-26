@@ -1,6 +1,6 @@
-package hr.fer.zemris.bachelor.thesis.mapping.configuration;
+package hr.fer.zemris.bachelor.thesis.ai.initialization;
 
-import hr.fer.zemris.bachelor.thesis.ai.initialization.Initializer;
+import hr.fer.zemris.bachelor.thesis.mapping.configuration.AIFPGAConfiguration;
 import hr.fer.zemris.fpga.FPGAModel;
 import hr.fer.zemris.fpga.FPGAModel.FPGAModelConfiguration;
 

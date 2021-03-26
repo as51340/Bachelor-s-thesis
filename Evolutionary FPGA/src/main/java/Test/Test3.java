@@ -14,8 +14,11 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
+import hr.fer.zemris.bachelor.thesis.evaluator.Evaluator;
+import hr.fer.zemris.bachelor.thesis.evaluator.SimpleAliasesEvaluator;
 import hr.fer.zemris.bool.SimpleFPGA;
 import hr.fer.zemris.fpga.FPGAModel;
+import hr.fer.zemris.fpga.FPGAModel.CLBBox;
 import hr.fer.zemris.fpga.StandardLogWriter;
 import hr.fer.zemris.fpga.gui.FPGATabX;
 import hr.fer.zemris.fpga.mapping.FPGAMapTask;
@@ -58,6 +61,14 @@ public class Test3 {
 		System.out.println();
 	}
 
+	private static void testModelCLBS(CLBBox[] clbs) {
+		for(int i = 0; i < clbs.length; i++) {
+			System.out.println(clbs[i].alias + " " + clbs[i].title);
+		}
+		System.out.println();
+		System.out.println();
+	}
+
 	public static void main(String[] args) throws IOException, URISyntaxException {
 		String fileName = "./src/main/resources/decomp-example-01.txt"; //wont load with resource as stream
 		String text = Files.readString(Paths.get(fileName));
@@ -70,7 +81,7 @@ public class Test3 {
 		FPGAModel model = new FPGAModel(2, 2, 2, 3, 1);
 		
 		FPGAMapTask mapTask = FPGAMapTask.fromSimpleFPGA(sfpga);
-		testFPGAMapTask(mapTask);
+//		testFPGAMapTask(mapTask);
 		
 		//Od tud dolje bi trebao ja mijenjati, da li da koristim ovo ili novo svoje nešto radit?
 		FPGAMapperResult result = new FPGAMapper(model, mapTask, new StandardLogWriter()).runMappingProcedure(stopRequester);
@@ -82,7 +93,7 @@ public class Test3 {
 		
 		model.loadFromConfiguration(result.configuration);
 		for(int i = 0; i < mapTask.clbs.length; i++) { //sta je to, samo kopiranje lutova iz rezultata?
-			System.out.println("Result clb index[" + i + "]: " + result.clbIndexes[i]);
+//			System.out.println("Result clb index[" + i + "]: " + result.clbIndexes[i]);
 			model.clbs[result.clbIndexes[i]].setTitle(mapTask.clbs[i].name); //to znači stavi ime, tu se radi ovo "instaliranje" logičkog modela u fizički
 			model.clbs[result.clbIndexes[i]].lut = sfpga.getLuts()[mapTask.clbs[i].decomposedIndex]; //prekopiraj cijeli LUT
 		}
@@ -92,8 +103,22 @@ public class Test3 {
 		for(int i = 0; i < mapTask.aliases.length; i++) { //namještavanje labela pinovima
 			model.pins[result.pinIndexes[mapTask.variables.length+i]].setTitle(mapTask.aliases[i]);
 		}
+		
+		Evaluator eval = new SimpleAliasesEvaluator();
+		double val = eval.evaluate(model, mapTask);
+		System.out.println("Value is: " + val);
+		
+//		testModelCLBS(model.clbs);
 
 		System.out.println("Mapiranje gotovo...");
+		
+//		SwingUtilities.invokeLater(() -> {
+//			JFrame f = new JFrame("Moj GUI visualizer!");
+//			f.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+//			f.setSize(500, 500);
+//			f.getContentPane().setLayout(new BorderLayout());
+//			f.setVisible(true);
+//		});
 		
 		SwingUtilities.invokeLater(()->{
 			JFrame f = new JFrame("Preglednik rezultata mapiranja");

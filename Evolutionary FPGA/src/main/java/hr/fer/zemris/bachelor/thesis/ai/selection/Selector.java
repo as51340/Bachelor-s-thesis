@@ -9,7 +9,7 @@ import hr.fer.zemris.bachelor.thesis.mapping.configuration.AIFPGAConfiguration;
  * @author andi
  *
  */
-public interface Selection {
+public interface Selector {
 	
 	/**
 	 * @param population

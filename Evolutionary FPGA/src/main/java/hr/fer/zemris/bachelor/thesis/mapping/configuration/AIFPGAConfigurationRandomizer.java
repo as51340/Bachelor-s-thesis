@@ -101,5 +101,23 @@ public class AIFPGAConfigurationRandomizer {
 		return arr;
 	}
 	
+	/**
+	 * Wrapper
+	 * @return
+	 */
+	public int nextInt(int bound) {
+		return random.nextInt(bound);
+	}
+	
+	/**
+	 * Wrapper
+	 * @return
+	 */
+	public double nextDouble() {
+		return random.nextDouble();
+	}
+	
+	
+	
 	
 }

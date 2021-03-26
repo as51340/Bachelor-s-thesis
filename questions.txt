@@ -45,3 +45,5 @@ dodavanja GUI-ja u vizualizaciju. Switch boxevi imaju 1 i 2. 2 znači da je od t
 ako nije zadovoljen neki od zahtjeva.
 MAVEN handles tests as other project something like that.
 Maybe add that after initialization, inputs cannot be connected to the same wire.
+!#!#!!#!#ask professor about adding third part jar file
+How to start GUI

@@ -7,8 +7,8 @@ import java.util.stream.IntStream;
 
 import org.junit.jupiter.api.Test;
 
+import hr.fer.zemris.bachelor.thesis.ai.initialization.AIFPGAConfigurationInitializer;
 import hr.fer.zemris.bachelor.thesis.mapping.configuration.AIFPGAConfiguration;
-import hr.fer.zemris.bachelor.thesis.mapping.configuration.AIFPGAConfigurationInitializer;
 import hr.fer.zemris.bachelor.thesis.mapping.configuration.AIFPGAConfigurationRandomizer;
 import hr.fer.zemris.bachelor.thesis.mapping.configuration.cleaner.swboxes.SimpleSwitchBoxCleaner;
 import hr.fer.zemris.bachelor.thesis.mapping.configuration.cleaner.swboxes.SwitchBoxCleaner;

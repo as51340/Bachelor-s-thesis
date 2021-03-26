@@ -15,7 +15,7 @@ public interface Mutation {
 	 * @param conf
 	 * @return
 	 */
-	AIFPGAConfiguration mutate(AIFPGAConfiguration conf);
+	void mutate(AIFPGAConfiguration conf);
 	
 
 }

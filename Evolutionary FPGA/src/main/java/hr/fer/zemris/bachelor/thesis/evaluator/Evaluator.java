@@ -1,15 +1,16 @@
 package hr.fer.zemris.bachelor.thesis.evaluator;
 
 import hr.fer.zemris.fpga.FPGAModel;
+import hr.fer.zemris.fpga.mapping.FPGAMapTask;
 
-public class Evaluator {
+/**
+ * All objects that will implement this interface must create evaluate method. We need physical model and
+ * mapping task.
+ * @author andi
+ *
+ */
+public interface Evaluator {
+
+	double evaluate(FPGAModel model, FPGAMapTask mapTask);
 	
-	static class EvaluatorArranger {
-		
-		void prepareModelForEvaluation(FPGAModel model) {
-			
-		}
-		
-	}
-
 }
