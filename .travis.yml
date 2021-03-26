@@ -4,7 +4,7 @@ cache:
   directories:
   - "$HOME/.cache"
 jdk:
-  - openjdk8
+  - openjdk15
 script:
   - cd "Evolutionary FPGA"
   - "mvn cobertura:cobertura"
