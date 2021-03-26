@@ -9,6 +9,7 @@ import hr.fer.zemris.bachelor.thesis.mapping.configuration.AIFPGAConfigurationIn
 import hr.fer.zemris.bachelor.thesis.mapping.configuration.AIFPGAConfigurationRandomizer;
 import hr.fer.zemris.bachelor.thesis.mapping.configuration.cleaner.swboxes.SimpleSwitchBoxCleaner;
 import hr.fer.zemris.bachelor.thesis.mapping.configuration.cleaner.swboxes.SwitchBoxCleaner;
+import hr.fer.zemris.bachelor.thesis.util.ArrayUtils;
 import hr.fer.zemris.fpga.FPGAModel;
 
 class AIFPGASimpleConfigurationCleanerTest {

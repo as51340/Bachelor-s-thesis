@@ -8,7 +8,7 @@ import java.util.Collection;
 
 import org.junit.jupiter.api.Test;
 
-import hr.fer.zemris.bachelor.thesis.mapping.configuration.cleaner.ArrayUtils;
+import hr.fer.zemris.bachelor.thesis.util.ArrayUtils;
 import hr.fer.zemris.fpga.FPGAModel;
 
 /**

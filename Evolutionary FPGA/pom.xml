@@ -26,14 +26,7 @@
 		<junit.platform.version>1.5.2</junit.platform.version>
 	</properties>
 
-	<dependencies>
-		<dependency>
-			<groupId>hr.fer.zemris.bachelor-thesis</groupId>
-			<artifactId>fpga-mapiranje</artifactId>
-			<version>1.0</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/mc-fpga-x.jar</systemPath>
-		</dependency>
+	<dependencies>		
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-engine</artifactId>

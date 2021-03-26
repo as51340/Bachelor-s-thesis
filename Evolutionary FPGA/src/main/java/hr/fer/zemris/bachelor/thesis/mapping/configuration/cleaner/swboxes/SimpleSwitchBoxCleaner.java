@@ -20,7 +20,9 @@ public class SimpleSwitchBoxCleaner extends SwitchBoxCleaner {
 		for (int j = 0; j < conf.length; j++) {
 			boolean isEnding = false, isStarting = false;
 			for (int k = 0; k < conf[0].length; k++) {
-				if (k - j >= 0 && (k - j) < model.wiresCount) {
+				int group1 = j / model.wiresCount;
+				int group2 = k / model.wiresCount;
+				if (group1 == group2) {
 					conf[j][k] = 0;
 					conf[k][j] = 0;
 				} else {
