@@ -46,4 +46,6 @@ ako nije zadovoljen neki od zahtjeva.
 MAVEN handles tests as other project something like that.
 Maybe add that after initialization, inputs cannot be connected to the same wire.
 !#!#!!#!#ask professor about adding third part jar file
-How to start GUI
+How to start GUI => solved
+!#!#!#!# ask => aliases evaluator i clb inputs evaluator, da li add gui? 
+TODO switch boxes last cleaning algorithm etc.

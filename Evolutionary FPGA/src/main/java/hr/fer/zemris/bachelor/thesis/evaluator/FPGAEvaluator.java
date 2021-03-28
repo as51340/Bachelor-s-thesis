@@ -59,10 +59,16 @@ public class FPGAEvaluator implements Evaluator {
 	public double evaluate(AIFPGAConfiguration conf, FPGAModel model, FPGAMapTask mapTask) {
 		double sol = 0;
 		sol += aliasesEvaluator.evaluate(null, model, mapTask);
-		valid = valid & ((SimpleAliasesEvaluator) aliasesEvaluator).valid;
+		if(((SimpleAliasesEvaluator) aliasesEvaluator).valid) {
+			System.out.println("Aliases je true");
+		}
+		valid = valid && ((SimpleAliasesEvaluator) aliasesEvaluator).valid;
 		((SimpleAliasesEvaluator) aliasesEvaluator).valid = true;
 		sol += clbInputsEvaluator.evaluate(conf, model, mapTask);
-		valid = valid & ((SimpleCLBInputsEvaluator) clbInputsEvaluator).valid;
+		if(((SimpleCLBInputsEvaluator) clbInputsEvaluator).valid) {
+			System.out.println("Inputs je true");
+		}
+		valid = valid && ((SimpleCLBInputsEvaluator) clbInputsEvaluator).valid;
 		((SimpleCLBInputsEvaluator) clbInputsEvaluator).valid = true;
 		return sol;
 	}

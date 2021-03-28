@@ -46,10 +46,18 @@ public class AIFPGAMapper {
 		this.sfpga = sfpga;
 		this.logger = logger;
 	}
+	
+	private String toTime(long t) {
+		long minuta = t / (1000*60);
+		t -= minuta * (1000*60);
+		long sekundi = t / (1000);
+		t -= sekundi * (1000);
+		return minuta+" min, "+sekundi+" sek, "+t+" tis.";
+	}
 
 
 	public FPGAModel map() {
-		int popSize = 500, generations = 500;
+		int popSize = 50000, generations = 10000;
 		AIFPGAConfigurationInitializer initer = new AIFPGAConfigurationInitializer(popSize, model);
 		AIFPGAConfigurationRandomizer random = new AIFPGAConfigurationRandomizer(model);
 		
@@ -67,7 +75,13 @@ public class AIFPGAMapper {
 		Evaluator fpgaEvaluator = new FPGAEvaluator(aliasesEvaluator, clbInputsEvaluator);
 		FPGAGeneticAlgorithm alg = new SimplestGeneticAlgorithm(popSize, generations, mutationRate, initer, random, cleaner, null, crosser, mutater,
 				fpgaEvaluator, mapTask, model, sfpga, logger);
+		logger.log("Generations: " + generations + "\n");
+		logger.log("Population size: " + popSize + "\n");
+		logger.log("Mutation rate: " + mutationRate + "\n");
+		long t0 = System.currentTimeMillis();
 		alg.reproduction();
+		long t1 = System.currentTimeMillis();
+		System.out.println(toTime(t1 -t0));
 		return alg.bestOverall;
 	}
 

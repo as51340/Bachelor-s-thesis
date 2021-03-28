@@ -32,6 +32,9 @@ public class ConfUtil {
 	 * @param i3
 	 */
 	public static int getWorstFromThree(double[] fitness, int i1, int i2, int i3) {
+//		for(int i = 0; i < fitness.length; i++) {
+//			System.out.print(fitness[i] + " ");
+//		}
 		if(fitness[i1] < fitness[i2] && fitness[i1] < fitness[i3]) {
 			return i1;
 		} else if(fitness[i2] < fitness[i1] && fitness[i2] < fitness[i3]) {

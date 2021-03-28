@@ -16,47 +16,47 @@ import hr.fer.zemris.fpga.mapping.FPGAMapTask;
 
 /**
  * Genetic algorithm and its properties.
+ * 
  * @author andi
  *
  */
 public abstract class FPGAGeneticAlgorithm {
-	
-	public int populationSize;
-	
-	public int generations;
-	
-	public double mutationRate;
-	
-	public AIFPGAConfiguration[] population;
-	
-	public double[] fitnesses;
-	
-	public FPGAModel bestOverall = null;
-	
-	public FPGAModel bestInGen = null;
-	
-	public Initializer<AIFPGAConfiguration> initializer;
-	
-	public AIFPGAConfigurationRandomizer randomizer;
-	
-	public AIFPGAConfigurationCleaner cleaner;
-	
-	public Selector selector;
-	
-	public Crossover crosser;
-	
-	public Mutation mutator;
-	
-	public Evaluator evaluator;
-	
-	public FPGAMapTask mapTask;
-	
-	public FPGAModel ex;
-	
-	public SimpleFPGA sfpga;
-	
-	public LogWriter logger;
 
+	public int populationSize;
+
+	public int generations;
+
+	public double mutationRate;
+
+	public AIFPGAConfiguration[] population;
+
+	public double[] fitnesses;
+
+	public FPGAModel bestOverall = null;
+
+	public FPGAModel bestInGen = null;
+
+	public Initializer<AIFPGAConfiguration> initializer;
+
+	public AIFPGAConfigurationRandomizer randomizer;
+
+	public AIFPGAConfigurationCleaner cleaner;
+
+	public Selector selector;
+
+	public Crossover crosser;
+
+	public Mutation mutator;
+
+	public Evaluator evaluator;
+
+	public FPGAMapTask mapTask;
+
+	public FPGAModel ex;
+
+	public SimpleFPGA sfpga;
+
+	public LogWriter logger;
 
 	public FPGAGeneticAlgorithm(int populationSize, int generations, double mutationRate,
 			Initializer<AIFPGAConfiguration> initializer, AIFPGAConfigurationRandomizer randomizer,
@@ -80,10 +80,15 @@ public abstract class FPGAGeneticAlgorithm {
 		this.fitnesses = new double[populationSize];
 	}
 
-
-
-
-
+	public boolean checkEvaluatorEnding(FPGAModel model) {
+		if (((FPGAEvaluator) evaluator).valid) { // you founded valid model so set bestOverall and exit
+			bestOverall = model;
+			logger.log("Founded\n");
+			return true;
+		}
+		((FPGAEvaluator) evaluator).valid = true;
+		return false;
+	}
 
 	/**
 	 * Main "loop" algorithm. Life iterator :)

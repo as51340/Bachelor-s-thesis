@@ -38,24 +38,23 @@ public class SimplestGeneticAlgorithm extends FPGAGeneticAlgorithm {
 	public void reproduction() {
 		population = initializer.initialize();
 		for (int i = 0; i < populationSize; i++) {
+//			logger.log("Initialized individual: " + i + "\n");
 			randomizer.randomize(population[i]);
 			cleaner.clean(population[i]);
 			FPGAModel model = FPGAEvaluator.EvaluatorArranger.prepareModelForEvaluation(ex, population[i], mapTask,
 					sfpga);
 			fitnesses[i] = evaluator.evaluate(population[i], model, mapTask);
-			if(((FPGAEvaluator) evaluator).valid) { // you founded valid model so set bestOverall and exit
-				bestOverall = model;
-				return;
-			}
-			((FPGAEvaluator) evaluator).valid = true;
+			if(checkEvaluatorEnding(model)) return;
 		}
 		for (int i = 0; i < generations; i++) {
+//			logger.log("Generation no " + i + "\n");
 			int i1, i2, i3, index;
 			i1 = randomizer.nextInt(populationSize);
 			while ((i2 = randomizer.nextInt(populationSize)) == i1);
 			do {
 				i3 = randomizer.nextInt(populationSize);
 			} while (i3 == i1 || i3 == i2);
+//			logger.log(i1 + " " + i2 + " " + i3 + "\n");
 			index = ConfUtil.getWorstFromThree(fitnesses, i1, i2, i3);
 			AIFPGAConfiguration conf1, conf2, newConf;
 			if (index == i1) {
@@ -73,12 +72,9 @@ public class SimplestGeneticAlgorithm extends FPGAGeneticAlgorithm {
 			cleaner.clean(newConf);
 			FPGAModel model = FPGAEvaluator.EvaluatorArranger.prepareModelForEvaluation(ex, newConf, mapTask,
 					sfpga);
+//			bestOverall = model;
 			fitnesses[index] = evaluator.evaluate(newConf, model, mapTask);
-			if(((FPGAEvaluator) evaluator).valid) { // you founded valid model so set bestOverall and exit
-				bestOverall = model;
-				return;
-			}
-			((FPGAEvaluator) evaluator).valid = true;
+			if(checkEvaluatorEnding(model)) return;			
 			population[index] = newConf; // simplest version, we always put on the 3.place
 		}
 	}
