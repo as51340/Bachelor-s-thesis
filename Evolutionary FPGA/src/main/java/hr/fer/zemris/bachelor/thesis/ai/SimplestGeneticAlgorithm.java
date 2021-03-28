@@ -76,6 +76,8 @@ public class SimplestGeneticAlgorithm extends FPGAGeneticAlgorithm {
 			fitnesses[index] = evaluator.evaluate(newConf, model, mapTask);
 			if(checkEvaluatorEnding(model)) return;			
 			population[index] = newConf; // simplest version, we always put on the 3.place
+			putAverageFitnessForGen(i+1); // we don't want to start from zero
+			putBestFitnessForGen(i+1);
 		}
 	}
 

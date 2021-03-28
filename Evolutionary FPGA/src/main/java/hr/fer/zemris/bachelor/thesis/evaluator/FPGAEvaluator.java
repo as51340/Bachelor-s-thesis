@@ -60,13 +60,13 @@ public class FPGAEvaluator implements Evaluator {
 		double sol = 0;
 		sol += aliasesEvaluator.evaluate(null, model, mapTask);
 		if(((SimpleAliasesEvaluator) aliasesEvaluator).valid) {
-			System.out.println("Aliases je true");
+//			System.out.println("Aliases je true");
 		}
 		valid = valid && ((SimpleAliasesEvaluator) aliasesEvaluator).valid;
 		((SimpleAliasesEvaluator) aliasesEvaluator).valid = true;
 		sol += clbInputsEvaluator.evaluate(conf, model, mapTask);
 		if(((SimpleCLBInputsEvaluator) clbInputsEvaluator).valid) {
-			System.out.println("Inputs je true");
+//			System.out.println("Inputs je true");
 		}
 		valid = valid && ((SimpleCLBInputsEvaluator) clbInputsEvaluator).valid;
 		((SimpleCLBInputsEvaluator) clbInputsEvaluator).valid = true;

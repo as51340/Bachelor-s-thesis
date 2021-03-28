@@ -38,7 +38,8 @@ public class AIFPGAMapper {
 	public SimpleFPGA sfpga;
 
 	public LogWriter logger;
-	
+
+	public FPGAGeneticAlgorithm alg;
 
 	public AIFPGAMapper(FPGAModel model, SimpleFPGA sfpga, LogWriter logger) {
 		super();
@@ -57,7 +58,7 @@ public class AIFPGAMapper {
 
 
 	public FPGAModel map() {
-		int popSize = 50000, generations = 10000;
+		int popSize = 500, generations = 1000;
 		AIFPGAConfigurationInitializer initer = new AIFPGAConfigurationInitializer(popSize, model);
 		AIFPGAConfigurationRandomizer random = new AIFPGAConfigurationRandomizer(model);
 		
@@ -73,11 +74,11 @@ public class AIFPGAMapper {
 		Evaluator aliasesEvaluator = new SimpleAliasesEvaluator();
 		Evaluator clbInputsEvaluator = new SimpleCLBInputsEvaluator();
 		Evaluator fpgaEvaluator = new FPGAEvaluator(aliasesEvaluator, clbInputsEvaluator);
-		FPGAGeneticAlgorithm alg = new SimplestGeneticAlgorithm(popSize, generations, mutationRate, initer, random, cleaner, null, crosser, mutater,
+		alg = new SimplestGeneticAlgorithm(popSize, generations, mutationRate, initer, random, cleaner, null, crosser, mutater,
 				fpgaEvaluator, mapTask, model, sfpga, logger);
-		logger.log("Generations: " + generations + "\n");
-		logger.log("Population size: " + popSize + "\n");
-		logger.log("Mutation rate: " + mutationRate + "\n");
+		logger.log("Generations: " + generations);
+		logger.log("Population size: " + popSize);
+		logger.log("Mutation rate: " + mutationRate);
 		long t0 = System.currentTimeMillis();
 		alg.reproduction();
 		long t1 = System.currentTimeMillis();

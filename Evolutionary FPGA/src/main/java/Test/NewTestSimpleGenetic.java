@@ -11,6 +11,7 @@ import javax.swing.WindowConstants;
 
 import hr.fer.zemris.bachelor.thesis.ai.crossover.Crossover;
 import hr.fer.zemris.bachelor.thesis.ai.crossover.SimpleCrossover;
+import hr.fer.zemris.bachelor.thesis.ai.gui.EvolutionaryFPGAGUIMaker;
 import hr.fer.zemris.bachelor.thesis.ai.initialization.AIFPGAConfigurationInitializer;
 import hr.fer.zemris.bachelor.thesis.ai.mutation.Mutation;
 import hr.fer.zemris.bachelor.thesis.ai.mutation.SimpleMutation;
@@ -48,10 +49,17 @@ public class NewTestSimpleGenetic {
 		AIFPGAMapper mapper = new AIFPGAMapper(model, sfpga, logger);
 
 		FPGAModel resultModel = mapper.map();
+		
+		SwingUtilities.invokeLater(() -> {
+			new EvolutionaryFPGAGUIMaker(mapper.alg.genToBest, mapper.alg.genToAvg).setVisible(true);
+		});
+		
 		if (resultModel == null) {
 			logger.log("Result model is null and cannot be seen!\n");
 			return;
 		}
+		
+		
 
 		SwingUtilities.invokeLater(() -> {
 			JFrame f = new JFrame("Preglednik rezultata mapiranja");

@@ -1,5 +1,9 @@
 package hr.fer.zemris.bachelor.thesis.ai;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
 import hr.fer.zemris.bachelor.thesis.ai.crossover.Crossover;
 import hr.fer.zemris.bachelor.thesis.ai.initialization.Initializer;
 import hr.fer.zemris.bachelor.thesis.ai.mutation.Mutation;
@@ -58,6 +62,10 @@ public abstract class FPGAGeneticAlgorithm {
 
 	public LogWriter logger;
 
+	public Map<Integer, Double> genToBest;
+	
+	public Map<Integer, Double> genToAvg;
+	
 	public FPGAGeneticAlgorithm(int populationSize, int generations, double mutationRate,
 			Initializer<AIFPGAConfiguration> initializer, AIFPGAConfigurationRandomizer randomizer,
 			AIFPGAConfigurationCleaner cleaner, Selector selector, Crossover crosser, Mutation mutator,
@@ -78,8 +86,17 @@ public abstract class FPGAGeneticAlgorithm {
 		this.sfpga = sfpga;
 		this.logger = logger;
 		this.fitnesses = new double[populationSize];
+		genToBest = new HashMap<>();
+		genToAvg = new HashMap<>();
 	}
-
+	
+	void putAverageFitnessForGen(int gen) {
+		genToAvg.put(gen, Arrays.stream(fitnesses).average().getAsDouble());
+	}
+	
+	void putBestFitnessForGen(int gen) {
+		genToBest.put(gen,  Arrays.stream(fitnesses).max().getAsDouble());
+	}
 	public boolean checkEvaluatorEnding(FPGAModel model) {
 		if (((FPGAEvaluator) evaluator).valid) { // you founded valid model so set bestOverall and exit
 			bestOverall = model;
