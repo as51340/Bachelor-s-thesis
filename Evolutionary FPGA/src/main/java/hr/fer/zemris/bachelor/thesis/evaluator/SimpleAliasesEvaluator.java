@@ -2,6 +2,7 @@ package hr.fer.zemris.bachelor.thesis.evaluator;
 
 import java.util.Map;
 
+import hr.fer.zemris.bachelor.thesis.mapping.configuration.AIFPGAConfiguration;
 import hr.fer.zemris.fpga.FPGAModel;
 import hr.fer.zemris.fpga.FPGAModel.CLBBox;
 import hr.fer.zemris.fpga.FPGAModel.Pin;
@@ -16,12 +17,12 @@ import hr.fer.zemris.fpga.mapping.FPGAMapTask;
 public class SimpleAliasesEvaluator implements Evaluator{
 
 	/*
-	 * We are optimists at the start
+	 * We are optimists at the start. How this even works?
 	 */
 	public boolean valid = true;
 	
 	@Override
-	public double evaluate(FPGAModel model, FPGAMapTask mapTask) {
+	public double evaluate(AIFPGAConfiguration conf,FPGAModel model, FPGAMapTask mapTask) {
 		double sol = 0;
 		Pin[] pins = model.pins;
 		Map<String, String> aliasMap = mapTask.aliasMap;
@@ -33,7 +34,7 @@ public class SimpleAliasesEvaluator implements Evaluator{
 				Object v = pins[i].wires[pins[i].connectionIndex].label; 
 				if(v instanceof CLBBox) {
 					CLBBox clb = (CLBBox) v;
-					if(clb.title.equals(aliasMap.get(alias))) { // da li je taj pin dobro spojen
+					if(clb.title != null && clb.title.equals(aliasMap.get(alias))) { // da li je taj pin dobro spojen
 //						System.out.println("Alias: " + alias + " CLB title: " + clb.title);
 						founded++;
 					} else {

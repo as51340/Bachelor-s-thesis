@@ -1,4 +1,4 @@
-package hr.fer.zemris.bachelor.thesis.ai;
+package hr.fer.zemris.bachelor.thesis.ai.crossover;
 
 import hr.fer.zemris.bachelor.thesis.ai.selection.Selector;
 import hr.fer.zemris.bachelor.thesis.mapping.configuration.AIFPGAConfiguration;
@@ -16,6 +16,6 @@ public interface Crossover {
 	 * @param conf
 	 * @return
 	 */
-	AIFPGAConfiguration crossover(AIFPGAConfiguration conf1, AIFPGAConfiguration conf);
+	AIFPGAConfiguration crossover(AIFPGAConfiguration conf1, AIFPGAConfiguration conf2);
 
 }

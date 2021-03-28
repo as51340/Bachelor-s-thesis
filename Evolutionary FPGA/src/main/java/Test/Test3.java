@@ -16,6 +16,9 @@ import javax.swing.WindowConstants;
 
 import hr.fer.zemris.bachelor.thesis.evaluator.Evaluator;
 import hr.fer.zemris.bachelor.thesis.evaluator.SimpleAliasesEvaluator;
+import hr.fer.zemris.bachelor.thesis.evaluator.SimpleCLBInputsEvaluator;
+import hr.fer.zemris.bachelor.thesis.mapping.configuration.AIFPGAConfiguration;
+import hr.fer.zemris.bachelor.thesis.util.ArrayUtils;
 import hr.fer.zemris.bool.SimpleFPGA;
 import hr.fer.zemris.fpga.FPGAModel;
 import hr.fer.zemris.fpga.FPGAModel.CLBBox;
@@ -81,7 +84,7 @@ public class Test3 {
 		FPGAModel model = new FPGAModel(2, 2, 2, 3, 1);
 		
 		FPGAMapTask mapTask = FPGAMapTask.fromSimpleFPGA(sfpga);
-//		testFPGAMapTask(mapTask);
+		testFPGAMapTask(mapTask);
 		
 		//Od tud dolje bi trebao ja mijenjati, da li da koristim ovo ili novo svoje nešto radit?
 		FPGAMapperResult result = new FPGAMapper(model, mapTask, new StandardLogWriter()).runMappingProcedure(stopRequester);
@@ -93,7 +96,7 @@ public class Test3 {
 		
 		model.loadFromConfiguration(result.configuration);
 		for(int i = 0; i < mapTask.clbs.length; i++) { //sta je to, samo kopiranje lutova iz rezultata?
-//			System.out.println("Result clb index[" + i + "]: " + result.clbIndexes[i]);
+			System.out.println("Result clb index[" + i + "]: " + result.clbIndexes[i]);
 			model.clbs[result.clbIndexes[i]].setTitle(mapTask.clbs[i].name); //to znači stavi ime, tu se radi ovo "instaliranje" logičkog modela u fizički
 			model.clbs[result.clbIndexes[i]].lut = sfpga.getLuts()[mapTask.clbs[i].decomposedIndex]; //prekopiraj cijeli LUT
 		}
@@ -103,15 +106,25 @@ public class Test3 {
 		for(int i = 0; i < mapTask.aliases.length; i++) { //namještavanje labela pinovima
 			model.pins[result.pinIndexes[mapTask.variables.length+i]].setTitle(mapTask.aliases[i]);
 		}
+		System.out.println("Mapiranje gotovo...");
+		System.out.println();
+		System.out.println();
 		
-		Evaluator eval = new SimpleAliasesEvaluator();
-		double val = eval.evaluate(model, mapTask);
-		System.out.println("Value is: " + val);
+//		Evaluator eval = new SimpleAliasesEvaluator();
+//		double val = eval.evaluate(model, mapTask);
+//		System.out.println("Value is: " + val);
+		
+//		AIFPGAConfiguration conf = new AIFPGAConfiguration(null, result.clbIndexes, null);
+//		for(int i = 0; i < result.clbIndexes.length; i++) {
+//			System.out.print(result.clbIndexes[i] + " ");
+//		}
+//		System.out.println();
+//		Evaluator eval = new SimpleCLBInputsEvaluator(conf);
+//		double val = eval.evaluate(model, mapTask);
+//		System.out.println("Value is: " + val);
+		
 		
 //		testModelCLBS(model.clbs);
-
-		System.out.println("Mapiranje gotovo...");
-		
 //		SwingUtilities.invokeLater(() -> {
 //			JFrame f = new JFrame("Moj GUI visualizer!");
 //			f.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);

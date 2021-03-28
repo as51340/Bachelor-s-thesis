@@ -1,4 +1,4 @@
-package hr.fer.zemris.bachelor.thesis.ai;
+package hr.fer.zemris.bachelor.thesis.ai.mutation;
 
 import hr.fer.zemris.bachelor.thesis.mapping.configuration.AIFPGAConfiguration;
 
