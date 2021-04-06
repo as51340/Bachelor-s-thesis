@@ -26,11 +26,11 @@ import hr.fer.zemris.fpga.mapping.FPGAMapTask;
  */
 public class SimplestGeneticAlgorithm extends FPGAGeneticAlgorithm {
 
-	public SimplestGeneticAlgorithm(int populationSize, int generations, double mutationRate,
+	public SimplestGeneticAlgorithm(String shortName, String name, int populationSize, int generations, double mutationRate,
 			Initializer<AIFPGAConfiguration> initializer, AIFPGAConfigurationRandomizer randomizer,
 			AIFPGAConfigurationCleaner cleaner, Selector selector, Crossover crosser, Mutation mutator,
 			Evaluator evaluator, FPGAMapTask mapTask, FPGAModel ex, SimpleFPGA sfpga, LogWriter logger) {
-		super(populationSize, generations, mutationRate, initializer, randomizer, cleaner, selector, crosser, mutator,
+		super(shortName, name, populationSize, generations, mutationRate, initializer, randomizer, cleaner, selector, crosser, mutator,
 				evaluator, mapTask, ex, sfpga, logger);
 	}
 
@@ -68,11 +68,11 @@ public class SimplestGeneticAlgorithm extends FPGAGeneticAlgorithm {
 				conf2 = population[i2];
 			}
 			newConf = crosser.crossover(conf1, conf2);
-			mutator.mutate(newConf);
+			if(mutator != null) mutator.mutate(newConf);
 			cleaner.clean(newConf);
 			FPGAModel model = FPGAEvaluator.EvaluatorArranger.prepareModelForEvaluation(ex, newConf, mapTask,
 					sfpga);
-//			bestOverall = model;
+			//bestOverall = model;
 			fitnesses[index] = evaluator.evaluate(newConf, model, mapTask);
 			if(checkEvaluatorEnding(model)) return;			
 			population[index] = newConf; // simplest version, we always put on the 3.place

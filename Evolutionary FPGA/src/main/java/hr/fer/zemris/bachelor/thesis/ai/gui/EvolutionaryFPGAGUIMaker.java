@@ -50,11 +50,16 @@ public class EvolutionaryFPGAGUIMaker extends JFrame {
 	private String categoryAxisLabel = "Generation";
 
 	private String valueAxisLabel = "Fitness";
+	
+	private String algShort = "D";
+	
 
-	public EvolutionaryFPGAGUIMaker(Map<Integer, Double> genToBest, Map<Integer, Double> genToAvg) {
+	public EvolutionaryFPGAGUIMaker(String algShort, String title, Map<Integer, Double> genToBest, Map<Integer, Double> genToAvg) {
 		super("FPGA fitness function");
 		this.genToBest = genToBest;
 		this.genToAvg = genToAvg;
+		this.title = title;
+		this.algShort = algShort;
 		// drawLineChart();
 		setSize(width, height);
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -83,9 +88,8 @@ public class EvolutionaryFPGAGUIMaker extends JFrame {
 		setContentPane(chartPanel);
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy:MM:dd_HH:mm:ss");
 		LocalDateTime now = LocalDateTime.now();
-		File out = new File("imgs/" + dtf.format(now) + ".jpeg");
+		File out = new File("imgs/" + algShort + dtf.format(now) + ".png");
 		ChartUtilities.saveChartAsPNG(out, xylineChart, width, height);
-
 	}
 
 	private XYDataset createXYDataset() {
@@ -120,7 +124,7 @@ public class EvolutionaryFPGAGUIMaker extends JFrame {
 
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 		LocalDateTime now = LocalDateTime.now();
-		File out = new File("/imgs/" + dtf.format(now) + ".jpeg");
+		File out = new File("/imgs/" + algShort + dtf.format(now) + ".jpeg");
 
 		ChartUtilities.saveChartAsJPEG(out, chart, width, height);
 		return new ChartPanel(chart);

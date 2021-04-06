@@ -24,6 +24,8 @@ public class AIFPGAConfiguration {
 	 * Saves pin positions
 	 */
 	public int[] pinIndexes;
+	
+	public static final Object MULTIPLE_LABELS = new Object();
 
 	
 	public AIFPGAConfiguration(FPGAModelConfiguration configuration, int[] clbIndexes, int[] pinIndexes) {

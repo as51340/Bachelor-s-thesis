@@ -13,8 +13,8 @@ public interface Selector {
 	
 	/**
 	 * @param population
-	 * @return individual from population using some standard
+	 * @return individual index from population using some standard
 	 */
-	AIFPGAConfiguration select(AIFPGAConfiguration[] population);
+	int select(double[] fitnesses, boolean flag);
 
 }

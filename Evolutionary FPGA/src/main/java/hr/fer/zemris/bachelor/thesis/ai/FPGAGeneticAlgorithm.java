@@ -66,11 +66,17 @@ public abstract class FPGAGeneticAlgorithm {
 	
 	public Map<Integer, Double> genToAvg;
 	
-	public FPGAGeneticAlgorithm(int populationSize, int generations, double mutationRate,
+	public String name;
+	
+	public String shortName;
+	
+	public FPGAGeneticAlgorithm(String shortName, String name, int populationSize, int generations, double mutationRate,
 			Initializer<AIFPGAConfiguration> initializer, AIFPGAConfigurationRandomizer randomizer,
 			AIFPGAConfigurationCleaner cleaner, Selector selector, Crossover crosser, Mutation mutator,
 			Evaluator evaluator, FPGAMapTask mapTask, FPGAModel ex, SimpleFPGA sfpga, LogWriter logger) {
 		super();
+		this.shortName = shortName;
+		this.name = name;
 		this.populationSize = populationSize;
 		this.generations = generations;
 		this.mutationRate = mutationRate;
@@ -103,7 +109,7 @@ public abstract class FPGAGeneticAlgorithm {
 			logger.log("Founded\n");
 			return true;
 		}
-		((FPGAEvaluator) evaluator).valid = true;
+		((FPGAEvaluator) evaluator).valid = true; 
 		return false;
 	}
 

@@ -1,0 +1,86 @@
+Index 40 Shortcut: SV41 Full name: Generational version elitistic
+java.lang.ArrayIndexOutOfBoundsException: Index 4 out of bounds for length 4
+	at hr.fer.zemris.bachelor.thesis.evaluator.FPGAEvaluator$EvaluatorArranger.prepareModelForEvaluation(FPGAEvaluator.java:55)
+	at hr.fer.zemris.bachelor.thesis.ai.GenerationalGeneticAlgorithmElitistic.reproduction(GenerationalGeneticAlgorithmElitistic.java:75)
+	at hr.fer.zemris.bachelor.thesis.mapping.AIFPGAMapper.map(AIFPGAMapper.java:60)
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:340)
+
+
+Index 40 Shortcut: SV41 Full name: Generational version elitistic
+java.lang.ArrayIndexOutOfBoundsException: Index 4 out of bounds for length 4
+	at hr.fer.zemris.bachelor.thesis.evaluator.FPGAEvaluator$EvaluatorArranger.prepareModelForEvaluation(FPGAEvaluator.java:55)
+	at hr.fer.zemris.bachelor.thesis.ai.GenerationalGeneticAlgorithmElitistic.reproduction(GenerationalGeneticAlgorithmElitistic.java:75)
+	at hr.fer.zemris.bachelor.thesis.mapping.AIFPGAMapper.map(AIFPGAMapper.java:60)
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:340)
+
+
+Index 40 Shortcut: SV41 Full name: Generational version elitistic
+java.lang.ArrayIndexOutOfBoundsException: Index 4 out of bounds for length 4
+	at hr.fer.zemris.bachelor.thesis.evaluator.FPGAEvaluator$EvaluatorArranger.prepareModelForEvaluation(FPGAEvaluator.java:55)
+	at hr.fer.zemris.bachelor.thesis.ai.GenerationalGeneticAlgorithmElitistic.reproduction(GenerationalGeneticAlgorithmElitistic.java:75)
+	at hr.fer.zemris.bachelor.thesis.mapping.AIFPGAMapper.map(AIFPGAMapper.java:60)
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:340)
+
+
+Index 40 Shortcut: SV41 Full name: Generational version elitistic
+java.lang.ArrayIndexOutOfBoundsException: Index 4 out of bounds for length 4
+	at hr.fer.zemris.bachelor.thesis.evaluator.FPGAEvaluator$EvaluatorArranger.prepareModelForEvaluation(FPGAEvaluator.java:55)
+	at hr.fer.zemris.bachelor.thesis.ai.GenerationalGeneticAlgorithmElitistic.reproduction(GenerationalGeneticAlgorithmElitistic.java:75)
+	at hr.fer.zemris.bachelor.thesis.mapping.AIFPGAMapper.map(AIFPGAMapper.java:60)
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:340)
+
+
+Index 40 Shortcut: SV41 Full name: Generational version elitistic
+java.lang.ArrayIndexOutOfBoundsException: Index 4 out of bounds for length 4
+	at hr.fer.zemris.bachelor.thesis.evaluator.FPGAEvaluator$EvaluatorArranger.prepareModelForEvaluation(FPGAEvaluator.java:55)
+	at hr.fer.zemris.bachelor.thesis.ai.GenerationalGeneticAlgorithmElitistic.reproduction(GenerationalGeneticAlgorithmElitistic.java:75)
+	at hr.fer.zemris.bachelor.thesis.mapping.AIFPGAMapper.map(AIFPGAMapper.java:60)
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:340)
+
+
+Index 16 Shortcut: SV17 Full name: Simplest version elitistic
+java.lang.ArrayIndexOutOfBoundsException: Index 4 out of bounds for length 4
+	at hr.fer.zemris.bachelor.thesis.evaluator.FPGAEvaluator$EvaluatorArranger.prepareModelForEvaluation(FPGAEvaluator.java:55)
+	at hr.fer.zemris.bachelor.thesis.ai.SimplestGeneticAlgorithmElitistic.reproduction(SimplestGeneticAlgorithmElitistic.java:64)
+	at hr.fer.zemris.bachelor.thesis.mapping.AIFPGAMapper.map(AIFPGAMapper.java:60)
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:340)
+
+
+Index 16 Shortcut: SV17 Full name: Simplest version elitistic
+java.lang.ArrayIndexOutOfBoundsException: Index 4 out of bounds for length 4
+	at hr.fer.zemris.bachelor.thesis.evaluator.FPGAEvaluator$EvaluatorArranger.prepareModelForEvaluation(FPGAEvaluator.java:55)
+	at hr.fer.zemris.bachelor.thesis.ai.SimplestGeneticAlgorithmElitistic.reproduction(SimplestGeneticAlgorithmElitistic.java:64)
+	at hr.fer.zemris.bachelor.thesis.mapping.AIFPGAMapper.map(AIFPGAMapper.java:60)
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:340)
+
+
+Index 16 Shortcut: SV17 Full name: Simplest version elitistic
+java.lang.ArrayIndexOutOfBoundsException: Index 4 out of bounds for length 4
+	at hr.fer.zemris.bachelor.thesis.evaluator.FPGAEvaluator$EvaluatorArranger.prepareModelForEvaluation(FPGAEvaluator.java:55)
+	at hr.fer.zemris.bachelor.thesis.ai.SimplestGeneticAlgorithmElitistic.reproduction(SimplestGeneticAlgorithmElitistic.java:64)
+	at hr.fer.zemris.bachelor.thesis.mapping.AIFPGAMapper.map(AIFPGAMapper.java:60)
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:340)
+
+
+Index 53 Shortcut: SV54 Full name: EliminativeGeneticAlgorithmKSelectionElitistic
+java.lang.ClassCastException: class java.lang.Object cannot be cast to class hr.fer.zemris.fpga.FPGAModel$Pin (java.lang.Object is in module java.base of loader 'bootstrap'; hr.fer.zemris.fpga.FPGAModel$Pin is in unnamed module of loader 'app')
+	at hr.fer.zemris.bachelor.thesis.evaluator.FPGAEvaluator$EvaluatorArranger.checkPinsTrace(FPGAEvaluator.java:123)
+	at hr.fer.zemris.bachelor.thesis.evaluator.FPGAEvaluator$EvaluatorArranger.fillLabel(FPGAEvaluator.java:232)
+	at hr.fer.zemris.bachelor.thesis.evaluator.FPGAEvaluator$EvaluatorArranger.fillLabels(FPGAEvaluator.java:94)
+	at hr.fer.zemris.bachelor.thesis.evaluator.FPGAEvaluator$EvaluatorArranger.prepareModelForEvaluation(FPGAEvaluator.java:74)
+	at hr.fer.zemris.bachelor.thesis.ai.EliminativeGeneticAlgorithmSelectionElitistic.reproduction(EliminativeGeneticAlgorithmSelectionElitistic.java:35)
+	at hr.fer.zemris.bachelor.thesis.mapping.AIFPGAMapper.map(AIFPGAMapper.java:60)
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:435)
+
+
+Index 53 Shortcut: SV54 Full name: EliminativeGeneticAlgorithmKSelectionElitistic
+java.lang.NullPointerException: Cannot invoke "String.equals(Object)" because "box.title" is null
+	at hr.fer.zemris.bachelor.thesis.evaluator.FPGAEvaluator$EvaluatorArranger.checkPinsTrace(FPGAEvaluator.java:130)
+	at hr.fer.zemris.bachelor.thesis.evaluator.FPGAEvaluator$EvaluatorArranger.fillLabel(FPGAEvaluator.java:232)
+	at hr.fer.zemris.bachelor.thesis.evaluator.FPGAEvaluator$EvaluatorArranger.fillLabels(FPGAEvaluator.java:101)
+	at hr.fer.zemris.bachelor.thesis.evaluator.FPGAEvaluator$EvaluatorArranger.prepareModelForEvaluation(FPGAEvaluator.java:74)
+	at hr.fer.zemris.bachelor.thesis.ai.EliminativeGeneticAlgorithmSelectionElitistic.reproduction(EliminativeGeneticAlgorithmSelectionElitistic.java:53)
+	at hr.fer.zemris.bachelor.thesis.mapping.AIFPGAMapper.map(AIFPGAMapper.java:60)
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:435)
+
+

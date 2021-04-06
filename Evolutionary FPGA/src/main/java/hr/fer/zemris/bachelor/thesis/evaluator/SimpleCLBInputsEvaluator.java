@@ -33,35 +33,57 @@ public class SimpleCLBInputsEvaluator implements Evaluator {
 																								// same
 			String[] inputsTask = clbTask.inputs;
 			for (int j = 0; j < clbTask.inputs.length; j++) {
-				if (clbModel.wiresIn[clbModel.inConnectionIndexes[j]].label == null) {
-//					System.out.println("Null + input " + j);
-				} else {
-//					System.out.println(clbModel.wiresIn[clbModel.inConnectionIndexes[j]].label.getClass());
+				if(clbModel.inConnectionIndexes[j] == -1) { //ako je connection index =-1
+//					System.out.println("Connection index ulaza je -1");
+					valid = false;
+					continue;
 				}
-				if (inputsTask[j].startsWith("CLB")) {
+				if(clbModel.outConnectionIndex  == -1) {
+//					System.out.println("Connection index izlaza je -1");
+				}
+				if (clbModel.wiresIn[clbModel.inConnectionIndexes[j]].label == null) {
+//					System.out.println("Labela je null: " + clbTask.name + " expected input " + inputsTask[j] + " index " + j);
+					valid = false;
+					continue;
+				}
+				if (inputsTask[j].startsWith("CLB(")) { //ako treba naći clb
 					if (!(clbModel.wiresIn[clbModel.inConnectionIndexes[j]].label instanceof CLBBox)) {
 						sol -= 20;
 						valid = false;
-					} else { // it really is clb
+//						System.out.println("CLB bi trebao bit a nije");
+					} else { // it really is clL
 						CLBBox label = (CLBBox) clbModel.wiresIn[clbModel.inConnectionIndexes[j]].label;
-						if (label.title != null && !label.title.equals(inputsTask[j])) { // it is is clb but it's not correct clb
-							sol -= 10;
-							valid = false;
+						if(label.title != null) {
+							if(!label.title.equals(inputsTask[j])) {
+								sol -= 10;
+//								System.out.println("CLB bi trebao biti a krivo ime: expected " + inputsTask[j] + " but got " + label.title);
+								valid = false;
+							} else {
+								sol += 30;
+							}
 						} else {
-							sol += 10;
+//							System.out.println("Naslov labele je null");
+							valid = false;
 						}
 					}
 				} else { // pin must be on input
 					if (!(clbModel.wiresIn[clbModel.inConnectionIndexes[j]].label instanceof Pin)) { // it's not pin
 						sol -= 20;
 						valid = false;
+//						System.out.println("PIN bi trebao biti a nije");
 					} else {
 						Pin label = (Pin) clbModel.wiresIn[clbModel.inConnectionIndexes[j]].label;
-						if (!label.title.equals(inputsTask[j])) { // it is pin but wrong
-							sol -= 10;
-							valid = false;
+						if(label.title != null) {
+							if (!label.title.equals(inputsTask[j])) { // it is pin but wrong
+								sol -= 10;
+//								System.out.println("PIN bi trebao biti a krivo ime: expected " + inputsTask[j] + " but got " + label.title);
+								valid = false;
+							} else {
+								sol += 30;
+							}
 						} else {
-							sol += 10;
+//							System.out.println("Naslov labele je null");
+							valid = false;
 						}
 					}
 				}

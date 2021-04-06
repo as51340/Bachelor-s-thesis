@@ -12,7 +12,6 @@ import hr.fer.zemris.fpga.FPGAModel;
  */
 public class AIFPGASimpleConfigurationCleaner extends AIFPGAConfigurationCleaner {
 
-
 	public AIFPGASimpleConfigurationCleaner(FPGAModel model, SwitchBoxCleaner swCleaner) {
 		super(model, swCleaner);
 	}

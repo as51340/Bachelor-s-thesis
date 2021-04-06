@@ -7,9 +7,9 @@ import hr.fer.zemris.fpga.FPGAModel;
 
 public abstract class AIFPGAConfigurationCleaner {
 	
-	protected FPGAModel model;
+	public FPGAModel model;
 	
-	protected SwitchBoxCleaner swCleaner;
+	public SwitchBoxCleaner swCleaner;
 	
 	
 	public AIFPGAConfigurationCleaner(FPGAModel model, SwitchBoxCleaner swCleaner) {

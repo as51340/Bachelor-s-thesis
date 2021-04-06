@@ -15,10 +15,12 @@ import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
 import hr.fer.zemris.bachelor.thesis.evaluator.Evaluator;
+import hr.fer.zemris.bachelor.thesis.evaluator.FPGAEvaluator;
 import hr.fer.zemris.bachelor.thesis.evaluator.SimpleAliasesEvaluator;
 import hr.fer.zemris.bachelor.thesis.evaluator.SimpleCLBInputsEvaluator;
 import hr.fer.zemris.bachelor.thesis.mapping.configuration.AIFPGAConfiguration;
 import hr.fer.zemris.bachelor.thesis.util.ArrayUtils;
+import hr.fer.zemris.bool.BooleanVariable;
 import hr.fer.zemris.bool.SimpleFPGA;
 import hr.fer.zemris.fpga.FPGAModel;
 import hr.fer.zemris.fpga.FPGAModel.CLBBox;
@@ -72,6 +74,15 @@ public class Test3 {
 		System.out.println();
 	}
 
+	private static void testInputs(SimpleFPGA sfpga) {
+		BooleanVariable[] vars = sfpga.getVariables();
+		for(int i = 0; i < vars.length; i++) {
+			System.out.print(vars[i].getValue() + " ");
+		}
+		System.out.println();
+	}
+	
+	
 	public static void main(String[] args) throws IOException, URISyntaxException {
 		String fileName = "./src/main/resources/decomp-example-01.txt"; //wont load with resource as stream
 		String text = Files.readString(Paths.get(fileName));
@@ -85,6 +96,8 @@ public class Test3 {
 		
 		FPGAMapTask mapTask = FPGAMapTask.fromSimpleFPGA(sfpga);
 		testFPGAMapTask(mapTask);
+		//testInputs(sfpga);
+		
 		
 		//Od tud dolje bi trebao ja mijenjati, da li da koristim ovo ili novo svoje nešto radit?
 		FPGAMapperResult result = new FPGAMapper(model, mapTask, new StandardLogWriter()).runMappingProcedure(stopRequester);
@@ -92,11 +105,8 @@ public class Test3 {
 			return;
 		}
 		
-		model.simplify(result.configuration);
-		
-		model.loadFromConfiguration(result.configuration);
+		//ADD new version for testing
 		for(int i = 0; i < mapTask.clbs.length; i++) { //sta je to, samo kopiranje lutova iz rezultata?
-			System.out.println("Result clb index[" + i + "]: " + result.clbIndexes[i]);
 			model.clbs[result.clbIndexes[i]].setTitle(mapTask.clbs[i].name); //to znači stavi ime, tu se radi ovo "instaliranje" logičkog modela u fizički
 			model.clbs[result.clbIndexes[i]].lut = sfpga.getLuts()[mapTask.clbs[i].decomposedIndex]; //prekopiraj cijeli LUT
 		}
@@ -106,33 +116,45 @@ public class Test3 {
 		for(int i = 0; i < mapTask.aliases.length; i++) { //namještavanje labela pinovima
 			model.pins[result.pinIndexes[mapTask.variables.length+i]].setTitle(mapTask.aliases[i]);
 		}
+		
+		
+//		model.clearWires();
+////		FPGAEvaluator.EvaluatorArranger.FillLabelsResult fillLabelsResult =  FPGAEvaluator.EvaluatorArranger.fillLabels(model, mapTask);
+//		System.out.println("Aliases distance iznosi " + fillLabelsResult.aliasesTracingResult);
+//		System.out.println();
+//		System.out.println("Inputs distance iznosi " + fillLabelsResult.inputsTracingResult);
+//		
+		
+		model.simplify(result.configuration);
+		
+		model.loadFromConfiguration(result.configuration);
+		
+		
 		System.out.println("Mapiranje gotovo...");
 		System.out.println();
 		System.out.println();
 		
-//		Evaluator eval = new SimpleAliasesEvaluator();
-//		double val = eval.evaluate(model, mapTask);
-//		System.out.println("Value is: " + val);
 		
-//		AIFPGAConfiguration conf = new AIFPGAConfiguration(null, result.clbIndexes, null);
+//		for(int i = 0; i < model.clbs.length; i++) {
+//			System.out.println(model.clbs[i].title);
+//		}
+//		System.out.println();
+//		
+//		AIFPGAConfiguration conf = new AIFPGAConfiguration(result.configuration, result.clbIndexes, result.pinIndexes);
 //		for(int i = 0; i < result.clbIndexes.length; i++) {
 //			System.out.print(result.clbIndexes[i] + " ");
 //		}
 //		System.out.println();
-//		Evaluator eval = new SimpleCLBInputsEvaluator(conf);
-//		double val = eval.evaluate(model, mapTask);
+////		
+//		Evaluator eval = new SimpleAliasesEvaluator();
+//		double val = eval.evaluate(conf, model, mapTask);
+//		System.out.println("Value is: " + val);
+//		
+//		Evaluator eval = new SimpleCLBInputsEvaluator();
+//		double val = eval.evaluate(conf, model, mapTask);
 //		System.out.println("Value is: " + val);
 		
-		
-//		testModelCLBS(model.clbs);
-//		SwingUtilities.invokeLater(() -> {
-//			JFrame f = new JFrame("Moj GUI visualizer!");
-//			f.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-//			f.setSize(500, 500);
-//			f.getContentPane().setLayout(new BorderLayout());
-//			f.setVisible(true);
-//		});
-		
+	
 		SwingUtilities.invokeLater(()->{
 			JFrame f = new JFrame("Preglednik rezultata mapiranja");
 			
