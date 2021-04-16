@@ -17,11 +17,11 @@ import hr.fer.zemris.fpga.mapping.FPGAMapTask;
 
 public class SimplestGeneticAlgorithmElitistic extends FPGAGeneticAlgorithm {
 
-	public SimplestGeneticAlgorithmElitistic(String shortName, String name, int populationSize, int generations, double mutationRate,
+	public SimplestGeneticAlgorithmElitistic(boolean type, String shortName, String name, int populationSize, int generations, double mutationRate,
 			Initializer<AIFPGAConfiguration> initializer, AIFPGAConfigurationRandomizer randomizer,
 			AIFPGAConfigurationCleaner cleaner, Selector selector, Crossover crosser, Mutation mutator,
 			Evaluator evaluator, FPGAMapTask mapTask, FPGAModel ex, SimpleFPGA sfpga, LogWriter logger) {
-		super(shortName, name, populationSize, generations, mutationRate, initializer, randomizer, cleaner, selector, crosser, mutator,
+		super(type, shortName, name, populationSize, generations, mutationRate, initializer, randomizer, cleaner, selector, crosser, mutator,
 				evaluator, mapTask, ex, sfpga, logger);
 	}
 

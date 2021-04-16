@@ -27,15 +27,19 @@ public class TracingEvaluator implements Evaluator {
 	public double evaluate(AIFPGAConfiguration conf, FPGAModel model, FPGAMapTask mapTask) {
 		FillLabelsResult tracingResult = fillLabels(model, mapTask);
 		
-		double tracers = tracingResult.aliasesTracingResult * 1.5 + tracingResult.inputsTracingResult * 2.5; 
+		double tracers = (tracingResult.aliasesTracingResult + tracingResult.inputsTracingResult) / 150.0;
+//		System.out.println(tracers);
+		//we want to keep these properties as low as possible
+		double distinctMultiples = tracingResult.distinctMultiples * 4;
+//		System.out.println("Distinct multiples " + distinctMultiples);
 		
-		double distinctMultiples = tracingResult.distinctMultiples * 1.5;
-		System.out.println("Distinct multiples " + distinctMultiples);
+		double cumulativeMultiples = tracingResult.cumulativeMultiples / 20.0; //big number, needs scaling probably
 		
-		double cumulativeMultiples = tracingResult.cumulativeMultiples * 1.5; //big number, needs scaling probably
+//		System.out.println("Cumulative multiples: " + cumulativeMultiples);
 		
-		System.out.println("Cumulative multiples: " + cumulativeMultiples);
-		return tracers + distinctMultiples + cumulativeMultiples;
+		double result = (tracers - distinctMultiples - cumulativeMultiples) / 2;
+//		System.out.println(result);
+		return result;
 	}
 
 	/**

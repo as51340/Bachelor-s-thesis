@@ -55,10 +55,7 @@ public class AIFPGAMapper {
 	public FPGAModel map(FPGAGeneticAlgorithm alg) {
 //		logger.log("Generations: " + alg.generations);
 //		logger.log("Population size: " + alg.populationSize);
-//		logger.log("Mutation rate: " + alg.mutationRate);
-		
-		alg.reproduction();
-		
+//		logger.log("Mutation rate: " + alg.mutationRate);		
 		long t0 = System.currentTimeMillis();
 		alg.reproduction();
 		long t1 = System.currentTimeMillis();

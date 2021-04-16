@@ -1,35 +1,35 @@
 package hr.fer.zemris.bachelor.thesis.ai.crossover;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import hr.fer.zemris.bachelor.thesis.mapping.configuration.AIFPGAConfiguration;
 import hr.fer.zemris.bachelor.thesis.mapping.configuration.AIFPGAConfigurationRandomizer;
-import hr.fer.zemris.bool.SimpleFPGA.FPGAConfiguration;
 import hr.fer.zemris.fpga.FPGAModel;
 import hr.fer.zemris.fpga.FPGAModel.FPGAModelConfiguration;
 
 /**
- * Completeley random solution. Randomizer chooses between two configurations and prints result out.
+ * Valid crossover is such a crossover where after crossing we still have valid byte configuration in model
  * @author andi
  *
  */
-public class SimpleCrossover implements Crossover{
+public class ValidCrossover implements Crossover{
 
-	public AIFPGAConfigurationRandomizer random;
 	
-	/**
-	 * Ugly that we need model
-	 */
-	public FPGAModel model;
+	private AIFPGAConfigurationRandomizer random;
 	
-	public SimpleCrossover(AIFPGAConfigurationRandomizer random, FPGAModel model) {
-		super();
+	private FPGAModel model;
+	
+	
+	public ValidCrossover(AIFPGAConfigurationRandomizer random, FPGAModel model) {
 		this.random = random;
 		this.model = model;
 	}
-
+	
 	@Override
 	public AIFPGAConfiguration crossover(AIFPGAConfiguration conf1, AIFPGAConfiguration conf2) {
-		int[] newClbIndexes = crossRandomlyClbAndPinIndexes(conf1.clbIndexes, conf2.clbIndexes);
-		int[] newPinIndexes = crossRandomlyClbAndPinIndexes(conf1.pinIndexes, conf2.pinIndexes);
+		int[] newClbIndexes = crossClbAndPin(conf1.clbIndexes, conf2.clbIndexes);
+		int[] newPinIndexes = crossClbAndPin(conf1.pinIndexes,conf2.pinIndexes);
 		FPGAModelConfiguration newConf = crossModelConfigurations(conf1.configuration, conf2.configuration);
 		AIFPGAConfiguration result = new AIFPGAConfiguration(newConf, newClbIndexes, newPinIndexes);
 		return result;
@@ -65,17 +65,48 @@ public class SimpleCrossover implements Crossover{
 		}
 	}
 	
-	private int[] crossRandomlyClbAndPinIndexes(int[] arr1, int[] arr2) {
-		int[] newArr = new int[arr1.length];
-		for(int i = 0; i < newArr.length; i++) {
-			int index = random.nextInt(2); //because we cross two elements!!!
-			if(index == 0) {
-				newArr[i] = arr1[i];
-			} else {
-				newArr[i] = arr2[i];
-			}
+	private int[] crossClbAndPin(int[] arr1, int[] arr2) {
+		Set<Integer> unused = new HashSet<>(); // preprocess
+		for(int i = 0; i < arr1.length; i++) {
+			unused.add(arr1[i]);
 		}
-		return newArr;
+		int[] solution = new int[arr1.length];
+		
+		for(int i = 0; i < arr1.length; i++) {
+			int rnd = random.nextInt(2); //we need 0 or 1 for choose array
+			if(rnd == 0) {
+				if(unused.contains(arr1[i])) {
+					solution[i] = arr1[i];
+				} else if(unused.contains(arr2[i])) {
+					solution[i] = arr2[i];
+				} else {
+					solution[i] = (Integer) unused.toArray()[0];
+				}
+			} else if(rnd == 1) {
+				if(unused.contains(arr2[i])) {
+					solution[i] = arr2[i];
+				} else if(unused.contains(arr1[i])) {
+					solution[i] = arr1[i];
+				} else {
+					solution[i] = (Integer) unused.toArray()[0];
+				} 
+			}
+			unused.remove(solution[i]);
+		}
+		
+		if(unused.size() > 0) {
+			throw new IllegalStateException("Invalid configuration in valid crossover!");
+		}
+		unused.clear();
+		for(int i = 0; i < solution.length; i++) {
+			if(!unused.add(solution[i])) throw new IllegalStateException("Duplicates in crossovering!");
+		}
+		
+		return solution;
+		
+		
+		
+		
 	}
 
 }

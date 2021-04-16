@@ -1,5 +1,10 @@
 package hr.fer.zemris.bachelor.thesis.ai.selection;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import hr.fer.zemris.bachelor.thesis.mapping.configuration.AIFPGAConfiguration;
 
 /**
@@ -9,12 +14,20 @@ import hr.fer.zemris.bachelor.thesis.mapping.configuration.AIFPGAConfiguration;
  * @author andi
  *
  */
-public interface Selector {
+public abstract class Selector {
+	
+	
+	public List<Double> intensities;
+	
+	public Selector() {
+		intensities = new ArrayList<>();
+	}
+	
 	
 	/**
 	 * @param population
 	 * @return individual index from population using some standard
 	 */
-	int select(double[] fitnesses, boolean flag);
+	public abstract int select(double[] fitnesses);
 
 }

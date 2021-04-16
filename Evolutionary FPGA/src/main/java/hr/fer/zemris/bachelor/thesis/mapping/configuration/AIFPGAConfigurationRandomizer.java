@@ -66,6 +66,7 @@ public class AIFPGAConfigurationRandomizer {
 		for(int i = 0; i < arr.length; i++) {
 			arr[i] = ints.get(i);
 		}
+		//System.out.println();
 		return arr;
 	}
 	

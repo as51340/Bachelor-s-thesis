@@ -11,6 +11,7 @@ import hr.fer.zemris.bachelor.thesis.mapping.configuration.AIFPGAConfiguration;
 import hr.fer.zemris.bachelor.thesis.mapping.configuration.AIFPGAConfigurationRandomizer;
 import hr.fer.zemris.bachelor.thesis.mapping.configuration.ConfUtil;
 import hr.fer.zemris.bachelor.thesis.mapping.configuration.cleaner.AIFPGAConfigurationCleaner;
+import hr.fer.zemris.bachelor.thesis.util.AIMath;
 import hr.fer.zemris.bool.SimpleFPGA;
 import hr.fer.zemris.fpga.FPGAModel;
 import hr.fer.zemris.fpga.LogWriter;
@@ -26,11 +27,11 @@ import hr.fer.zemris.fpga.mapping.FPGAMapTask;
  */
 public class SimplestGeneticAlgorithm extends FPGAGeneticAlgorithm {
 
-	public SimplestGeneticAlgorithm(String shortName, String name, int populationSize, int generations, double mutationRate,
+	public SimplestGeneticAlgorithm(boolean type, String shortName, String name, int populationSize, int generations, double mutationRate,
 			Initializer<AIFPGAConfiguration> initializer, AIFPGAConfigurationRandomizer randomizer,
 			AIFPGAConfigurationCleaner cleaner, Selector selector, Crossover crosser, Mutation mutator,
 			Evaluator evaluator, FPGAMapTask mapTask, FPGAModel ex, SimpleFPGA sfpga, LogWriter logger) {
-		super(shortName, name, populationSize, generations, mutationRate, initializer, randomizer, cleaner, selector, crosser, mutator,
+		super(type, shortName, name, populationSize, generations, mutationRate, initializer, randomizer, cleaner, selector, crosser, mutator,
 				evaluator, mapTask, ex, sfpga, logger);
 	}
 
@@ -77,7 +78,7 @@ public class SimplestGeneticAlgorithm extends FPGAGeneticAlgorithm {
 			if(checkEvaluatorEnding(model)) return;			
 			population[index] = newConf; // simplest version, we always put on the 3.place
 			putAverageFitnessForGen(i+1); // we don't want to start from zero
-			putBestFitnessForGen(i+1);
+			putBestFitnessForGen(i+1);			
 		}
 	}
 

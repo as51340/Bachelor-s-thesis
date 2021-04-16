@@ -1,4 +1,4 @@
-package hr.fer.zemris.bachelor.thesis.evaluator;
+	package hr.fer.zemris.bachelor.thesis.evaluator;
 
 import java.util.Map;
 
@@ -51,14 +51,14 @@ public class SimpleAliasesEvaluator implements Evaluator {
 			}
 //			System.out.println("Founded " + founded);
 			if (founded == 1) {
-				sol += 10; // reward if they found correctly more than in situation when configuration is
+				sol += 70; // reward if they found correctly more than in situation when configuration is
 							// invalid
 			}
 //			else if (founded > 1) {
 //				sol += 5;
 //			}
 			else {
-				sol -= 5;
+//				sol -= 10;
 				valid = false;
 			}
 		}

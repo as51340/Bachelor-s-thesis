@@ -32,7 +32,7 @@ public class FPGAEvaluator implements Evaluator {
 	public Evaluator aliasesEvaluator;
 
 	public Evaluator clbInputsEvaluator;
-	
+
 	public Evaluator tracingEvaluator;
 
 	public FPGAEvaluator(Evaluator aliasesEvaluator, Evaluator clbInputsEvaluator, Evaluator tracingEvaluator) {
@@ -54,7 +54,7 @@ public class FPGAEvaluator implements Evaluator {
 				FPGAMapTask mapTask, SimpleFPGA sfpga) {
 			FPGAModel model = new FPGAModel(model1.rows, model1.columns, model1.clbVariables, model1.wiresCount,
 					model1.pinsPerSegment); // not sure if all would be deleted
-			
+
 			for (int i = 0; i < mapTask.clbs.length; i++) {
 				model.clbs[conf.clbIndexes[i]].setTitle(mapTask.clbs[i].name);
 				model.clbs[conf.clbIndexes[i]].lut = sfpga.getLuts()[mapTask.clbs[i].decomposedIndex];
@@ -65,14 +65,14 @@ public class FPGAEvaluator implements Evaluator {
 			for (int i = 0; i < mapTask.aliases.length; i++) {
 				model.pins[conf.pinIndexes[mapTask.variables.length + i]].setTitle(mapTask.aliases[i]);
 			}
-			
+
 			model.simplify(conf.configuration); // check all this stuff
-			
+
 			for (int i = 0; i < mapTask.variables.length; i++) {
 				conf.configuration.pinInput[conf.pinIndexes[i]] = true;
 			}
 			model.loadFromConfiguration(conf.configuration);
-			
+
 //			model.fillLabels();
 			// result.distinctMultiples; //koliko je zica u problemima
 			// result.cumulativeMultiples //za svako novo gazenje broj koliko gazenja ima
@@ -86,24 +86,25 @@ public class FPGAEvaluator implements Evaluator {
 	@Override
 	public double evaluate(AIFPGAConfiguration conf, FPGAModel model, FPGAMapTask mapTask) {
 		double sol = 0;
-		
-		double trace = tracingEvaluator.evaluate(conf, model, mapTask); //must be called first for filling labels, soft req 
+
+		double trace = tracingEvaluator.evaluate(conf, model, mapTask); // must be called first for filling labels, soft
+																		// req
 //		sol += trace;
-		
-		sol += aliasesEvaluator.evaluate(null, model, mapTask); //hard req
+
+		sol += aliasesEvaluator.evaluate(null, model, mapTask); // hard req
 		if (((SimpleAliasesEvaluator) aliasesEvaluator).valid) {
 			System.out.println("Aliases je true");
 		}
 		valid = valid && ((SimpleAliasesEvaluator) aliasesEvaluator).valid;
 		((SimpleAliasesEvaluator) aliasesEvaluator).valid = true;
-		
-		sol += clbInputsEvaluator.evaluate(conf, model, mapTask); //hard req
+
+		sol += clbInputsEvaluator.evaluate(conf, model, mapTask); // hard req
 		if (((SimpleCLBInputsEvaluator) clbInputsEvaluator).valid) {
 			System.out.println("Inputs je true");
 		}
 		valid = valid && ((SimpleCLBInputsEvaluator) clbInputsEvaluator).valid;
 		((SimpleCLBInputsEvaluator) clbInputsEvaluator).valid = true;
-		
+
 		return sol;
 	}
 }

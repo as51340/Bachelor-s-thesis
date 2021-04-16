@@ -84,3 +84,110 @@ java.lang.NullPointerException: Cannot invoke "String.equals(Object)" because "b
 	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:435)
 
 
+Index 65 Shortcut: SV66 Full name: Eliminative elitistic
+java.lang.IllegalStateException: Duplicates in crossovering!
+	at hr.fer.zemris.bachelor.thesis.ai.crossover.ValidCrossover.crossClbAndPin(ValidCrossover.java:102)
+	at hr.fer.zemris.bachelor.thesis.ai.crossover.ValidCrossover.crossover(ValidCrossover.java:31)
+	at hr.fer.zemris.bachelor.thesis.ai.EliminativeGeneticAlgorithmSelectionElitistic.reproduction(EliminativeGeneticAlgorithmSelectionElitistic.java:62)
+	at hr.fer.zemris.bachelor.thesis.mapping.AIFPGAMapper.map(AIFPGAMapper.java:60)
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:450)
+
+
+Index 66 Shortcut: SV67 Full name: Simplest version elitistic
+java.lang.ArrayIndexOutOfBoundsException: Index 0 out of bounds for length 0
+	at hr.fer.zemris.bachelor.thesis.ai.crossover.ValidCrossover.crossClbAndPin(ValidCrossover.java:83)
+	at hr.fer.zemris.bachelor.thesis.ai.crossover.ValidCrossover.crossover(ValidCrossover.java:32)
+	at hr.fer.zemris.bachelor.thesis.ai.SimplestGeneticAlgorithmElitistic.reproduction(SimplestGeneticAlgorithmElitistic.java:61)
+	at hr.fer.zemris.bachelor.thesis.mapping.AIFPGAMapper.map(AIFPGAMapper.java:60)
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:465)
+
+
+Index 66 Shortcut: SV67 Full name: Simplest version elitistic
+java.lang.ArrayIndexOutOfBoundsException: Index 0 out of bounds for length 0
+	at hr.fer.zemris.bachelor.thesis.ai.crossover.ValidCrossover.crossClbAndPin(ValidCrossover.java:91)
+	at hr.fer.zemris.bachelor.thesis.ai.crossover.ValidCrossover.crossover(ValidCrossover.java:31)
+	at hr.fer.zemris.bachelor.thesis.ai.SimplestGeneticAlgorithmElitistic.reproduction(SimplestGeneticAlgorithmElitistic.java:61)
+	at hr.fer.zemris.bachelor.thesis.mapping.AIFPGAMapper.map(AIFPGAMapper.java:60)
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:465)
+
+
+Index 60 Shortcut: SV61 Full name: EliminativeGeneticAlgorithmKSelectionElitistic
+java.lang.IllegalArgumentException: Could not find solution in SimpleRouletteWheelSelection class
+	at hr.fer.zemris.bachelor.thesis.ai.selection.RouletteWheelSelection.select(RouletteWheelSelection.java:41)
+	at hr.fer.zemris.bachelor.thesis.ai.EliminativeGeneticAlgorithmSelectionElitistic.reproduction(EliminativeGeneticAlgorithmSelectionElitistic.java:65)
+	at hr.fer.zemris.bachelor.thesis.mapping.AIFPGAMapper.map(AIFPGAMapper.java:60)
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:88)
+
+
+Index 61 Shortcut: SV62 Full name: EliminativeGeneticAlgorithmKSelectionElitistic
+java.lang.IllegalArgumentException: Could not find solution in SimpleRouletteWheelSelection class
+	at hr.fer.zemris.bachelor.thesis.ai.selection.RouletteWheelSelection.select(RouletteWheelSelection.java:41)
+	at hr.fer.zemris.bachelor.thesis.ai.EliminativeGeneticAlgorithmSelectionElitistic.reproduction(EliminativeGeneticAlgorithmSelectionElitistic.java:65)
+	at hr.fer.zemris.bachelor.thesis.mapping.AIFPGAMapper.map(AIFPGAMapper.java:60)
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:88)
+
+
+Index 62 Shortcut: SV63 Full name: EliminativeGeneticAlgorithmKSelectionElitistic
+java.lang.IllegalArgumentException: Could not find solution in SimpleRouletteWheelSelection class
+	at hr.fer.zemris.bachelor.thesis.ai.selection.RouletteWheelSelection.select(RouletteWheelSelection.java:41)
+	at hr.fer.zemris.bachelor.thesis.ai.EliminativeGeneticAlgorithmSelectionElitistic.reproduction(EliminativeGeneticAlgorithmSelectionElitistic.java:65)
+	at hr.fer.zemris.bachelor.thesis.mapping.AIFPGAMapper.map(AIFPGAMapper.java:60)
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:88)
+
+
+Index 63 Shortcut: SV64 Full name: EliminativeGeneticAlgorithmKSelectionElitistic
+java.lang.IllegalArgumentException: Could not find solution in SimpleRouletteWheelSelection class
+	at hr.fer.zemris.bachelor.thesis.ai.selection.RouletteWheelSelection.select(RouletteWheelSelection.java:41)
+	at hr.fer.zemris.bachelor.thesis.ai.EliminativeGeneticAlgorithmSelectionElitistic.reproduction(EliminativeGeneticAlgorithmSelectionElitistic.java:65)
+	at hr.fer.zemris.bachelor.thesis.mapping.AIFPGAMapper.map(AIFPGAMapper.java:60)
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:88)
+
+
+Index 64 Shortcut: SV65 Full name: EliminativeGeneticAlgorithmKSelectionElitistic
+java.lang.IllegalArgumentException: Could not find solution in SimpleRouletteWheelSelection class
+	at hr.fer.zemris.bachelor.thesis.ai.selection.RouletteWheelSelection.select(RouletteWheelSelection.java:41)
+	at hr.fer.zemris.bachelor.thesis.ai.EliminativeGeneticAlgorithmSelectionElitistic.reproduction(EliminativeGeneticAlgorithmSelectionElitistic.java:65)
+	at hr.fer.zemris.bachelor.thesis.mapping.AIFPGAMapper.map(AIFPGAMapper.java:60)
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:88)
+
+
+Index 60 Shortcut: SV61 Full name: EliminativeGeneticAlgorithmKSelectionElitistic
+java.lang.IllegalArgumentException: Could not find solution in SimpleRouletteWheelSelection class
+	at hr.fer.zemris.bachelor.thesis.ai.selection.RouletteWheelSelection.select(RouletteWheelSelection.java:41)
+	at hr.fer.zemris.bachelor.thesis.ai.EliminativeGeneticAlgorithmSelectionElitistic.reproduction(EliminativeGeneticAlgorithmSelectionElitistic.java:65)
+	at hr.fer.zemris.bachelor.thesis.mapping.AIFPGAMapper.map(AIFPGAMapper.java:60)
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:88)
+
+
+Index 61 Shortcut: SV62 Full name: EliminativeGeneticAlgorithmKSelectionElitistic
+java.lang.IllegalArgumentException: Could not find solution in SimpleRouletteWheelSelection class
+	at hr.fer.zemris.bachelor.thesis.ai.selection.RouletteWheelSelection.select(RouletteWheelSelection.java:41)
+	at hr.fer.zemris.bachelor.thesis.ai.EliminativeGeneticAlgorithmSelectionElitistic.reproduction(EliminativeGeneticAlgorithmSelectionElitistic.java:65)
+	at hr.fer.zemris.bachelor.thesis.mapping.AIFPGAMapper.map(AIFPGAMapper.java:60)
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:88)
+
+
+Index 62 Shortcut: SV63 Full name: EliminativeGeneticAlgorithmKSelectionElitistic
+java.lang.IllegalArgumentException: Could not find solution in SimpleRouletteWheelSelection class
+	at hr.fer.zemris.bachelor.thesis.ai.selection.RouletteWheelSelection.select(RouletteWheelSelection.java:41)
+	at hr.fer.zemris.bachelor.thesis.ai.EliminativeGeneticAlgorithmSelectionElitistic.reproduction(EliminativeGeneticAlgorithmSelectionElitistic.java:65)
+	at hr.fer.zemris.bachelor.thesis.mapping.AIFPGAMapper.map(AIFPGAMapper.java:60)
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:88)
+
+
+Index 63 Shortcut: SV64 Full name: EliminativeGeneticAlgorithmKSelectionElitistic
+java.lang.IllegalArgumentException: Could not find solution in SimpleRouletteWheelSelection class
+	at hr.fer.zemris.bachelor.thesis.ai.selection.RouletteWheelSelection.select(RouletteWheelSelection.java:41)
+	at hr.fer.zemris.bachelor.thesis.ai.EliminativeGeneticAlgorithmSelectionElitistic.reproduction(EliminativeGeneticAlgorithmSelectionElitistic.java:65)
+	at hr.fer.zemris.bachelor.thesis.mapping.AIFPGAMapper.map(AIFPGAMapper.java:60)
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:88)
+
+
+Index 65 Shortcut: SV66 Full name: EliminativeGeneticAlgorithmKSelectionElitistic
+java.lang.IllegalArgumentException: Could not find solution in SimpleRouletteWheelSelection class
+	at hr.fer.zemris.bachelor.thesis.ai.selection.RouletteWheelSelection.select(RouletteWheelSelection.java:41)
+	at hr.fer.zemris.bachelor.thesis.ai.EliminativeGeneticAlgorithmSelectionElitistic.reproduction(EliminativeGeneticAlgorithmSelectionElitistic.java:65)
+	at hr.fer.zemris.bachelor.thesis.mapping.AIFPGAMapper.map(AIFPGAMapper.java:60)
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:88)
+
+

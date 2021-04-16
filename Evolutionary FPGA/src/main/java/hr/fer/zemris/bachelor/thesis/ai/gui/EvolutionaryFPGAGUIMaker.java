@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.JFrame;
@@ -37,10 +38,12 @@ public class EvolutionaryFPGAGUIMaker extends JFrame {
 
 	private static final long serialVersionUID = 8164916626673884334L;
 
-	private Map<Integer, Double> genToBest;
+	private Map<Integer, Double> genToBest = null;
 
-	private Map<Integer, Double> genToAvg;
+	private Map<Integer, Double> genToAvg = null;
 
+	private List<Double> intensities = null;
+	
 	private int width = 1280;
 
 	private int height = 720;
@@ -71,10 +74,34 @@ public class EvolutionaryFPGAGUIMaker extends JFrame {
 			e.printStackTrace();
 		}
 	}
+	
+	public EvolutionaryFPGAGUIMaker(String title, List<Double> intensities) {
+		super("FPGA intensities");
+		this.intensities = intensities;
+		this.title = title;
+		setSize(width, height);
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		setLocationRelativeTo(null);
+		try {
+			drawXYChart();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 
 	private void drawXYChart() throws IOException {
-		JFreeChart xylineChart = ChartFactory.createXYLineChart(title, "Category", "Score", createXYDataset(),
-				PlotOrientation.VERTICAL, true, true, false);
+		JFreeChart xylineChart = null;
+		
+		if(this.intensities == null) {
+			xylineChart = ChartFactory.createXYLineChart(algShort + " " + title, this.categoryAxisLabel, this.valueAxisLabel, createXYDataset(),
+					PlotOrientation.VERTICAL, true, true, false);
+		} else {
+			xylineChart = ChartFactory.createXYLineChart(title,"Generation", "Intensity", createXYDatasetIntensity(), PlotOrientation.VERTICAL, true,
+					true, false);
+		}
+		
 		ChartPanel chartPanel = new ChartPanel(xylineChart);
 		final XYPlot plot = xylineChart.getXYPlot();
 		XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
@@ -86,11 +113,30 @@ public class EvolutionaryFPGAGUIMaker extends JFrame {
 		renderer.setSeriesStroke(2, new BasicStroke(2.0f));
 		plot.setRenderer(renderer);
 		setContentPane(chartPanel);
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy:MM:dd_HH:mm:ss");
-		LocalDateTime now = LocalDateTime.now();
-		File out = new File("imgs/" + algShort + dtf.format(now) + ".png");
-		ChartUtilities.saveChartAsPNG(out, xylineChart, width, height);
+		if(this.intensities == null) {
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy:MM:dd_HH:mm:ss");
+			LocalDateTime now = LocalDateTime.now();
+			File out = new File("imgs/" + algShort + dtf.format(now) + ".png");
+			ChartUtilities.saveChartAsPNG(out, xylineChart, width, height);
+		} else {
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy:MM:dd_HH:mm:ss");
+			LocalDateTime now = LocalDateTime.now();
+			File out = new File("intensities/" + algShort + dtf.format(now) + ".png");
+			ChartUtilities.saveChartAsPNG(out, xylineChart, width, height);
+		}
 	}
+	
+	private XYDataset createXYDatasetIntensity() {
+		final XYSeries series = new XYSeries("Intensities");
+		for(int i = 0; i < intensities.size(); i++) {
+			series.add((i+1) / 2, intensities.get(i));
+		}
+		final XYSeriesCollection dataset = new XYSeriesCollection();
+		dataset.addSeries(series);
+		return dataset;
+	}
+	
+	
 
 	private XYDataset createXYDataset() {
 		final XYSeries best = new XYSeries("Best");
@@ -108,41 +154,4 @@ public class EvolutionaryFPGAGUIMaker extends JFrame {
 		dataset.addSeries(avg);
 		return dataset;
 	}
-
-	private void drawLineChart() throws IOException {
-		JPanel chartPanel = createChartPanel();
-		add(chartPanel, BorderLayout.CENTER);
-	}
-
-	private JPanel createChartPanel() throws IOException {
-		String chartTitle = title;
-
-		CategoryDataset dataset = createDataset();
-
-		JFreeChart chart = ChartFactory.createLineChart(chartTitle, categoryAxisLabel, valueAxisLabel, dataset,
-				PlotOrientation.VERTICAL, true, true, false);
-
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-		LocalDateTime now = LocalDateTime.now();
-		File out = new File("/imgs/" + algShort + dtf.format(now) + ".jpeg");
-
-		ChartUtilities.saveChartAsJPEG(out, chart, width, height);
-		return new ChartPanel(chart);
-	}
-
-	private CategoryDataset createDataset() {
-		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-		String best = "genToBest";
-		String avg = "genToAvg";
-		for (Integer gen : genToBest.keySet()) {
-//			System.out.println(gen + " " + genToBest.get(gen));
-			dataset.addValue(gen, best, genToBest.get(gen));
-		}
-		for (Integer gen : genToAvg.keySet()) {
-//			System.out.println(gen + " " + genToAvg.get(gen));
-			dataset.addValue(gen, avg, genToAvg.get(gen));
-		}
-		return dataset;
-	}
-
 }

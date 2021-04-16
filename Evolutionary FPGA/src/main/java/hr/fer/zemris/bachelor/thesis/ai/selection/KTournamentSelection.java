@@ -5,19 +5,22 @@ import java.util.Set;
 
 import hr.fer.zemris.bachelor.thesis.mapping.configuration.AIFPGAConfiguration;
 import hr.fer.zemris.bachelor.thesis.mapping.configuration.AIFPGAConfigurationRandomizer;
+import hr.fer.zemris.bachelor.thesis.util.AIMath;
 
 /**
- * Regular k tournament selection. Selects best from k individuals and returns
+ * Regular k tournament selection. Selects best from k individuals and returns. If best is set to false then we are selection worst from k in popoulation
  * selected individual.
  * 
  * @author andi
  *
  */
-public class KTournamentSelection implements Selector {
+public class KTournamentSelection extends Selector {
 
 	private int k;
 
 	private AIFPGAConfigurationRandomizer random;
+	
+	private boolean best = true;
 
 	public KTournamentSelection(int k, AIFPGAConfigurationRandomizer random) {
 		super();
@@ -26,8 +29,11 @@ public class KTournamentSelection implements Selector {
 	}
 
 	@Override
-	public int select(double[] fitnesses, boolean flag) {//if flag == false we search for the worst, if fla == best we search for the best from k {
+	public int select(double[] fitnesses) {//if flag == false we search for the worst, if fla == best we search for the best from k {
 		Set<Integer> selected = new HashSet<>();
+		
+		this.intensities.add(AIMath.selIntKTour(this.k));
+		
 		double[] helper = new double[k];
 		int rnd = 0;
 		for (int j = 0; j < k; j++) {
@@ -39,10 +45,8 @@ public class KTournamentSelection implements Selector {
 			selected.add(rnd);
 		}
 		
-		if(!flag) return getMin(helper);
+		if(!best) return getMin(helper);
 		return getMax(helper);
-
-		
 
 	}
 	
@@ -56,6 +60,10 @@ public class KTournamentSelection implements Selector {
 			}
 		}
 		return min;
+	}
+	
+	public void setWorst(boolean best) {
+		this.best = best;
 	}
 	
 	
