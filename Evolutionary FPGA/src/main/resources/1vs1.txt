@@ -1,5 +1,0 @@
-Architecture: 2, 4
-Variables: [A,B]
-Function(s) [F] is/are at outputs: [0]
-CLB(0): A B
-1001
