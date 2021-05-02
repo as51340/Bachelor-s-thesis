@@ -74,6 +74,8 @@ public abstract class FPGAGeneticAlgorithm {
 	//false eliminative, true generational
 	public boolean type;
 	
+	public AIFPGAConfiguration bestConf = null;
+	
 	
 	public FPGAGeneticAlgorithm(boolean type, String shortName, String name, int populationSize, int generations, double mutationRate,
 			Initializer<AIFPGAConfiguration> initializer, AIFPGAConfigurationRandomizer randomizer,

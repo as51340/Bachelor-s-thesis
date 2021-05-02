@@ -25,6 +25,7 @@ public class SimpleAliasesEvaluator implements Evaluator {
 	@Override
 	public double evaluate(AIFPGAConfiguration conf, FPGAModel model, FPGAMapTask mapTask) {
 		double sol = 0;
+		int correct = 0;
 		Pin[] pins = model.pins;
 		Map<String, String> aliasMap = mapTask.aliasMap;
 		for (String alias : aliasMap.keySet()) {
@@ -37,24 +38,30 @@ public class SimpleAliasesEvaluator implements Evaluator {
 				if (v != null) { //label is not null
 					if (v instanceof CLBBox) {
 						CLBBox clb = (CLBBox) v;
-						if (clb.title != null && clb.title.equals(aliasMap.get(alias))) { // da li je taj pin dobro spojen
+						if (clb.title != null && clb.title.equals(aliasMap.get(alias))) { // da li je taj pin dobro
+																							// spojen
 							founded++;
 						}
-					} else { //wrong type
+					} else {
 						valid = false;
-						sol += Coefficients.OUTPUT_WRONG_TYPE;
+						sol += Coefficients.INPUT_WRONG_TYPE;
 					}
 				} else { //punish it with black label
 					valid = false;
 					sol += Coefficients.BLACK_LABEL;
 				}
 			}
-			if (founded == 0) { //nothing was founded
-				sol += Coefficients.OUTPUT_PENALTY;
-				valid = false;
+//			System.out.println("Founded " + founded);
+			if (founded == 1) {
+				correct++;
+				sol = Math.pow(Coefficients.OUTPUT_PRIZE, correct); //linear grow of good values
 			} 
+			else {
+				valid = false;
+			}
 		}
 		return sol;
 	}
 
 }
+

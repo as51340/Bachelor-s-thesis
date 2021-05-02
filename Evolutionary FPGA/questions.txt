@@ -144,7 +144,10 @@ SV64 = simple cleaner, simple switch box, EliminativeGeneticAlgorithmKSelectionE
 SV65 = simple cleaner, advanced switch box, EliminativeGeneticAlgorithmKSelectionElitistic, crosser obični, mutator ne postoj, selector roulette wheel
 
 SV66 = simple cleaner, advanced switch box, EliminativeGeneticAlgorithmKSelectionElitistic, valid crosser, swap mutator, roulette wheel selector
-SV67 = simple cleaner, advanced switch box, generacijski elitistic, valid crosser, swap mutator, selekcija zasad random
+SV67 = simplecleaner, advanced switch box, simplest genetic, valid crosser, swap mutator, null selection
+SV68 = simple cleaner, advanced switch box, generacijski elitistic, valid crosser, swap mutator, selekcija zasad random
+SV69 = simple cleaner, advanced switch box, eliminacijski elitistički, valid crosser, ktour
+SV70 = -||- generacijski elitistički sa roulette wheel, valid crosser, swap mutator
 
 
 
@@ -227,6 +230,97 @@ Okej roulette wheel je proradio kako treba, daje neke malo bolje rezultate. Kome
 roulette u generacijski, nakon toga izmislit da konačno nešto proradi i nakraju paralelizirat genetski.
 
 Dodat još one verzije mutacija koje su validne jer inače ne mogu ništa kombinirati.
+
+Komentiraj relativno brzu konvergenciju kad koristimo SV70-tamo zbog roulette wheela je bilo jako teško postići da se ne biraju jednake jedinke=>java heap size error.
+Gore je ako zahtjevamo da su različiti-ograničio sam na 100 broj pokušaja, ali neki max fitness je 290 šta je bad.
+From 21:33 17.04 we added valid crossover for switch boxes
+
+
+SV68 ima smisla, ti generacijski su se vratili u igru. Makar oni rade jako puno selekcija pa zato se i očekuje više od njih.
+SV70 pronalazi aliases je true bez ikakvih problema.
+
+10:16 17.04 u swapu mutationu maknuto za switch box - bez mutacije switch boxeva uzasno rjesenje koje odmah zapne u lokalnom maksimumu.
+
+Komentiraj postotak pronađenih rješenja za generacijski s ogromnim parametrima.
+
+Added that inputs must be different. Ne radit s tim nekim novim optimizacijskim algoritmima, nego radit na postojećim. Čini mi se da se poboljšala fitness funkcija jer više ne 
+generira crnila na pinovima. Razmišljat da li nastavit s verzijom ako smo već dobili aliases = true? Ima li to uopće 
+smisla. Ne!
+
+Komentiraj novu funkciju evaluacije i to kako smo počeli kažnjavat ako su žice spojene na null odnosno
+da smo kvadratno nagrađivali nešto dobro. Imaš sliku spremljenu u imgs.
+
+Komentiraj kako više kažnjavamo da dobivamo više crnila na sliki zato jer ne dopuštamo ono implicitno spajanje.
+
+Smanjili prostor pretraživanja ako maknemo da se može spajat po vanjskim krajevima. Odnosno to je taj valid index.
+
+Komentiraj da kako se gube switch box žice zbog načina na koji smo to izveli. Dakle kad smo promijenili mutaciju s dodavanja na običan change onda crossover
+sve zezne. Možemo dodat da se bira crossover s 70% vjerojatnosti ako je na drugoj strani 0. Možemo kazniti ako je broj žica=0 npr.
+
+
+Da je samo input u igri komentiraj tablicu:
+8 0 204
+7 1 135
+6 2 76
+5 3 25
+4 4 -20
+3 5 -61
+2 6 -100
+1 7 -139
+0 8 -175
+
+Cilj povećati razliku između
+
+Komentiraj: s ovakvom fitness funkcijom nismo ništa postigli osim da radi za 1vs1. Ajmo se prebaciti samo na funkciju kazne.
+Dakle imamo neke pomake u situacijama 1vs2 i 2vs1, ali ne baš uvijek. Zanimljivo je da ako povećamo broj žica da sve ide u k. Dodano da se doda i zadnja generacija u funkciju fitnessa.
+
+Uspješnost pronalaženja rješenja je nekih 1/15 * 100 posto. Za 5 žica. Za 3 žice 1/10 cirka.
+Nakon smanjenja kazne s -10 na -5 za wrong type i black label na -10 => malo poboljšanje, ali izgleda mi fitness funkcija bolje.
+
+Black label na -5, a collision na -10 => dobro izgleda fitness funkcija, ali rješenja nema jej. Na 6500 do 7000 generacija zapinje.
+
+Za 2 puta 1 i 2vs1, input wrong type = -1, collision -20, black label -5. Uspješnost generiranja rješenja = 55%!.
+
+Sa podešavanjem da više kažnjavam inpute, dvije varijable(iste) na dva clba uspješnost 100%. 3 varijable već idu teže.
+
+Dodano da se kažnjava ako idu s iste žice na više njih u istoj grupi.
+
+
+0.5 na mutaciji, v2Coefficients na 30000 generacija pronalazi uvijek 1x2.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -56,11 +56,9 @@ public class ExponentialCrossover implements Crossover{
 			exponentialOnBytes(newConf.clbInIndexes[i], arr1, arr2);
 		}
 		for(int i = 0; i < newConf.switchBoxes.length; i++) { //TODO advanced version of switch boxes crossover
-			for(int j = 0; j < newConf.switchBoxes[0].length; j++) {
-				byte[] arr1 = conf1.switchBoxes[i][j];
-				byte[] arr2 = conf2.switchBoxes[i][j];
-				exponentialOnBytes(newConf.switchBoxes[i][j], arr1, arr2);
-			}
+			byte[][] sw1 = conf1.switchBoxes[i];
+			byte[][] sw2 = conf2.switchBoxes[i];
+			
 		}
 		return newConf;
 	}

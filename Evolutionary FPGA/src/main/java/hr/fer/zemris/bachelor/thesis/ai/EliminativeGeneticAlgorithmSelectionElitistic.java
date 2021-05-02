@@ -38,7 +38,7 @@ public class EliminativeGeneticAlgorithmSelectionElitistic extends FPGAGeneticAl
 		int min_index = -1;
 		double min_value = Double.MAX_VALUE;
 		int max_index = -1;
-		double max_value = Double.MIN_VALUE;
+		double max_value = -Double.MAX_VALUE;
 		
 		for (int i = 0; i < populationSize; i++) {
 			randomizer.randomize(population[i]);
@@ -60,7 +60,7 @@ public class EliminativeGeneticAlgorithmSelectionElitistic extends FPGAGeneticAl
 			if(checkEvaluatorEnding(model)) return;
 		}
 		int i1, i2;
-		for (int i = 0; i < generations; i++) {
+		for (int i = 0; i < generations; i++) {			
 			AIFPGAConfiguration conf1, conf2, newConf;
 			i1 = selector.select(fitnesses);
 			i2 = selector.select(fitnesses);
@@ -70,7 +70,9 @@ public class EliminativeGeneticAlgorithmSelectionElitistic extends FPGAGeneticAl
 			
 			newConf = crosser.crossover(conf1, conf2);
 			
+			
 			if(mutator != null) mutator.mutate(newConf);
+			
 			
 			cleaner.clean(newConf);
 			FPGAModel model = FPGAEvaluator.EvaluatorArranger.prepareModelForEvaluation(ex, newConf, mapTask,
@@ -78,7 +80,7 @@ public class EliminativeGeneticAlgorithmSelectionElitistic extends FPGAGeneticAl
 			
 			
 			double value = evaluator.evaluate(newConf, model, mapTask);
-			if(checkEvaluatorEnding(model)) return;
+			
 			if(value > min_value) {
 				population[min_index] = newConf;
 				fitnesses[min_index] = value; 
@@ -86,15 +88,18 @@ public class EliminativeGeneticAlgorithmSelectionElitistic extends FPGAGeneticAl
 			if(value > max_value) {
 				max_index = min_index; // this is just for now
 				max_value = value;
-//				bestOverall = model;
+				bestOverall = model;
 			}
 			
 			min_index = getWorstFromPopulation(); // recalculate
 			
-			
-			putAverageFitnessForGen(i+1); // we don't want to start from zero
 			putBestFitnessForGen(i+1);
+			putAverageFitnessForGen(i+1); // we don't want to start from zero
+			
+			if(checkEvaluatorEnding(model)) return;
+			
 		}
+		logger.log("Best fitness: " + max_value);
 	}
 	
 	

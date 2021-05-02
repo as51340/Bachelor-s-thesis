@@ -40,6 +40,7 @@ import hr.fer.zemris.bachelor.thesis.evaluator.SimpleAliasesEvaluator;
 import hr.fer.zemris.bachelor.thesis.evaluator.SimpleCLBInputsEvaluator;
 import hr.fer.zemris.bachelor.thesis.evaluator.TracingEvaluator;
 import hr.fer.zemris.bachelor.thesis.mapping.AIFPGAMapper;
+import hr.fer.zemris.bachelor.thesis.mapping.configuration.AIFPGAConfiguration;
 import hr.fer.zemris.bachelor.thesis.mapping.configuration.AIFPGAConfigurationRandomizer;
 import hr.fer.zemris.bachelor.thesis.mapping.configuration.cleaner.AIFPGAAdvancedConfigurationCleaner;
 import hr.fer.zemris.bachelor.thesis.mapping.configuration.cleaner.AIFPGAConfigurationCleaner;
@@ -50,6 +51,7 @@ import hr.fer.zemris.bachelor.thesis.mapping.configuration.cleaner.swboxes.Switc
 import hr.fer.zemris.bachelor.thesis.util.AILibrary;
 import hr.fer.zemris.bool.SimpleFPGA;
 import hr.fer.zemris.fpga.FPGAModel;
+import hr.fer.zemris.fpga.FPGAModel.CLBBox;
 import hr.fer.zemris.fpga.LogWriter;
 import hr.fer.zemris.fpga.StandardLogWriter;
 import hr.fer.zemris.fpga.gui.FPGATabX;
@@ -64,7 +66,7 @@ import hr.fer.zemris.fpga.mapping.FPGAMapTask;
 public class NewTestSimpleGenetic {
 
 	public static void main(String[] args) throws IOException {
-		int rows = 2, columns = 2, pins = 1, variables = 2, wires = 3;
+		int rows = 2, columns = 2, pins = 1, variables = 2, wires = 5;
 		FPGAModel model = new FPGAModel(rows, columns, variables, wires, pins);
 		String fileName = "./src/main/resources/decomp-example-01.txt"; // wont load with resource as stream
 		String text = Files.readString(Paths.get(fileName));
@@ -73,21 +75,34 @@ public class NewTestSimpleGenetic {
 		LogWriter logger = new StandardLogWriter();
 		AIFPGAMapper mapper = new AIFPGAMapper(logger);
 		FPGAMapTask mapTask = FPGAMapTask.fromSimpleFPGA(sfpga);
-		
+
 		AILibrary library = new AILibrary();
 		library.constructLibrary(model, mapTask, sfpga, logger);
-		
-		
 
 		FileWriter fw = new FileWriter("exception.txt", true);
 		PrintWriter pw = new PrintWriter(fw);
 
-		for (int i = 60; i < 66; i++) {
+		for (int i = 65; i < 66; i++) {
 			FPGAGeneticAlgorithm alg = library.instances[i];
 			try {
 				for (int j = 0; j < 1; j++) {
-					alg.selector.intensities.clear();
+					if (alg.selector != null) {
+						alg.selector.intensities.clear();
+					}
+
 					FPGAModel resultModel = mapper.map(alg);
+
+//					AIFPGAConfiguration bestConf = alg.bestConf;
+//
+//					boolean[] pinsInput = bestConf.configuration.pinInput;
+//					byte[] pins_1 = bestConf.configuration.pinIndexes;
+//					for(int k = 0; k < pinsInput.length; k++) {
+//						System.out.println("Input: " + pinsInput[k]);
+//					}
+//					
+//
+//					FPGAEvaluator.DEBUG = true;
+//					FPGAEvaluator.EvaluatorArranger.prepareModelForEvaluation(resultModel, bestConf, mapTask, sfpga);
 
 					SwingUtilities.invokeLater(() -> {
 						new EvolutionaryFPGAGUIMaker(
@@ -95,7 +110,7 @@ public class NewTestSimpleGenetic {
 										+ alg.generations + " mutation rate: " + alg.mutationRate,
 								alg.genToBest, alg.genToAvg);
 					});
-					if(alg.selector != null) {
+					if (alg.selector != null) {
 						SwingUtilities.invokeLater(() -> {
 							new EvolutionaryFPGAGUIMaker("Selection intensity process", alg.selector.intensities);
 						});
@@ -106,11 +121,64 @@ public class NewTestSimpleGenetic {
 						continue;
 					}
 
+//					resultModel.clearWires();
+//					resultModel.fillLabels();
+					
+					
+					
+					for (int k = 0; k < mapTask.clbs.length; k++) {
+						System.out.println(mapTask.clbs[k].inputs[0]);
+						System.out.println(mapTask.clbs[k].inputs[1]);
+						System.out.println();
+					}
+
+					for (int k = 0; k < resultModel.pins.length; k++) {
+						System.out.println("Pin(" + k + ").connectionIndex=" + resultModel.pins[k].connectionIndex);
+						System.out.println("Pin(" + k + ").input=" + resultModel.pins[k].input);
+						System.out.println("Pin(" + k + ").title=" + resultModel.pins[k].title);
+						if (resultModel.pins[k].connectionIndex != -1) {
+							if(resultModel.pins[k].wires[resultModel.pins[k].connectionIndex].label instanceof CLBBox) {
+								CLBBox box = (CLBBox) resultModel.pins[k].wires[resultModel.pins[k].connectionIndex].label;
+								System.out.println("Pin(" + k + ").label="
+										+ box.title);
+							} else {
+								System.out.println("Pin(" + k + ").label="
+										+ resultModel.pins[k].wires[resultModel.pins[k].connectionIndex].label);
+							}
+						}
+					}
+					System.out.println();
+					System.out.println();
+					System.out.println();
+					for (int k = 0; k < resultModel.clbs.length; k++) {
+						System.out.println(resultModel.clbs[k].title + ").index1: " + resultModel.clbs[k].inConnectionIndexes[0]);
+						System.out.println(resultModel.clbs[k].title + ").index2_ " + resultModel.clbs[k].inConnectionIndexes[1]);
+						System.out.println(resultModel.clbs[k].title + ").out_index" + resultModel.clbs[k].outConnectionIndex);
+						
+						if(resultModel.clbs[k].wiresIn[resultModel.clbs[k].inConnectionIndexes[0]].label instanceof CLBBox) {
+							CLBBox box = (CLBBox) resultModel.clbs[k].wiresIn[resultModel.clbs[k].inConnectionIndexes[0]].label;
+							System.out.println(resultModel.clbs[k].title + ").label_1: " + box.title);
+						} else {
+							System.out.println(resultModel.clbs[k].title + ").label_1: "
+									+ resultModel.clbs[k].wiresIn[resultModel.clbs[k].inConnectionIndexes[0]].label);
+						}
+						
+						if(resultModel.clbs[k].wiresIn[resultModel.clbs[k].inConnectionIndexes[1]].label instanceof CLBBox) {
+							CLBBox box = (CLBBox) resultModel.clbs[k].wiresIn[resultModel.clbs[k].inConnectionIndexes[1]].label;
+							System.out.println(resultModel.clbs[k].title + ").label_2: " + box.title);
+						} else {
+							System.out.println(resultModel.clbs[k].title + ").label_2: "
+									+ resultModel.clbs[k].wiresIn[resultModel.clbs[k].inConnectionIndexes[1]].label);
+						}
+						
+						System.out.println();
+					}
+
 					SwingUtilities.invokeLater(() -> {
 						JFrame f = new JFrame("Preglednik rezultata mapiranja");
 
 						f.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-						f.setSize(500, 500);
+						f.setSize(1200, 960);
 						f.getContentPane().setLayout(new BorderLayout());
 
 						FPGATabX tab = new FPGATabX();
@@ -118,6 +186,7 @@ public class NewTestSimpleGenetic {
 
 						f.getContentPane().add(tab, BorderLayout.CENTER);
 
+						tab.updateZoom(1.5);
 						f.setVisible(true);
 					});
 				}
@@ -125,8 +194,8 @@ public class NewTestSimpleGenetic {
 				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy:MM:dd_HH:mm:ss");
 				LocalDateTime now = LocalDateTime.now();
 				pw.write(dtf.format(now) + "\n");
-				pw.write("Index " + i + " Shortcut: " + library.instances[i].shortName + " Full name: " + library.instances[i].name
-						+ "\n");
+				pw.write("Index " + i + " Shortcut: " + library.instances[i].shortName + " Full name: "
+						+ library.instances[i].name + "\n");
 				ex.printStackTrace(pw);
 				pw.write("\n\n");
 			}

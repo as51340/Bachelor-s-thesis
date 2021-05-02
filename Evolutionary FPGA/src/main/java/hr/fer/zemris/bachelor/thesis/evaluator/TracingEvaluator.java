@@ -27,18 +27,15 @@ public class TracingEvaluator implements Evaluator {
 	public double evaluate(AIFPGAConfiguration conf, FPGAModel model, FPGAMapTask mapTask) {
 		FillLabelsResult tracingResult = fillLabels(model, mapTask);
 		
-		double tracers = (tracingResult.aliasesTracingResult + tracingResult.inputsTracingResult) / 150.0;
-//		System.out.println(tracers);
-		//we want to keep these properties as low as possible
-		double distinctMultiples = tracingResult.distinctMultiples * 4;
+//		double tracers = (tracingResult.aliasesTracingResult + tracingResult.inputsTracingResult) / 150.0;
+		
 //		System.out.println("Distinct multiples " + distinctMultiples);
 		
-		double cumulativeMultiples = tracingResult.cumulativeMultiples / 20.0; //big number, needs scaling probably
+//		double result = (tracers - distinctMultiples - cumulativeMultiples) / 2;
 		
-//		System.out.println("Cumulative multiples: " + cumulativeMultiples);
-		
-		double result = (tracers - distinctMultiples - cumulativeMultiples) / 2;
+		double result = tracingResult.distinctMultiples * Coefficients.COLLISION_PENALTY; //linear function of collisions
 //		System.out.println(result);
+		
 		return result;
 	}
 
@@ -63,7 +60,7 @@ public class TracingEvaluator implements Evaluator {
 			}
 		}
 		for (CLBBox box : model.clbs) {
-//			System.out.println();
+//			System.out.pr	intln();
 //			System.out.println("Fill labels " + box.title + " out conn index " + box.outConnectionIndex);
 			if (box.outConnectionIndex != -1) {
 				fillLabel(box, box.wiresOut[box.outConnectionIndex], result, model, mapTask);

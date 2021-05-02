@@ -23,6 +23,8 @@ public class SimpleCLBInputsEvaluator implements Evaluator {
 	@Override
 	public double evaluate(AIFPGAConfiguration conf, FPGAModel model, FPGAMapTask mapTask) {
 		double sol = 0;
+		int correct = 0;
+		
 		
 		CLBBox[] clbs = model.clbs;
 		CLB[] mapTaskClbs = mapTask.clbs;		
@@ -54,6 +56,9 @@ public class SimpleCLBInputsEvaluator implements Evaluator {
 							if(!label.title.equals(inputsTask[j])) {
 								sol += Coefficients.INPUT_PENALTY;
 								valid = false;
+							} else {
+								correct++;
+								sol += Math.pow(correct, 3);
 							}
 						} else {
 							throw new IllegalStateException("Label is clb and its title is null");
@@ -69,6 +74,9 @@ public class SimpleCLBInputsEvaluator implements Evaluator {
 							if (!label.title.equals(inputsTask[j])) { // it is pin but wrong
 								sol += Coefficients.INPUT_PENALTY;
 								valid = false;
+							} else {
+								correct++;
+								sol += Math.pow(correct, 3);
 							}
 						} else {
 							throw new IllegalStateException("Label is pin and its title is null");
@@ -77,7 +85,9 @@ public class SimpleCLBInputsEvaluator implements Evaluator {
 				}
 			}
 		}
+		
 		return sol;
 	}
 
 }
+

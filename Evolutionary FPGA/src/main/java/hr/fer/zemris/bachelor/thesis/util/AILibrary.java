@@ -4,6 +4,7 @@ import hr.fer.zemris.bachelor.thesis.ai.EliminativeGeneticAlgorithmSelectionElit
 import hr.fer.zemris.bachelor.thesis.ai.FPGAGeneticAlgorithm;
 import hr.fer.zemris.bachelor.thesis.ai.GenerationalGeneticAlgorithm;
 import hr.fer.zemris.bachelor.thesis.ai.GenerationalGeneticAlgorithmElitistic;
+import hr.fer.zemris.bachelor.thesis.ai.GenerationalGeneticAlgorithmSelection;
 import hr.fer.zemris.bachelor.thesis.ai.SimplestGeneticAlgorithm;
 import hr.fer.zemris.bachelor.thesis.ai.SimplestGeneticAlgorithmElitistic;
 import hr.fer.zemris.bachelor.thesis.ai.crossover.BreakpointCrossover;
@@ -43,7 +44,7 @@ import hr.fer.zemris.fpga.mapping.FPGAMapTask;
 public class AILibrary {
 	
 	
-	private int popSize = 50, generations = 10000, numAlgs = 100;
+	private int popSize = 50, generations = 30000, numAlgs = 100;
 	
 	private double mutationRate = 0.05;
 
@@ -108,10 +109,7 @@ public class AILibrary {
 		Selector kTourSelect = new KTournamentSelection(5, random);
 		Selector rouletteWheel = new RouletteWheelSelection(random);
 
-		Evaluator aliasesEvaluator = new SimpleAliasesEvaluator();
-		Evaluator clbInputsEvaluator = new SimpleCLBInputsEvaluator();
-		Evaluator tracingEvaluator = new TracingEvaluator();
-		Evaluator fpgaEvaluator = new FPGAEvaluator(aliasesEvaluator, clbInputsEvaluator, tracingEvaluator);
+		Evaluator fpgaEvaluator = new FPGAEvaluator();
 
 		FPGAGeneticAlgorithm alg1 = new SimplestGeneticAlgorithm(false, "SV1", "Simplest version", popSize, generations,
 				mutationRate, initer, random, simpleCleanerSimpleSwitchBox, null, crosser, mutater, fpgaEvaluator,
@@ -363,6 +361,7 @@ public class AILibrary {
 				"EliminativeGeneticAlgorithmKSelectionElitistic", popSize, generations, mutationRate, initer, random,
 				simpleCleanerAdvancedSwitchBox, kTourSelect, crosserBreaker, null, fpgaEvaluator, mapTask, model, sfpga,
 				logger);
+		
 
 		FPGAGeneticAlgorithm alg61 = new EliminativeGeneticAlgorithmSelectionElitistic(false, "SV61", "EliminativeGeneticAlgorithmKSelectionElitistic",
 				popSize, generations, mutationRate, initer, random, simpleCleanerSimpleSwitchBox, rouletteWheel,
@@ -385,8 +384,9 @@ public class AILibrary {
 				crosser, null, fpgaEvaluator, mapTask, model, sfpga, logger);
 
 		FPGAGeneticAlgorithm alg66 = new EliminativeGeneticAlgorithmSelectionElitistic(false, "SV66", "EliminativeGeneticAlgorithmKSelectionElitistic",
-				popSize, generations, mutationRate, initer, random, simpleCleanerAdvancedSwitchBox, rouletteWheel,
+				popSize, generations, mutationRate, initer, random, simpleCleanerAdvancedSwitchBox, kTourSelect,
 				validCrosser, swapMutator, fpgaEvaluator, mapTask, model, sfpga, logger);
+		
 		
 		
 		FPGAGeneticAlgorithm alg67 = new SimplestGeneticAlgorithmElitistic(false, "SV67", "Simplest version elitistic",
@@ -400,6 +400,13 @@ public class AILibrary {
 		FPGAGeneticAlgorithm alg69 = new EliminativeGeneticAlgorithmSelectionElitistic(false, "SV69", "Eliminative elitistic",
 				popSize, generations, mutationRate, initer, random, simpleCleanerAdvancedSwitchBox, kTourSelect,
 				validCrosser, swapMutator, fpgaEvaluator, mapTask, model, sfpga, logger);
+		
+		
+		FPGAGeneticAlgorithm alg70 = new GenerationalGeneticAlgorithmSelection(true, "S70", "Generational version elitistic, selection",
+				popSize, generations, mutationRate, initer, random, simpleCleanerAdvancedSwitchBox, rouletteWheel, validCrosser, swapMutator,
+				fpgaEvaluator, mapTask, model, sfpga, logger);
+		
+		
 		
 		
 
@@ -472,7 +479,7 @@ public class AILibrary {
 		instances[66] = alg67;
 		instances[67] = alg68;
 		instances[68] = alg69;
-			
+		instances[69] = alg70;
 		
 		
 	}
