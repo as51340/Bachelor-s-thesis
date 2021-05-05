@@ -1,4 +1,3 @@
-/.metadata/
 bin
 imgs
 imgs_old
@@ -299,3 +298,4 @@ TSWLatexianTemp*
 # Uncomment the next line to have this generated file ignored.
 #*Notes.bib
 
+/.metadata/
