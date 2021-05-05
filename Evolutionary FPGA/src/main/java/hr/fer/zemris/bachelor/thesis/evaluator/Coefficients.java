@@ -30,17 +30,20 @@ public class Coefficients {
 	/**
 	 * More than one label on some segment
 	 */
-	public static double COLLISION_PENALTY = -20.0;	
+//	public static double COLLISION_PENALTY = -20.0;	
+	public static double COLLISION_PENALTY = -0.0;	
 	
 	/**
 	 * Nothing is connected
 	 */
 	public static double BLACK_LABEL = -7.75;
+//	public static double BLACK_LABEL = -0;
 		
 	/**
 	 * If more than SW_BOX_CONNECTIONS_MAX in the box
 	 */
-	public static double SW_BOX_MAX_OVERFLOW_PENALTY = -0.75;
+//	public static double SW_BOX_MAX_OVERFLOW_PENALTY = -0.75;
+	public static double SW_BOX_MAX_OVERFLOW_PENALTY = -0;
 
 	/**
 	 * Maybe for optimizing some solutions
@@ -60,7 +63,9 @@ public class Coefficients {
 	/**
 	 * If wire from switch box is connected to wire that has label null
 	 */
-	public static double SW_WIRE_TO_NULL = -2.25;
+//	public static double SW_WIRE_TO_NULL = -2.25;
+	
+	public static double SW_WIRE_TO_NULL = -0;
 	
 	/**
 	 * No connection in switch box
@@ -70,7 +75,9 @@ public class Coefficients {
 	/**
 	 * Input pin isn't propagated 
 	 */
-	public static double INPUT_TO_NOWHERE = -2.75;
+//	public static double INPUT_TO_NOWHERE = -2.75;
+	
+	public static double INPUT_TO_NOWHERE = -0;
 	
 	/**
 	 * Max connections in one switch box: model based estimation

@@ -38,6 +38,9 @@ public class ConnectionQualityEvaluator implements Evaluator{
 				for(int k = 0; k < sw_config[0].length && k < j; k++) {
 					if(sw_config[j][k] == 2 && sw_config[k][j] == 1) { //from j to k 
 						wiresInGroup.merge(j, 1, Integer::sum);
+//						if (swBoxes[i].segments[k] == null) {
+//							System.out.println("Switch box " + i + " wire " + k);
+//						}
 						if(swBoxes[i].segments[k].label == null) { //if you are connecting it to null label
 							sol += Coefficients.SW_WIRE_TO_NULL;
 						}

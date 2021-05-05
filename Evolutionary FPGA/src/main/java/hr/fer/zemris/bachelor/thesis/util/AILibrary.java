@@ -172,8 +172,8 @@ public class AILibrary {
 				mutater, fpgaEvaluator, mapTask, model, sfpga, logger);
 
 		FPGAGeneticAlgorithm alg16 = new SimplestGeneticAlgorithmElitistic(false, "SV16", "Simplest version elitistic",
-				popSize, generations, mutationRate, initer, random, simpleCleanerSimpleSwitchBox, null, crosserBreaker,
-				mutater, fpgaEvaluator, mapTask, model, sfpga, logger);
+				popSize, generations, mutationRate, initer, random, simpleCleanerSimpleSwitchBox, null, validCrosser,
+				swapMutator, fpgaEvaluator, mapTask, model, sfpga, logger);
 
 		FPGAGeneticAlgorithm alg17 = new SimplestGeneticAlgorithmElitistic(false, "SV17", "Simplest version elitistic",
 				popSize, generations, mutationRate, initer, random, simpleCleanerAdvancedSwitchBox, null, crosserAS,

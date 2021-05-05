@@ -68,12 +68,12 @@ public class ValidCrossover implements Crossover {
 					double p = random.nextDouble();
 					
 					if (conf1[i][j][k] == 0) {
-						if (p <= 0.5) { // choose with 70% the other one
+						if (p <= 0.7) { // choose with 70% the other one
 							swBoxes[i][j][k] = conf2[i][j][k];
 							swBoxes[i][k][j] = conf2[i][k][j];
 						}
 					} else if (conf2[i][j][k] == 0) {
-						if (p <= 0.5) { // choose with 70% the other one
+						if (p <= 0.7) { // choose with 70% the other one
 							swBoxes[i][j][k] = conf1[i][j][k];
 							swBoxes[i][k][j] = conf1[i][k][j];
 						}

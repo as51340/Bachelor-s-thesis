@@ -66,7 +66,7 @@ import hr.fer.zemris.fpga.mapping.FPGAMapTask;
 public class NewTestSimpleGenetic {
 
 	public static void main(String[] args) throws IOException {
-		int rows = 2, columns = 2, pins = 1, variables = 2, wires = 5;
+		int rows = 2, columns = 2, pins = 1, variables = 2, wires = 3;
 		FPGAModel model = new FPGAModel(rows, columns, variables, wires, pins);
 		String fileName = "./src/main/resources/decomp-example-01.txt"; // wont load with resource as stream
 		String text = Files.readString(Paths.get(fileName));

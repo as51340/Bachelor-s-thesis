@@ -504,3 +504,43 @@ java.lang.IllegalThreadStateException
 	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:93)
 
 
+2021:05:05_08:22:44
+Index 15 Shortcut: SV16 Full name: Simplest version elitistic
+java.lang.NullPointerException: Cannot read field "label" because "swBoxes[i].segments[k]" is null
+	at hr.fer.zemris.bachelor.thesis.evaluator.ConnectionQualityEvaluator.evaluate(ConnectionQualityEvaluator.java:41)
+	at hr.fer.zemris.bachelor.thesis.evaluator.FPGAEvaluator.evaluate(FPGAEvaluator.java:192)
+	at hr.fer.zemris.bachelor.thesis.ai.SimplestGeneticAlgorithmElitistic.reproduction(SimplestGeneticAlgorithmElitistic.java:67)
+	at hr.fer.zemris.bachelor.thesis.mapping.AIFPGAMapper.map(AIFPGAMapper.java:60)
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:93)
+
+
+2021:05:05_08:27:57
+Index 15 Shortcut: SV16 Full name: Simplest version elitistic
+java.lang.NullPointerException: Cannot read field "label" because "swBoxes[i].segments[k]" is null
+	at hr.fer.zemris.bachelor.thesis.evaluator.ConnectionQualityEvaluator.evaluate(ConnectionQualityEvaluator.java:41)
+	at hr.fer.zemris.bachelor.thesis.evaluator.FPGAEvaluator.evaluate(FPGAEvaluator.java:192)
+	at hr.fer.zemris.bachelor.thesis.ai.SimplestGeneticAlgorithmElitistic.reproduction(SimplestGeneticAlgorithmElitistic.java:67)
+	at hr.fer.zemris.bachelor.thesis.mapping.AIFPGAMapper.map(AIFPGAMapper.java:60)
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:93)
+
+
+2021:05:05_08:30:01
+Index 15 Shortcut: SV16 Full name: Simplest version elitistic
+java.lang.NullPointerException: Cannot read field "label" because "swBoxes[i].segments[k]" is null
+	at hr.fer.zemris.bachelor.thesis.evaluator.ConnectionQualityEvaluator.evaluate(ConnectionQualityEvaluator.java:42)
+	at hr.fer.zemris.bachelor.thesis.evaluator.FPGAEvaluator.evaluate(FPGAEvaluator.java:192)
+	at hr.fer.zemris.bachelor.thesis.ai.SimplestGeneticAlgorithmElitistic.reproduction(SimplestGeneticAlgorithmElitistic.java:67)
+	at hr.fer.zemris.bachelor.thesis.mapping.AIFPGAMapper.map(AIFPGAMapper.java:60)
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:93)
+
+
+2021:05:05_08:33:16
+Index 15 Shortcut: SV16 Full name: Simplest version elitistic
+java.lang.NullPointerException: Cannot read field "label" because "swBoxes[i].segments[k]" is null
+	at hr.fer.zemris.bachelor.thesis.evaluator.ConnectionQualityEvaluator.evaluate(ConnectionQualityEvaluator.java:44)
+	at hr.fer.zemris.bachelor.thesis.evaluator.FPGAEvaluator.evaluate(FPGAEvaluator.java:192)
+	at hr.fer.zemris.bachelor.thesis.ai.SimplestGeneticAlgorithmElitistic.reproduction(SimplestGeneticAlgorithmElitistic.java:67)
+	at hr.fer.zemris.bachelor.thesis.mapping.AIFPGAMapper.map(AIFPGAMapper.java:60)
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:93)
+
+

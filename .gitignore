@@ -3,7 +3,6 @@ bin
 imgs
 imgs_old
 intensities
-fpga-mapiranje
 brzistart
 
 ## custom removing
@@ -13,9 +12,6 @@ dict-hr.oxt
 fer.bst
 fer.cls
 literatura.bib
-zavrsni.pdf
-
-.metadata
 
 
 ## Core latex/pdflatex auxiliary files:

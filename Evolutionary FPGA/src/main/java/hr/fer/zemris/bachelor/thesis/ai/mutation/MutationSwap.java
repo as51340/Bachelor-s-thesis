@@ -165,7 +165,7 @@ public class MutationSwap implements Mutation {
 
 								// delete always last connection
 
-								if (x <= 0.55) { // with 25% chance delete last wire, maybe we will need it later
+								if (x <= 0.5) { // with 25% chance delete last wire, maybe we will need it later
 									swBoxes[i][j][k] = 0;
 									swBoxes[i][k][j] = 0;
 								}
