@@ -1,0 +1,19 @@
+INDEX VERSION 1.131+/home/andi/Projects/Bachelor-s-thesis/.metadata/.plugins/org.eclipse.jdt.core
+2694468415.index
+2666523027.index
+1903343179.index
+3535659393.index
+3338800380.index
+1367978163.index
+2409583880.index
+141273332.index
+2978888571.index
+2442667322.index
+324384304.index
+3876470504.index
+2599989553.index
+3117550437.index
+3133045139.index
+3602045400.index
+3754092711.index
+4173563420.index
