@@ -544,3 +544,123 @@ java.lang.NullPointerException: Cannot read field "label" because "swBoxes[i].se
 	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:93)
 
 
+2021:05:07_13:35:31
+Index 65 Shortcut: null Full name: null
+java.lang.NullPointerException: Cannot invoke "hr.fer.zemris.bachelor.thesis.ai.initialization.Initializer.initialize()" because "this.initializer" is null
+	at hr.fer.zemris.bachelor.thesis.ai.EliminativeGeneticAlgorithmSelectionElitistic.reproduction(EliminativeGeneticAlgorithmSelectionElitistic.java:36)
+	at hr.fer.zemris.bachelor.thesis.mapping.AIFPGAMapper.map(AIFPGAMapper.java:60)
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:99)
+
+
+2021:05:07_13:35:40
+Index 65 Shortcut: null Full name: null
+java.lang.NullPointerException: Cannot invoke "hr.fer.zemris.bachelor.thesis.ai.initialization.Initializer.initialize()" because "this.initializer" is null
+	at hr.fer.zemris.bachelor.thesis.ai.EliminativeGeneticAlgorithmSelectionElitistic.reproduction(EliminativeGeneticAlgorithmSelectionElitistic.java:36)
+	at hr.fer.zemris.bachelor.thesis.mapping.AIFPGAMapper.map(AIFPGAMapper.java:60)
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:99)
+
+
+2021:05:07_13:47:49
+Index 65 Shortcut: SV66 Full name: EliminativeGeneticAlgorithmKSelectionElitistic
+java.lang.ClassCastException: class hr.fer.zemris.bachelor.thesis.evaluator.SimpleCLBInputsEvaluator cannot be cast to class hr.fer.zemris.bachelor.thesis.evaluator.SimpleAliasesEvaluator (hr.fer.zemris.bachelor.thesis.evaluator.SimpleCLBInputsEvaluator and hr.fer.zemris.bachelor.thesis.evaluator.SimpleAliasesEvaluator are in unnamed module of loader 'app')
+	at hr.fer.zemris.bachelor.thesis.ai.FPGAGeneticAlgorithm.reset(FPGAGeneticAlgorithm.java:122)
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:201)
+
+
+2021:05:07_13:47:52
+Index 65 Shortcut: SV66 Full name: EliminativeGeneticAlgorithmKSelectionElitistic
+java.lang.ClassCastException: class hr.fer.zemris.bachelor.thesis.evaluator.SimpleCLBInputsEvaluator cannot be cast to class hr.fer.zemris.bachelor.thesis.evaluator.SimpleAliasesEvaluator (hr.fer.zemris.bachelor.thesis.evaluator.SimpleCLBInputsEvaluator and hr.fer.zemris.bachelor.thesis.evaluator.SimpleAliasesEvaluator are in unnamed module of loader 'app')
+	at hr.fer.zemris.bachelor.thesis.ai.FPGAGeneticAlgorithm.reset(FPGAGeneticAlgorithm.java:122)
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:201)
+
+
+2021:05:08_13:58:09
+Index 65 Shortcut: SV66 Full name: EliminativeGeneticAlgorithmKSelectionElitistic
+java.lang.IllegalStateException: Label is clb and its title is null
+	at hr.fer.zemris.bachelor.thesis.evaluator.SimpleCLBInputsEvaluator.evaluate(SimpleCLBInputsEvaluator.java:59)
+	at hr.fer.zemris.bachelor.thesis.evaluator.FPGAEvaluator.evaluate(FPGAEvaluator.java:191)
+	at hr.fer.zemris.bachelor.thesis.ai.EliminativeGeneticAlgorithmSelectionElitistic.reproduction(EliminativeGeneticAlgorithmSelectionElitistic.java:48)
+	at hr.fer.zemris.bachelor.thesis.mapping.AIFPGAMapper.map(AIFPGAMapper.java:60)
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:98)
+
+
+2021:05:08_13:58:46
+Index 65 Shortcut: SV66 Full name: EliminativeGeneticAlgorithmKSelectionElitistic
+java.lang.IllegalStateException: Label is clb and its title is null
+	at hr.fer.zemris.bachelor.thesis.evaluator.SimpleCLBInputsEvaluator.evaluate(SimpleCLBInputsEvaluator.java:59)
+	at hr.fer.zemris.bachelor.thesis.evaluator.FPGAEvaluator.evaluate(FPGAEvaluator.java:191)
+	at hr.fer.zemris.bachelor.thesis.ai.EliminativeGeneticAlgorithmSelectionElitistic.reproduction(EliminativeGeneticAlgorithmSelectionElitistic.java:48)
+	at hr.fer.zemris.bachelor.thesis.mapping.AIFPGAMapper.map(AIFPGAMapper.java:60)
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:98)
+
+
+2021:05:08_14:02:06
+Index 65 Shortcut: SV66 Full name: EliminativeGeneticAlgorithmKSelectionElitistic
+java.lang.IllegalStateException: Label is clb and its title is null
+	at hr.fer.zemris.bachelor.thesis.evaluator.SimpleCLBInputsEvaluator.evaluate(SimpleCLBInputsEvaluator.java:59)
+	at hr.fer.zemris.bachelor.thesis.evaluator.FPGAEvaluator.evaluate(FPGAEvaluator.java:192)
+	at hr.fer.zemris.bachelor.thesis.ai.EliminativeGeneticAlgorithmSelectionElitistic.reproduction(EliminativeGeneticAlgorithmSelectionElitistic.java:48)
+	at hr.fer.zemris.bachelor.thesis.mapping.AIFPGAMapper.map(AIFPGAMapper.java:60)
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:98)
+
+
+2021:05:08_14:02:58
+Index 65 Shortcut: SV66 Full name: EliminativeGeneticAlgorithmKSelectionElitistic
+java.lang.IllegalStateException: Label is clb and its title is null
+	at hr.fer.zemris.bachelor.thesis.evaluator.SimpleCLBInputsEvaluator.evaluate(SimpleCLBInputsEvaluator.java:59)
+	at hr.fer.zemris.bachelor.thesis.evaluator.FPGAEvaluator.evaluate(FPGAEvaluator.java:193)
+	at hr.fer.zemris.bachelor.thesis.ai.EliminativeGeneticAlgorithmSelectionElitistic.reproduction(EliminativeGeneticAlgorithmSelectionElitistic.java:48)
+	at hr.fer.zemris.bachelor.thesis.mapping.AIFPGAMapper.map(AIFPGAMapper.java:60)
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:98)
+
+
+2021:05:08_14:03:11
+Index 65 Shortcut: SV66 Full name: EliminativeGeneticAlgorithmKSelectionElitistic
+java.lang.IllegalStateException: Label is clb and its title is null
+	at hr.fer.zemris.bachelor.thesis.evaluator.SimpleCLBInputsEvaluator.evaluate(SimpleCLBInputsEvaluator.java:59)
+	at hr.fer.zemris.bachelor.thesis.evaluator.FPGAEvaluator.evaluate(FPGAEvaluator.java:193)
+	at hr.fer.zemris.bachelor.thesis.ai.EliminativeGeneticAlgorithmSelectionElitistic.reproduction(EliminativeGeneticAlgorithmSelectionElitistic.java:48)
+	at hr.fer.zemris.bachelor.thesis.mapping.AIFPGAMapper.map(AIFPGAMapper.java:60)
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:98)
+
+
+2021:05:08_14:05:33
+Index 65 Shortcut: SV66 Full name: EliminativeGeneticAlgorithmKSelectionElitistic
+java.lang.IllegalStateException: Label is clb and its title is null
+	at hr.fer.zemris.bachelor.thesis.evaluator.SimpleCLBInputsEvaluator.evaluate(SimpleCLBInputsEvaluator.java:59)
+	at hr.fer.zemris.bachelor.thesis.evaluator.FPGAEvaluator.evaluate(FPGAEvaluator.java:191)
+	at hr.fer.zemris.bachelor.thesis.ai.EliminativeGeneticAlgorithmSelectionElitistic.reproduction(EliminativeGeneticAlgorithmSelectionElitistic.java:48)
+	at hr.fer.zemris.bachelor.thesis.mapping.AIFPGAMapper.map(AIFPGAMapper.java:60)
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:98)
+
+
+2021:05:08_14:06:02
+Index 65 Shortcut: SV66 Full name: EliminativeGeneticAlgorithmKSelectionElitistic
+java.lang.IllegalStateException: Label is clb and its title is null
+	at hr.fer.zemris.bachelor.thesis.evaluator.SimpleCLBInputsEvaluator.evaluate(SimpleCLBInputsEvaluator.java:59)
+	at hr.fer.zemris.bachelor.thesis.evaluator.FPGAEvaluator.evaluate(FPGAEvaluator.java:194)
+	at hr.fer.zemris.bachelor.thesis.ai.EliminativeGeneticAlgorithmSelectionElitistic.reproduction(EliminativeGeneticAlgorithmSelectionElitistic.java:48)
+	at hr.fer.zemris.bachelor.thesis.mapping.AIFPGAMapper.map(AIFPGAMapper.java:60)
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:98)
+
+
+2021:05:08_14:07:29
+Index 65 Shortcut: SV66 Full name: EliminativeGeneticAlgorithmKSelectionElitistic
+java.lang.IllegalStateException: Label is clb and its title is null
+	at hr.fer.zemris.bachelor.thesis.evaluator.SimpleCLBInputsEvaluator.evaluate(SimpleCLBInputsEvaluator.java:60)
+	at hr.fer.zemris.bachelor.thesis.evaluator.FPGAEvaluator.evaluate(FPGAEvaluator.java:193)
+	at hr.fer.zemris.bachelor.thesis.ai.EliminativeGeneticAlgorithmSelectionElitistic.reproduction(EliminativeGeneticAlgorithmSelectionElitistic.java:48)
+	at hr.fer.zemris.bachelor.thesis.mapping.AIFPGAMapper.map(AIFPGAMapper.java:60)
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:98)
+
+
+2021:05:08_14:07:44
+Index 65 Shortcut: SV66 Full name: EliminativeGeneticAlgorithmKSelectionElitistic
+java.lang.IllegalStateException: Label is clb and its title is null
+	at hr.fer.zemris.bachelor.thesis.evaluator.SimpleCLBInputsEvaluator.evaluate(SimpleCLBInputsEvaluator.java:60)
+	at hr.fer.zemris.bachelor.thesis.evaluator.FPGAEvaluator.evaluate(FPGAEvaluator.java:193)
+	at hr.fer.zemris.bachelor.thesis.ai.EliminativeGeneticAlgorithmSelectionElitistic.reproduction(EliminativeGeneticAlgorithmSelectionElitistic.java:48)
+	at hr.fer.zemris.bachelor.thesis.mapping.AIFPGAMapper.map(AIFPGAMapper.java:60)
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:98)
+
+

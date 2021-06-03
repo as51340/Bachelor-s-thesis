@@ -96,10 +96,13 @@ public class EliminativeGeneticAlgorithmSelectionElitistic extends FPGAGeneticAl
 			putBestFitnessForGen(i+1);
 			putAverageFitnessForGen(i+1); // we don't want to start from zero
 			
-			if(checkEvaluatorEnding(model)) return;
-			
+			if(checkEvaluatorEnding(model)) {
+				finalGen = i;
+				return;
+			}
 		}
-		logger.log("Best fitness: " + max_value);
+		solFounded = false;
+		System.out.println("Best fitness: " + max_value);
 	}
 	
 	

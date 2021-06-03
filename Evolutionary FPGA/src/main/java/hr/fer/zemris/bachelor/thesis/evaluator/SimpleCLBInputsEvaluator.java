@@ -27,7 +27,6 @@ public class SimpleCLBInputsEvaluator implements Evaluator {
 		CLBBox[] clbs = model.clbs;
 		CLB[] mapTaskClbs = mapTask.clbs;		
 		
-
 		for (int i = 0; i < conf.clbIndexes.length && i < mapTaskClbs.length; i++) {
 			CLBBox clbModel = clbs[conf.clbIndexes[i]]; // consider model
 			CLB clbTask = mapTaskClbs[i];
@@ -48,7 +47,7 @@ public class SimpleCLBInputsEvaluator implements Evaluator {
 					if (!(clbModel.wiresIn[clbModel.inConnectionIndexes[j]].label instanceof CLBBox)) {
 						valid = false;
 						sol += Coefficients.INPUT_WRONG_TYPE;
-					} else { // it really is clL
+					} else { // it really is clb
 						CLBBox label = (CLBBox) clbModel.wiresIn[clbModel.inConnectionIndexes[j]].label;
 						if(label.title != null) {
 							if(!label.title.equals(inputsTask[j])) {
@@ -56,7 +55,8 @@ public class SimpleCLBInputsEvaluator implements Evaluator {
 								valid = false;
 							}
 						} else {
-							throw new IllegalStateException("Label is clb and its title is null");
+//							throw new IllegalStateException("Label is clb and its title is null");
+//							System.out.println("Label is clb and its title is null");
 						}
 					}
 				} else { // pin must be on input

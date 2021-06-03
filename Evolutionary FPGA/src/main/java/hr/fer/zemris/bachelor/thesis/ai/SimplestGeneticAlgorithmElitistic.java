@@ -16,6 +16,12 @@ import hr.fer.zemris.fpga.LogWriter;
 import hr.fer.zemris.fpga.mapping.FPGAMapTask;
 
 public class SimplestGeneticAlgorithmElitistic extends FPGAGeneticAlgorithm {
+	
+	@Override
+	public void reset() {
+		super.reset();
+		best = -Double.MAX_VALUE;
+	}
 
 	private double best = -Double.MAX_VALUE;
 	
@@ -69,7 +75,10 @@ public class SimplestGeneticAlgorithmElitistic extends FPGAGeneticAlgorithm {
 					sfpga);
 			
 			double value = evaluator.evaluate(newConf, model, mapTask);
-			if(checkEvaluatorEnding(model)) return;
+			if(checkEvaluatorEnding(model)) {
+				finalGen = i+1;
+				return;
+			}
 			if(value > fitnesses[index]) {
 				population[index] = newConf;
 				fitnesses[index] = value; //
@@ -81,6 +90,7 @@ public class SimplestGeneticAlgorithmElitistic extends FPGAGeneticAlgorithm {
 			putAverageFitnessForGen(i+1); // we don't want to start from zero
 			putBestFitnessForGen(i+1);
 		}
+		solFounded = false;
 		System.out.println("Best fitness is " + best);
 	}
 	

@@ -85,11 +85,13 @@ public class FPGAEvaluator implements Evaluator {
 				FPGAMapTask mapTask, SimpleFPGA sfpga) {
 			FPGAModel model = new FPGAModel(model1.rows, model1.columns, model1.clbVariables, model1.wiresCount,
 					model1.pinsPerSegment); // not sure if all would be deleted
-
+			
 			for (int i = 0; i < mapTask.clbs.length; i++) {
+//				System.out.println(conf.clbIndexes[i]);
 				model.clbs[conf.clbIndexes[i]].setTitle(mapTask.clbs[i].name);
 				model.clbs[conf.clbIndexes[i]].lut = sfpga.getLuts()[mapTask.clbs[i].decomposedIndex];
 			}
+//			System.out.println();
 			for (int i = 0; i < mapTask.variables.length; i++) {
 				model.pins[conf.pinIndexes[i]].setTitle(mapTask.variables[i]);
 			}

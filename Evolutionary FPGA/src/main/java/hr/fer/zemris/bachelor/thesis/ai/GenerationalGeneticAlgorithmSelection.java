@@ -37,6 +37,12 @@ public class GenerationalGeneticAlgorithmSelection extends FPGAGeneticAlgorithm{
 	
 	private double bestFitness = - Double.MAX_VALUE;
 	
+	@Override
+	public void reset() {
+		super.reset();
+		bestFitness = - Double.MAX_VALUE;
+	}
+	
 	
 	public GenerationalGeneticAlgorithmSelection(boolean type, String shortName, String name, int populationSize, int generations, double mutationRate,
 			Initializer<AIFPGAConfiguration> initializer, AIFPGAConfigurationRandomizer randomizer,
@@ -100,13 +106,17 @@ public class GenerationalGeneticAlgorithmSelection extends FPGAGeneticAlgorithm{
  				
 				helper[j] = child; // simplest version, we always put on the 3.place
 				j++;
-				if(checkEvaluatorEnding(model)) return;
+				if(checkEvaluatorEnding(model)) {
+					finalGen = i +1;
+					return;
+				}
 			}
 			population = helper;
 			fitnesses = helperFitnesses;
 			putAverageFitnessForGen(i+1); // we don't want to start from zero
 			putBestFitnessForGen(i+1);
 		}
+		solFounded = false;
 		logger.log("Best fitness: " + bestFitness + "\n");
 	}
 	

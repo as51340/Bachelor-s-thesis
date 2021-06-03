@@ -10,6 +10,8 @@ import hr.fer.zemris.bachelor.thesis.ai.mutation.Mutation;
 import hr.fer.zemris.bachelor.thesis.ai.selection.Selector;
 import hr.fer.zemris.bachelor.thesis.evaluator.Evaluator;
 import hr.fer.zemris.bachelor.thesis.evaluator.FPGAEvaluator;
+import hr.fer.zemris.bachelor.thesis.evaluator.SimpleAliasesEvaluator;
+import hr.fer.zemris.bachelor.thesis.evaluator.SimpleCLBInputsEvaluator;
 import hr.fer.zemris.bachelor.thesis.mapping.configuration.AIFPGAConfiguration;
 import hr.fer.zemris.bachelor.thesis.mapping.configuration.AIFPGAConfigurationRandomizer;
 import hr.fer.zemris.bachelor.thesis.mapping.configuration.cleaner.AIFPGAConfigurationCleaner;
@@ -65,11 +67,14 @@ public abstract class FPGAGeneticAlgorithm {
 	public Map<Integer, Double> genToBest;
 	
 	public Map<Integer, Double> genToAvg;
-	
-	
+		
 	public String name;
 	
 	public String shortName;
+	
+	public boolean solFounded = true;
+	
+	public int finalGen = -1;
 	
 	//false eliminative, true generational
 	public boolean type;
@@ -104,6 +109,24 @@ public abstract class FPGAGeneticAlgorithm {
 		genToAvg = new HashMap<>();
 	}
 	
+	
+	public void reset() {
+		this.fitnesses = new double[populationSize];
+		genToBest = new HashMap<>();
+		genToAvg = new HashMap<>();
+		population = null;
+		bestConf = null;
+		bestOverall = null;
+		((SimpleAliasesEvaluator) ((FPGAEvaluator) evaluator).aliasesEvaluator).valid = true;
+		((SimpleCLBInputsEvaluator) ((FPGAEvaluator) evaluator).clbInputsEvaluator).valid = true;
+		((FPGAEvaluator) evaluator).valid = true;
+		((FPGAEvaluator) evaluator).aliasesValid = false;
+		((FPGAEvaluator) evaluator).inputsValid = false;
+//		evaluator = new FPGAEvaluator();
+		solFounded = true;
+		finalGen = -1;
+	}
+	
 	void putAverageFitnessForGen(int gen) {
 		genToAvg.put(gen, Arrays.stream(fitnesses).average().getAsDouble());
 	}
@@ -114,7 +137,7 @@ public abstract class FPGAGeneticAlgorithm {
 	public boolean checkEvaluatorEnding(FPGAModel model) {
 		if (((FPGAEvaluator) evaluator).valid) { // you founded valid model so set bestOverall and exit
 			bestOverall = model;
-			logger.log("Founded\n");
+//			logger.log("Founded\n");
 			return true;
 		}
 		((FPGAEvaluator) evaluator).valid = true; 

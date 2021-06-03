@@ -68,7 +68,7 @@ public class SwitchBoxEvalutor implements Evaluator {
 			if(connections > localMaxConnections) {
 				sol += (connections - localMaxConnections) * Coefficients.SW_BOX_MAX_OVERFLOW_PENALTY; //add overflow error
 			} else if(connections == 0) {
-				sol += Coefficients.SW_EMPTY;
+//				sol += Coefficients.SW_EMPTY;
 			}
 			
 		}

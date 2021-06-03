@@ -66,9 +66,9 @@ import hr.fer.zemris.fpga.mapping.FPGAMapTask;
 public class NewTestSimpleGenetic {
 
 	public static void main(String[] args) throws IOException {
-		int rows = 2, columns = 2, pins = 1, variables = 2, wires = 3;
+		int rows = 2, columns = 2, pins = 1, variables = 2, wires = 5;
 		FPGAModel model = new FPGAModel(rows, columns, variables, wires, pins);
-		String fileName = "./src/main/resources/decomp-example-01.txt"; // wont load with resource as stream
+		String fileName = "./src/main/resources/2vs1.txt"; // wont load with resource as stream
 		String text = Files.readString(Paths.get(fileName));
 		SimpleFPGA sfpga = SimpleFPGA.parseFromText(text);
 
@@ -83,12 +83,17 @@ public class NewTestSimpleGenetic {
 		PrintWriter pw = new PrintWriter(fw);
 
 		for (int i = 65; i < 66; i++) {
+			
+			int founded = 0;
+			long generations = 0;
 			FPGAGeneticAlgorithm alg = library.instances[i];
+			
 			try {
 				for (int j = 0; j < 1; j++) {
-					if (alg.selector != null) {
-						alg.selector.intensities.clear();
-					}
+					
+//					if (alg.selector != null) {
+//						alg.selector.intensities.clear();
+//					}
 
 					FPGAModel resultModel = mapper.map(alg);
 
@@ -103,77 +108,83 @@ public class NewTestSimpleGenetic {
 //
 //					FPGAEvaluator.DEBUG = true;
 //					FPGAEvaluator.EvaluatorArranger.prepareModelForEvaluation(resultModel, bestConf, mapTask, sfpga);
-
-					SwingUtilities.invokeLater(() -> {
-						new EvolutionaryFPGAGUIMaker(
-								alg.shortName, alg.name + " pop: " + alg.populationSize + " generations: "
-										+ alg.generations + " mutation rate: " + alg.mutationRate,
-								alg.genToBest, alg.genToAvg);
-					});
-					if (alg.selector != null) {
-						SwingUtilities.invokeLater(() -> {
-							new EvolutionaryFPGAGUIMaker("Selection intensity process", alg.selector.intensities);
-						});
-					}
-
-					if (resultModel == null) {
-						logger.log("Result model is null and cannot be seen!\n");
-						continue;
-					}
-
+//
+//					SwingUtilities.invokeLater(() -> {
+//						new EvolutionaryFPGAGUIMaker(
+//								alg.shortName, alg.name + " pop: " + alg.populationSize + " generations: "
+//										+ alg.generations + " mutation rate: " + alg.mutationRate,
+//								alg.genToBest, alg.genToAvg);
+//					});
+//					if (alg.selector != null) {
+//						SwingUtilities.invokeLater(() -> {
+//							new EvolutionaryFPGAGUIMaker("Selection intensity process", alg.selector.intensities);
+//						});
+//					}
+//
+//					if (resultModel == null) {
+//						logger.log("Result model is null and cannot be seen!\n");
+//						continue;
+//					}
+//
 //					resultModel.clearWires();
 //					resultModel.fillLabels();
-					
-					
-					
-					for (int k = 0; k < mapTask.clbs.length; k++) {
-						System.out.println(mapTask.clbs[k].inputs[0]);
-						System.out.println(mapTask.clbs[k].inputs[1]);
-						System.out.println();
-					}
+//					
+//					
+//					
+//					for (int k = 0; k < mapTask.clbs.length; k++) {
+//						System.out.println(mapTask.clbs[k].inputs[0]);
+//						System.out.println(mapTask.clbs[k].inputs[1]);
+//						System.out.println();
+//					}
+//
+//					for (int k = 0; k < resultModel.pins.length; k++) {
+//						System.out.println("Pin(" + k + ").connectionIndex=" + resultModel.pins[k].connectionIndex);
+//						System.out.println("Pin(" + k + ").input=" + resultModel.pins[k].input);
+//						System.out.println("Pin(" + k + ").title=" + resultModel.pins[k].title);
+//						if (resultModel.pins[k].connectionIndex != -1) {
+//							if(resultModel.pins[k].wires[resultModel.pins[k].connectionIndex].label instanceof CLBBox) {
+//								CLBBox box = (CLBBox) resultModel.pins[k].wires[resultModel.pins[k].connectionIndex].label;
+//								System.out.println("Pin(" + k + ").label="
+//										+ box.title);
+//							} else {
+//								System.out.println("Pin(" + k + ").label="
+//										+ resultModel.pins[k].wires[resultModel.pins[k].connectionIndex].label);
+//							}
+//						}
+//					}
+//					System.out.println();
+//					System.out.println();
+//					System.out.println();
+//					for (int k = 0; k < resultModel.clbs.length; k++) {
+//						System.out.println(resultModel.clbs[k].title + ").index1: " + resultModel.clbs[k].inConnectionIndexes[0]);
+//						System.out.println(resultModel.clbs[k].title + ").index2_ " + resultModel.clbs[k].inConnectionIndexes[1]);
+//						System.out.println(resultModel.clbs[k].title + ").out_index" + resultModel.clbs[k].outConnectionIndex);
+//						
+//						if(resultModel.clbs[k].wiresIn[resultModel.clbs[k].inConnectionIndexes[0]].label instanceof CLBBox) {
+//							CLBBox box = (CLBBox) resultModel.clbs[k].wiresIn[resultModel.clbs[k].inConnectionIndexes[0]].label;
+//							System.out.println(resultModel.clbs[k].title + ").label_1: " + box.title);
+//						} else {
+//							System.out.println(resultModel.clbs[k].title + ").label_1: "
+//									+ resultModel.clbs[k].wiresIn[resultModel.clbs[k].inConnectionIndexes[0]].label);
+//						}
+//						
+//						if(resultModel.clbs[k].wiresIn[resultModel.clbs[k].inConnectionIndexes[1]].label instanceof CLBBox) {
+//							CLBBox box = (CLBBox) resultModel.clbs[k].wiresIn[resultModel.clbs[k].inConnectionIndexes[1]].label;
+//							System.out.println(resultModel.clbs[k].title + ").label_2: " + box.title);
+//						} else {
+//							System.out.println(resultModel.clbs[k].title + ").label_2: "
+//									+ resultModel.clbs[k].wiresIn[resultModel.clbs[k].inConnectionIndexes[1]].label);
+//						}
+//						
+//						System.out.println();
+//					}
 
-					for (int k = 0; k < resultModel.pins.length; k++) {
-						System.out.println("Pin(" + k + ").connectionIndex=" + resultModel.pins[k].connectionIndex);
-						System.out.println("Pin(" + k + ").input=" + resultModel.pins[k].input);
-						System.out.println("Pin(" + k + ").title=" + resultModel.pins[k].title);
-						if (resultModel.pins[k].connectionIndex != -1) {
-							if(resultModel.pins[k].wires[resultModel.pins[k].connectionIndex].label instanceof CLBBox) {
-								CLBBox box = (CLBBox) resultModel.pins[k].wires[resultModel.pins[k].connectionIndex].label;
-								System.out.println("Pin(" + k + ").label="
-										+ box.title);
-							} else {
-								System.out.println("Pin(" + k + ").label="
-										+ resultModel.pins[k].wires[resultModel.pins[k].connectionIndex].label);
-							}
-						}
+					if(alg.solFounded == true) {
+						founded++; //one more founded
+						generations += alg.finalGen; //more generations
+					} else {
+						System.out.println(j);
 					}
-					System.out.println();
-					System.out.println();
-					System.out.println();
-					for (int k = 0; k < resultModel.clbs.length; k++) {
-						System.out.println(resultModel.clbs[k].title + ").index1: " + resultModel.clbs[k].inConnectionIndexes[0]);
-						System.out.println(resultModel.clbs[k].title + ").index2_ " + resultModel.clbs[k].inConnectionIndexes[1]);
-						System.out.println(resultModel.clbs[k].title + ").out_index" + resultModel.clbs[k].outConnectionIndex);
-						
-						if(resultModel.clbs[k].wiresIn[resultModel.clbs[k].inConnectionIndexes[0]].label instanceof CLBBox) {
-							CLBBox box = (CLBBox) resultModel.clbs[k].wiresIn[resultModel.clbs[k].inConnectionIndexes[0]].label;
-							System.out.println(resultModel.clbs[k].title + ").label_1: " + box.title);
-						} else {
-							System.out.println(resultModel.clbs[k].title + ").label_1: "
-									+ resultModel.clbs[k].wiresIn[resultModel.clbs[k].inConnectionIndexes[0]].label);
-						}
-						
-						if(resultModel.clbs[k].wiresIn[resultModel.clbs[k].inConnectionIndexes[1]].label instanceof CLBBox) {
-							CLBBox box = (CLBBox) resultModel.clbs[k].wiresIn[resultModel.clbs[k].inConnectionIndexes[1]].label;
-							System.out.println(resultModel.clbs[k].title + ").label_2: " + box.title);
-						} else {
-							System.out.println(resultModel.clbs[k].title + ").label_2: "
-									+ resultModel.clbs[k].wiresIn[resultModel.clbs[k].inConnectionIndexes[1]].label);
-						}
-						
-						System.out.println();
-					}
-
 					SwingUtilities.invokeLater(() -> {
 						JFrame f = new JFrame("Preglednik rezultata mapiranja");
 
@@ -189,6 +200,7 @@ public class NewTestSimpleGenetic {
 						tab.updateZoom(1.5);
 						f.setVisible(true);
 					});
+					alg.reset();
 				}
 			} catch (Exception ex) {
 				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy:MM:dd_HH:mm:ss");
@@ -199,7 +211,9 @@ public class NewTestSimpleGenetic {
 				ex.printStackTrace(pw);
 				pw.write("\n\n");
 			}
-
+			
+			System.out.println("Percentage: " + founded);
+			System.out.println("Average generations: " + (double) generations / (double)founded);
 		}
 		pw.flush();
 

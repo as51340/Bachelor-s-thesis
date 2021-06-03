@@ -44,7 +44,7 @@ import hr.fer.zemris.fpga.mapping.FPGAMapTask;
 public class AILibrary {
 	
 	
-	private int popSize = 50, generations = 30000, numAlgs = 100;
+	private int popSize = 100, generations = 30000, numAlgs = 100;
 	
 	private double mutationRate = 0.05;
 
@@ -384,7 +384,7 @@ public class AILibrary {
 				crosser, null, fpgaEvaluator, mapTask, model, sfpga, logger);
 
 		FPGAGeneticAlgorithm alg66 = new EliminativeGeneticAlgorithmSelectionElitistic(false, "SV66", "EliminativeGeneticAlgorithmKSelectionElitistic",
-				popSize, generations, mutationRate, initer, random, simpleCleanerAdvancedSwitchBox, kTourSelect,
+				popSize, generations, mutationRate, initer, random, simpleCleanerAdvancedSwitchBox, rouletteWheel,
 				validCrosser, swapMutator, fpgaEvaluator, mapTask, model, sfpga, logger);
 		
 		

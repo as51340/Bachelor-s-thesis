@@ -10,7 +10,7 @@ public class Coefficients {
 	/**
 	 * CLB not connected correctly
 	 */
-	public static double OUTPUT_PENALTY = -1.0;
+	public static double OUTPUT_PENALTY = -1.25;
 	
 	/**
 	 * What is connected on output pin
@@ -20,7 +20,7 @@ public class Coefficients {
 	/**
 	 * Input not okay
 	 */
-	public static double INPUT_PENALTY = -1.0;
+	public static double INPUT_PENALTY = -1.25;
 	
 	/**
 	 * If we expect clb and get pin or viceversa
@@ -30,42 +30,48 @@ public class Coefficients {
 	/**
 	 * More than one label on some segment
 	 */
-	public static double COLLISION_PENALTY = -25.0;	
+	public static double COLLISION_PENALTY = -20.0;	
 	
 	/**
 	 * Nothing is connected
 	 */
-	public static double BLACK_LABEL = -9.25;
+	public static double BLACK_LABEL = -8.75;
 		
 	/**
 	 * If more than SW_BOX_CONNECTIONS_MAX in the box
 	 */
-	public static double SW_BOX_MAX_OVERFLOW_PENALTY = -0.5;
-	
+	public static double SW_BOX_MAX_OVERFLOW_PENALTY = -2.0;
+
 	/**
 	 * If there are more connections from one wire to one group
 	 */
-	public static double MULTIPLE_VALUES = -2.75;
+	public static double MULTIPLE_VALUES = -2.0;
 	
 	/**
 	 * If wire from switch box is connected to wire that has label null
 	 */
-	public static double SW_WIRE_TO_NULL = -0.25;
+	public static double SW_WIRE_TO_NULL = -4.5;
+	
+	/**
+	 * No connection in switch box
+	 */
+	public static double SW_EMPTY = -0;
 	
 	/**
 	 * Input pin isn't propagated 
 	 */
-	public static double INPUT_TO_NOWHERE = -3.25;
+	public static double INPUT_TO_NOWHERE = -2.5;
 	
 	/**
 	 * Max connections in one switch box: model based estimation
 	 * @param wiresCount
 	 * @return
 	 */
-	public static int getMaxConnections(int wiresCount) {
-		return 2*wiresCount -1;
+	public static int getMaxConnections(int params) {
+		return 2*params -1;
 	}
 	
 	
 
 }
+
