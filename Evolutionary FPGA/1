@@ -1,0 +1,14 @@
+Percentage: 1.0
+Average generations: 179.88
+***Printing output properties***
+Aliases failures: 20264
+Label is null: 7414
+Wrong type: 12850
+Clb title is null: 0
+Wrong title name: 0
+
+***Printing input properites***
+Input failures: 21927
+Input black label: 13272
+Input wrong type: 20677
+Wrong name: 5518

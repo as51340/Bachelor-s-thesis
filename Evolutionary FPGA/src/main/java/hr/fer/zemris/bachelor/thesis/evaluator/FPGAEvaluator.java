@@ -27,6 +27,8 @@ import hr.fer.zemris.fpga.mapping.FPGAMapTask.CLB;
  *
  */
 public class FPGAEvaluator implements Evaluator {
+	
+	public static int aliasesFailures = 0, inputsFailures = 0;
 
 	public boolean valid = true;
 
@@ -87,11 +89,9 @@ public class FPGAEvaluator implements Evaluator {
 					model1.pinsPerSegment); // not sure if all would be deleted
 			
 			for (int i = 0; i < mapTask.clbs.length; i++) {
-//				System.out.println(conf.clbIndexes[i]);
 				model.clbs[conf.clbIndexes[i]].setTitle(mapTask.clbs[i].name);
 				model.clbs[conf.clbIndexes[i]].lut = sfpga.getLuts()[mapTask.clbs[i].decomposedIndex];
 			}
-//			System.out.println();
 			for (int i = 0; i < mapTask.variables.length; i++) {
 				model.pins[conf.pinIndexes[i]].setTitle(mapTask.variables[i]);
 			}
@@ -107,16 +107,20 @@ public class FPGAEvaluator implements Evaluator {
 
 			model.loadFromConfiguration(conf.configuration);
 
-//			model.fillLabels();
-			// result.distinctMultiples; //koliko je zica u problemima
-			// result.cumulativeMultiples //za svako novo gazenje broj koliko gazenja ima
-			// isto uvest kaznjavanje za to
-
 			// not very efficient but should work for keeping free pin out from use
 			for (int i = 0; i < model.pins.length; i++) {
 				if (model.pins[i].title == null) {
 					model.pins[i].connectionIndex = -1;
 					model.pins[i].input = false;
+				}
+			}
+			for(int i = 0; i < model.clbs.length; i++) {
+				CLBBox currBox = model.clbs[i];
+				if(currBox.title == null) {
+					currBox.outConnectionIndex = -1;
+					for(int j = 0; j < currBox.inConnectionIndexes.length; j++) {
+						currBox.inConnectionIndexes[j] = -1;
+					}
 				}
 			}
 
@@ -213,11 +217,11 @@ public class FPGAEvaluator implements Evaluator {
 		
 		
 
-		if (((SimpleAliasesEvaluator) aliasesEvaluator).valid) {
-//			System.out.println("Aliases je true");
-			if (((SimpleCLBInputsEvaluator) clbInputsEvaluator).valid) {
-//				System.out.println("Inputs je true");
-			}
+		if (!((SimpleAliasesEvaluator) aliasesEvaluator).valid) {
+			FPGAEvaluator.aliasesFailures++;	
+		}
+		if (!((SimpleCLBInputsEvaluator) clbInputsEvaluator).valid) {
+			FPGAEvaluator.inputsFailures++;
 		}
 
 		valid = valid && ((SimpleAliasesEvaluator) aliasesEvaluator).valid;

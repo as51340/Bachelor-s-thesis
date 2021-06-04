@@ -44,7 +44,7 @@ import hr.fer.zemris.fpga.mapping.FPGAMapTask;
 public class AILibrary {
 	
 	
-	private int popSize = 100, generations = 30000, numAlgs = 100;
+	private int popSize = 50, generations = 70000, numAlgs = 100;
 	
 	private double mutationRate = 0.05;
 

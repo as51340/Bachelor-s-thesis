@@ -3,5 +3,5 @@ Variables: [A,B]
 Function(s) [F,G] is/are at outputs: [0,1]
 CLB(0): A B
 1001
-CLB(1): CLB(0) B
+CLB(1): A B
 1010

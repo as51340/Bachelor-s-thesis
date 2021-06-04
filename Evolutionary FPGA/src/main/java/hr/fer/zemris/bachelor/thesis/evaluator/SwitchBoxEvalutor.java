@@ -25,7 +25,6 @@ public class SwitchBoxEvalutor implements Evaluator {
 		int maxConnections = Coefficients.getMaxConnections(model.clbs[0].inConnectionIndexes.length); //maximum where clb is in the middle or something similar
 
 		double sol = 0.0;
-
 		for (int i = 0; i < swBoxes.length; i++) {
 
 			int row = i / (model.columns + 1);
@@ -57,20 +56,18 @@ public class SwitchBoxEvalutor implements Evaluator {
 				List<Integer> group = groups.get(z);
 				Set<Integer> seen = new HashSet<>();
 				for(int l = 0; l < group.size(); l++) {
-					if(!seen.add(group.get(l))) sol += Coefficients.MULTIPLE_VALUES;
+					if(!seen.add(group.get(l))) sol += Coefficients.MULTIPLE_VALUES; //same punisghment as it is for connection quality evaluator
 				}
 			}
-			
-			
+				
 			int localMaxConnections = maxConnections;
-			if(row == 0 || row == model.rows || col == 0 || col == model.columns) localMaxConnections /= 2; //we are somewhere in the corner
+			if(row == 0 || row == model.rows || col == 0 || col == model.columns) localMaxConnections = (localMaxConnections + 1) / 2;; //we are somewhere in the corner
 			
 			if(connections > localMaxConnections) {
 				sol += (connections - localMaxConnections) * Coefficients.SW_BOX_MAX_OVERFLOW_PENALTY; //add overflow error
 			} else if(connections == 0) {
-//				sol += Coefficients.SW_EMPTY;
+				sol += Coefficients.SW_EMPTY; 
 			}
-			
 		}
 
 		return sol;

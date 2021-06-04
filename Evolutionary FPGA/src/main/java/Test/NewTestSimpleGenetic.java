@@ -1,7 +1,6 @@
 package Test;
 
 import java.awt.BorderLayout;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,44 +13,15 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
-import hr.fer.zemris.bachelor.thesis.ai.EliminativeGeneticAlgorithmSelectionElitistic;
 import hr.fer.zemris.bachelor.thesis.ai.FPGAGeneticAlgorithm;
-import hr.fer.zemris.bachelor.thesis.ai.GenerationalGeneticAlgorithm;
-import hr.fer.zemris.bachelor.thesis.ai.GenerationalGeneticAlgorithmElitistic;
-import hr.fer.zemris.bachelor.thesis.ai.SimplestGeneticAlgorithm;
-import hr.fer.zemris.bachelor.thesis.ai.SimplestGeneticAlgorithmElitistic;
-import hr.fer.zemris.bachelor.thesis.ai.crossover.BreakpointCrossover;
-import hr.fer.zemris.bachelor.thesis.ai.crossover.Crossover;
-import hr.fer.zemris.bachelor.thesis.ai.crossover.CrossoverAS;
-import hr.fer.zemris.bachelor.thesis.ai.crossover.ExponentialCrossover;
-import hr.fer.zemris.bachelor.thesis.ai.crossover.SimpleCrossover;
-import hr.fer.zemris.bachelor.thesis.ai.crossover.ValidCrossover;
 import hr.fer.zemris.bachelor.thesis.ai.gui.EvolutionaryFPGAGUIMaker;
-import hr.fer.zemris.bachelor.thesis.ai.initialization.AIFPGAConfigurationInitializer;
-import hr.fer.zemris.bachelor.thesis.ai.mutation.Mutation;
-import hr.fer.zemris.bachelor.thesis.ai.mutation.MutationSwap;
-import hr.fer.zemris.bachelor.thesis.ai.mutation.SimpleMutation;
-import hr.fer.zemris.bachelor.thesis.ai.selection.KTournamentSelection;
-import hr.fer.zemris.bachelor.thesis.ai.selection.Selector;
-import hr.fer.zemris.bachelor.thesis.ai.selection.RouletteWheelSelection;
-import hr.fer.zemris.bachelor.thesis.evaluator.Evaluator;
 import hr.fer.zemris.bachelor.thesis.evaluator.FPGAEvaluator;
 import hr.fer.zemris.bachelor.thesis.evaluator.SimpleAliasesEvaluator;
 import hr.fer.zemris.bachelor.thesis.evaluator.SimpleCLBInputsEvaluator;
-import hr.fer.zemris.bachelor.thesis.evaluator.TracingEvaluator;
 import hr.fer.zemris.bachelor.thesis.mapping.AIFPGAMapper;
-import hr.fer.zemris.bachelor.thesis.mapping.configuration.AIFPGAConfiguration;
-import hr.fer.zemris.bachelor.thesis.mapping.configuration.AIFPGAConfigurationRandomizer;
-import hr.fer.zemris.bachelor.thesis.mapping.configuration.cleaner.AIFPGAAdvancedConfigurationCleaner;
-import hr.fer.zemris.bachelor.thesis.mapping.configuration.cleaner.AIFPGAConfigurationCleaner;
-import hr.fer.zemris.bachelor.thesis.mapping.configuration.cleaner.AIFPGASimpleConfigurationCleaner;
-import hr.fer.zemris.bachelor.thesis.mapping.configuration.cleaner.swboxes.AdvancedSwitchBoxCleaner;
-import hr.fer.zemris.bachelor.thesis.mapping.configuration.cleaner.swboxes.SimpleSwitchBoxCleaner;
-import hr.fer.zemris.bachelor.thesis.mapping.configuration.cleaner.swboxes.SwitchBoxCleaner;
 import hr.fer.zemris.bachelor.thesis.util.AILibrary;
 import hr.fer.zemris.bool.SimpleFPGA;
 import hr.fer.zemris.fpga.FPGAModel;
-import hr.fer.zemris.fpga.FPGAModel.CLBBox;
 import hr.fer.zemris.fpga.LogWriter;
 import hr.fer.zemris.fpga.StandardLogWriter;
 import hr.fer.zemris.fpga.gui.FPGATabX;
@@ -66,16 +36,40 @@ import hr.fer.zemris.fpga.mapping.FPGAMapTask;
 public class NewTestSimpleGenetic {
 
 	public static void main(String[] args) throws IOException {
-		int rows = 2, columns = 2, pins = 1, variables = 2, wires = 5;
+
+		String fileName = "./src/main/resources/2vs1-three-vars.txt"; // wont load with resource as stream
+		int rows = 2, columns = 2, pins = 1, variables = 2, wires = 5, nums = 1;
+		if (args.length == 0) {
+			System.out.println("Running program with default settings!");
+		}
+		for (int i = 0; i < args.length - 1; i++) {
+			if (args[i].equals("--rows")) {
+				rows = Integer.parseInt(args[i + 1]);
+			} else if (args[i].equals("--cols")) {
+				columns = Integer.parseInt(args[i + 1]);
+			} else if (args[i].equals("--pins")) {
+				pins = Integer.parseInt(args[i + 1]);
+			} else if (args[i].equals("--variables")) {
+				variables = Integer.parseInt(args[i + 1]);
+			} else if (args[i].equals("--wires")) {
+				wires = Integer.parseInt(args[i + 1]);
+			} else if (args[i].equals("--file")) {
+				fileName = args[i + 1];
+			} else if (args[i].endsWith("--nums")) {
+				nums = Integer.parseInt(args[i + 1]);
+			}
+		}
 		FPGAModel model = new FPGAModel(rows, columns, variables, wires, pins);
-		String fileName = "./src/main/resources/2vs1.txt"; // wont load with resource as stream
 		String text = Files.readString(Paths.get(fileName));
 		SimpleFPGA sfpga = SimpleFPGA.parseFromText(text);
 
 		LogWriter logger = new StandardLogWriter();
 		AIFPGAMapper mapper = new AIFPGAMapper(logger);
 		FPGAMapTask mapTask = FPGAMapTask.fromSimpleFPGA(sfpga);
-
+		if (mapTask.clbs.length > rows * columns) {
+			System.out.println("I don't have enough CLB chips, exiting...");
+			return;
+		}
 		AILibrary library = new AILibrary();
 		library.constructLibrary(model, mapTask, sfpga, logger);
 
@@ -83,14 +77,15 @@ public class NewTestSimpleGenetic {
 		PrintWriter pw = new PrintWriter(fw);
 
 		for (int i = 65; i < 66; i++) {
-			
+
 			int founded = 0;
 			long generations = 0;
 			FPGAGeneticAlgorithm alg = library.instances[i];
-			
+			long t1 = System.currentTimeMillis(), t2;
+
 			try {
-				for (int j = 0; j < 1; j++) {
-					
+				for (int j = 0; j < nums; j++) {
+
 //					if (alg.selector != null) {
 //						alg.selector.intensities.clear();
 //					}
@@ -108,13 +103,17 @@ public class NewTestSimpleGenetic {
 //
 //					FPGAEvaluator.DEBUG = true;
 //					FPGAEvaluator.EvaluatorArranger.prepareModelForEvaluation(resultModel, bestConf, mapTask, sfpga);
-//
-//					SwingUtilities.invokeLater(() -> {
-//						new EvolutionaryFPGAGUIMaker(
-//								alg.shortName, alg.name + " pop: " + alg.populationSize + " generations: "
-//										+ alg.generations + " mutation rate: " + alg.mutationRate,
-//								alg.genToBest, alg.genToAvg);
-//					});
+////
+//					if(nums == 1) {
+//						SwingUtilities.invokeLater(() -> {
+//							new EvolutionaryFPGAGUIMaker(
+//									alg.shortName, alg.name + " pop: " + alg.populationSize + " generations: "
+//											+ alg.generations + " mutation rate: " + alg.mutationRate,
+//									alg.genToBest, alg.genToAvg);
+//						});		
+//					}
+				
+
 //					if (alg.selector != null) {
 //						SwingUtilities.invokeLater(() -> {
 //							new EvolutionaryFPGAGUIMaker("Selection intensity process", alg.selector.intensities);
@@ -179,28 +178,29 @@ public class NewTestSimpleGenetic {
 //						System.out.println();
 //					}
 
-					if(alg.solFounded == true) {
-						founded++; //one more founded
-						generations += alg.finalGen; //more generations
-					} else {
-						System.out.println(j);
+					if (alg.solFounded == true) {
+						founded++; // one more founded
+						generations += alg.finalGen; // more generations
 					}
-					SwingUtilities.invokeLater(() -> {
-						JFrame f = new JFrame("Preglednik rezultata mapiranja");
+					if (nums == 1) { //run mode, othewise "train" mode
+						SwingUtilities.invokeLater(() -> {
+							JFrame f = new JFrame("Preglednik rezultata mapiranja");
 
-						f.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-						f.setSize(1200, 960);
-						f.getContentPane().setLayout(new BorderLayout());
+							f.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+							f.setSize(1200, 960);
+							f.getContentPane().setLayout(new BorderLayout());
 
-						FPGATabX tab = new FPGATabX();
-						tab.installFPGAModel(resultModel, sfpga);
+							FPGATabX tab = new FPGATabX();
+							tab.installFPGAModel(resultModel, sfpga);
 
-						f.getContentPane().add(tab, BorderLayout.CENTER);
-
-						tab.updateZoom(1.5);
-						f.setVisible(true);
-					});
-					alg.reset();
+							f.getContentPane().add(tab, BorderLayout.CENTER);
+							tab.updateZoom(1.5);
+							f.setVisible(true);
+						});
+					}
+					if(nums > 1) {
+						alg.reset();
+					}
 				}
 			} catch (Exception ex) {
 				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy:MM:dd_HH:mm:ss");
@@ -211,12 +211,24 @@ public class NewTestSimpleGenetic {
 				ex.printStackTrace(pw);
 				pw.write("\n\n");
 			}
-			
-			System.out.println("Percentage: " + founded);
-			System.out.println("Average generations: " + (double) generations / (double)founded);
+			t2 = System.currentTimeMillis();
+			System.out.println("Running time: " + (t2 - t1) / 1000.0 + "s");
+			System.out.println("Percentage: " + founded / (double) nums);
+			System.out.println("Average generations: " + (double) generations / (double) founded);
+			System.out.println("***Printing output properties***");
+			System.out.println("Aliases failures: " + FPGAEvaluator.aliasesFailures);
+			System.out.println("Label is null: " + SimpleAliasesEvaluator.labelIsNull);
+			System.out.println("Wrong type: " + SimpleAliasesEvaluator.wrongType);
+			System.out.println("Clb title is null: " + SimpleAliasesEvaluator.clbTitleIsNull);
+			System.out.println("Wrong title name: " + SimpleAliasesEvaluator.wrongTitleName);
+			System.out.println();
+			System.out.println("***Printing input properites***");
+			System.out.println("Input failures: " + FPGAEvaluator.inputsFailures);
+			System.out.println("Input black label: " + SimpleCLBInputsEvaluator.inputBlackLabel);
+			System.out.println("Input wrong type: " + SimpleCLBInputsEvaluator.inputWrongType);
+			System.out.println("Wrong name: " + SimpleCLBInputsEvaluator.inputWrongName);
 		}
 		pw.flush();
-
 		pw.close();
 		fw.close();
 

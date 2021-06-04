@@ -65,7 +65,7 @@ public class AIFPGAConfigurationRandomizer {
 	private void randomSwitchBoxConfiguration(byte[][][] swBoxes) {
 		int maxConnections = Coefficients.getMaxConnections(model.clbs[0].inConnectionIndexes.length);
 
-		int conns = nextIntBetween(1, maxConnections); // 1 to 5 for example
+		int conns = nextIntBetween(1, maxConnections+1); // 1 to 5 for example
 
 		for (int i = 0; i < swBoxes.length; i++) {
 

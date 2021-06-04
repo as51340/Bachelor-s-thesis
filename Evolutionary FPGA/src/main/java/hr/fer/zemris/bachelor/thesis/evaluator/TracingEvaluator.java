@@ -27,16 +27,17 @@ public class TracingEvaluator implements Evaluator {
 	public double evaluate(AIFPGAConfiguration conf, FPGAModel model, FPGAMapTask mapTask) {
 		FillLabelsResult tracingResult = fillLabels(model, mapTask);
 		
-//		double tracers = (tracingResult.aliasesTracingResult + tracingResult.inputsTracingResult) / 150.0;
+		double distinct_result = tracingResult.distinctMultiples * Coefficients.COLLISION_PENALTY; //linear function of collisions
+		double tracers = (tracingResult.aliasesTracingResult + tracingResult.inputsTracingResult) / 135.0;
+		double cumulative_result = 1.25 * tracingResult.cumulativeMultiples / Coefficients.COLLISION_PENALTY * 0.75; // cumulative result
+//		System.out.println("Distinct result: "  + distinct_result);
+//		System.out.println("Aliases tracers: " + tracingResult.aliasesTracingResult);
+//		System.out.println("Input tracers: " + tracingResult.inputsTracingResult);
+//		System.out.println("Tracers: " + tracers);
+//		System.out.println("Cumulative result: " + cumulative_result);
+//		System.out.println();
 		
-//		System.out.println("Distinct multiples " + distinctMultiples);
-		
-//		double result = (tracers - distinctMultiples - cumulativeMultiples) / 2;
-		
-		double result = tracingResult.distinctMultiples * Coefficients.COLLISION_PENALTY; //linear function of collisions
-//		System.out.println(result);
-		
-		return result;
+		return distinct_result + cumulative_result;
 	}
 
 	/**
@@ -60,8 +61,6 @@ public class TracingEvaluator implements Evaluator {
 			}
 		}
 		for (CLBBox box : model.clbs) {
-//			System.out.pr	intln();
-//			System.out.println("Fill labels " + box.title + " out conn index " + box.outConnectionIndex);
 			if (box.outConnectionIndex != -1) {
 				fillLabel(box, box.wiresOut[box.outConnectionIndex], result, model, mapTask);
 			}
@@ -70,7 +69,6 @@ public class TracingEvaluator implements Evaluator {
 	}
 
 	private int checkPinsTrace(FPGAModel model, WireSegment segment, int dist, FPGAMapTask mapTask) {
-//		System.out.println("Starting pin tracing algorithm");
 		int res = 0;
 		Map<String, String> aliases = mapTask.aliasMap;
 
@@ -99,9 +97,7 @@ public class TracingEvaluator implements Evaluator {
 //							System.out.println("Naslov CLB-a nije kao iz alias mapa: expexted " + aliases.get(pinTitle) + " but got " + box.title);
 						}
 					}
-
 				}
-
 			} else {
 //				System.out.println("Nije uopće taj segment!");
 			}
@@ -118,10 +114,7 @@ public class TracingEvaluator implements Evaluator {
 		for (int i = 0; i < model.clbs.length; i++) {
 			CLBBox box = model.clbs[i];
 			for (int j = 0; j < box.inConnectionIndexes.length; j++) {
-				if (box.inConnectionIndexes[j] == -1) {
-//					System.out.println(box.title + " has connection index -1 on input " + j);
-					continue;
-				}
+				if (box.inConnectionIndexes[j] == -1) continue;
 				if (box.wiresIn[box.inConnectionIndexes[j]] == segment) {
 					Object label = segment.label;
 					if (label instanceof Pin) {
@@ -131,7 +124,7 @@ public class TracingEvaluator implements Evaluator {
 //						CLBBox boxLabel = (CLBBox) label;
 //						System.out.println("Founded " + boxLabel.title + " on index " + j + " on box " + box.title + " with distance " + dist);
 					}
-					res += dist;
+					res = dist;
 				} else {
 //					System.out.println("Nije uopće taj segment");
 				}
@@ -152,9 +145,7 @@ public class TracingEvaluator implements Evaluator {
 		boolean multipleFound = false;
 		while (!newSet.isEmpty()) {
 			WireSegment currentSegment = newSet.remove(0);
-
 			int dist = distances.removeFirst();
-
 			visitedSet.add(currentSegment);
 			if (currentSegment.label == null) {
 				if (label instanceof CLBBox) {

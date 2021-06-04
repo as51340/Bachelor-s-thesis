@@ -1,0 +1,176 @@
+One logical clb into 1x1 FPGA configuration
+Percentage: 1.0
+Average generations: 258.44666666666666
+***Printing output properties***
+Aliases failures: 82784
+Label is null: 29542
+Wrong type: 53242
+Clb title is null: 0
+Wrong title name: 0
+
+***Printing input properites***
+Input failures: 89697
+Input black label: 52205
+Input wrong type: 86915
+Wrong name: 22136
+\n
+One logical clb into 2x1 FPGA configuration
+Percentage: 1.0
+Average generations: 387.98333333333335
+***Printing output properties***
+Aliases failures: 117791
+Label is null: 60036
+Wrong type: 57755
+Clb title is null: 0
+Wrong title name: 0
+
+***Printing input properites***
+Input failures: 129210
+Input black label: 108616
+Input wrong type: 93923
+Wrong name: 30056
+\n
+One logical clb into 1x2 FPGA configuration
+Percentage: 1.0
+Average generations: 537.4766666666667
+***Printing output properties***
+Aliases failures: 159042
+Label is null: 78985
+Wrong type: 80057
+Clb title is null: 0
+Wrong title name: 0
+
+***Printing input properites***
+Input failures: 174058
+Input black label: 158316
+Input wrong type: 122039
+Wrong name: 36237
+\n
+One logical clb into 2x2 FPGA configuration
+Percentage: 1.0
+Average generations: 1132.4133333333334
+***Printing output properties***
+Aliases failures: 328285
+Label is null: 223363
+Wrong type: 104922
+Clb title is null: 0
+Wrong title name: 0
+
+***Printing input properites***
+Input failures: 350266
+Input black label: 414245
+Input wrong type: 141507
+Wrong name: 80201
+\n
+Two logical clbs into 2x1 FPGA configuration
+Percentage: 0.9066666666666666
+Average generations: 9548.01838235294
+***Printing output properties***
+Aliases failures: 3388794
+Label is null: 2075149
+Wrong type: 3040764
+Clb title is null: 0
+Wrong title name: 977557
+
+***Printing input properites***
+Input failures: 3435504
+Input black label: 4047677
+Input wrong type: 5693209
+Wrong name: 2212501
+\n
+Two logical clbs into 1x2 FPGA configuration
+Percentage: 0.25
+Average generations: 14318.853333333333
+***Printing output properties***
+Aliases failures: 7682007
+Label is null: 5271723
+Wrong type: 5647593
+Clb title is null: 0
+Wrong title name: 2631752
+
+***Printing input properites***
+Input failures: 7825385
+Input black label: 9253182
+Input wrong type: 13169993
+Wrong name: 5086460
+
+
+Two logical clbs into 2x2 FPGA configuration
+Percentage: 0.27666666666666667
+Average generations: 16838.795180722893
+***Printing output properties***
+Aliases failures: 7858358
+Label is null: 7023447
+Wrong type: 6087480
+Clb title is null: 0
+Wrong title name: 1334742
+
+***Printing input properites***
+Input failures: 7909387
+Input black label: 11907351
+Input wrong type: 12212410
+Wrong name: 3967999
+
+Two logical clbs with three variables nto 2x1 FPGA configuration
+Percentage: 0.57
+Average generations: 14886.122807017544
+***Printing output properties***
+Aliases failures: 6319537
+Label is null: 3936278
+Wrong type: 5673048
+Clb title is null: 0
+Wrong title name: 1779224
+
+***Printing input properites***
+Input failures: 6425799
+Input black label: 6841864
+Input wrong type: 9553298
+Wrong name: 6441554
+
+Two logical clbs with three variables into 1x2 FPGA configuration
+Percentage: 0.14
+Average generations: 15653.642857142857
+***Printing output properties***
+Aliases failures: 8294942
+Label is null: 5716375
+Wrong type: 6941349
+Clb title is null: 0
+Wrong title name: 2309404
+
+***Printing input properites***
+Input failures: 8410569
+Input black label: 9002480
+Input wrong type: 14294665
+Wrong name: 7254338
+\n
+Two logical clbs with three variables into 2x2 FPGA configuration
+Percentage: 0.08666666666666667
+Average generations: 21384.80769230769
+***Printing output properties***
+Aliases failures: 8733432
+Label is null: 7460922
+Wrong type: 7515688
+Clb title is null: 0
+Wrong title name: 1267192
+
+***Printing input properites***
+Input failures: 8789119
+Input black label: 12248275
+Input wrong type: 13972761
+Wrong name: 6022573
+Three logical clbs into 2x2 FPGA configuration
+Percentage: 0.08
+Average generations: 22931.0
+***Printing output properties***
+Aliases failures: 8794852
+Label is null: 7534054
+Wrong type: 7590563
+Clb title is null: 0
+Wrong title name: 1252668
+
+***Printing input properites***
+Input failures: 8843498
+Input black label: 12293306
+Input wrong type: 13993051
+Wrong name: 6106279
+\n

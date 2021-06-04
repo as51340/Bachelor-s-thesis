@@ -8,54 +8,84 @@ package hr.fer.zemris.bachelor.thesis.evaluator;
 public class Coefficients {
 	
 	/**
+	 * Nothing on output
+	 */
+	public static double OUTPUT_BLACK_LABEL = -22.25;
+	
+	/**
+	 * When output pin contains label from empty clb box
+	 */
+	public static double OUTPUT_NULL_CLB = -7.25;
+	
+	/**
 	 * CLB not connected correctly
 	 */
-	public static double OUTPUT_PENALTY = -1.0;
+	public static double OUTPUT_PENALTY = -2.5;
 	
 	/**
 	 * What is connected on output pin
 	 */
-	public static double OUTPUT_WRONG_TYPE = -2.5;
+	public static double OUTPUT_WRONG_TYPE = -20.5;
 	
 	/**
 	 * Input not okay
 	 */
-	public static double INPUT_PENALTY = -1.0;
+	public static double INPUT_PENALTY = -3.25;
+	
+	/**
+	 * Output pin on input
+	 */
+	public static double INPUT_WRONG_PIN_TYPE = -6.75;
 	
 	/**
 	 * If we expect clb and get pin or viceversa
 	 */	
-	public static double INPUT_WRONG_TYPE = -2.5;
+	public static double INPUT_WRONG_TYPE = -22.25;
+	
+	/**
+	 * More than one same input occurrs
+	 */
+	public static double INPUT_MULTIPLES = -5.25; // izbaci iz lokalnog optimuma
 	
 	/**
 	 * More than one label on some segment
 	 */
-	public static double COLLISION_PENALTY = -25.0;	
+	public static double COLLISION_PENALTY = -35.0;	
 	
 	/**
 	 * Nothing is connected
 	 */
-	public static double BLACK_LABEL = -9.25;
+	public static double BLACK_LABEL = -27.25;
 		
 	/**
 	 * If more than SW_BOX_CONNECTIONS_MAX in the box
 	 */
-	public static double SW_BOX_MAX_OVERFLOW_PENALTY = -0.5;
+	public static double SW_BOX_MAX_OVERFLOW_PENALTY = -3.25;
 	
 	/**
 	 * If there are more connections from one wire to one group
 	 */
-	public static double MULTIPLE_VALUES = -2.75;
+	public static double MULTIPLE_VALUES = -4.5;
 	
 	/**
 	 * If wire from switch box is connected to wire that has label null
 	 */
-	public static double SW_WIRE_TO_NULL = -0.25;
+	public static double SW_WIRE_TO_NULL = -0.75;
+	
+	/**
+	 * Switch box empty
+	 */
+	public static double SW_EMPTY = -3.25;
 	
 	/**
 	 * Input pin isn't propagated 
 	 */
-	public static double INPUT_TO_NOWHERE = -3.25;
+	public static double INPUT_TO_NOWHERE = -9.25;
+	
+	/**
+	 * Output is not propagated - punish only if needs to be punished
+	 */
+	public static double OUTPUT_TO_NOWHERE = -8.25;
 	
 	/**
 	 * Max connections in one switch box: model based estimation
@@ -63,7 +93,7 @@ public class Coefficients {
 	 * @return
 	 */
 	public static int getMaxConnections(int wiresCount) {
-		return 2*wiresCount -1;
+		return 3;
 	}
 	
 	

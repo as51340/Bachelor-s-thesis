@@ -288,22 +288,64 @@ Dodano da se kažnjava ako idu s iste žice na više njih u istoj grupi.
 
 0.5 na mutaciji, v2Coefficients na 30000 generacija pronalazi uvijek 1x2.
 
+Poboljšati mutator i crosser tako da ne rade s clb boxevima koji nisu zadani. Smanjiti prostor pretraživanja.
+Kazniti ako su susjedni outputi - makar da li je to stv bitno.
+
+Testset: 3 varijable dvije okomite
+
+OUTPUT_BLACK_LABEL = -9.75
+OUTPUT_NULL_CLB -7.15
+OUTPUT_PENALTY = -1.0;
+OUTPUT_WRONG_TYPE -4.5
+84%
+
+OUTPUT_BLACK_LABEL = -9.75
+OUTPUT_NULL_CLB -7.75
+OUTPUT_PENALTY = -1.0;
+OUTPUT_WRONG_TYPE -4.5
+78%
+
+OUTPUT_BLACK_LABEL = -9.75
+OUTPUT_NULL_CLB -7.75
+OUTPUT_PENALTY = -1.0;
+OUTPUT_WRONG_TYPE -4.75
+71%
+13175.25
 
 
+OUTPUT_BLACK_LABEL = -10.0
+OUTPUT_NULL_CLB = -8.25
+OUTPUT_PENALTY = -1.0
+OUTPUT_WRONG_TYPE = -4.5
+74.6%
+12465.84
 
+-9.5
+-7.25
+75.3%
 
+BlackLabel -8.75
+75%
+12.789
 
+Updejtaj stare postotke s novim koeficijentima = prvih 5 redaka
+Bash script for testing
 
+Napomeni da nakon što smo dodatno smanjili prostor pretraživanja kako je porastao postotak pronalaska rješenja. Makar nije to neko veliko smanjenje prostora
+pretraživanja.
+Ogroman black label potencijal neki za praznine. Postotak pronalska postaje onda 27.67% i generacije 16983.93
+-21.25
+Dodano da se prati da li se output signal negdje prenosi ili ne.
 
+U principu je zaključak da su nam generalno bolji stari koeficijenti, ali da nam koeficijenti pod rednim brojem dva daju rezultate za mapiranje dva logička clba vodoravno i u 2x2 konfiguraciji.
 
+Za 5 žica je postotak pronalaska 49%, ali uz promijenjene koeficijente i broj generacija koji je jednak 70000
 
+Pokrenuta je nova verzija koja mapira clba s tri varijable u 4 clba - potencijalni FPGA6.jar?
 
+6.verzija pokrenuta, lokalno pokrenuto 100 puta tri var u 4clba.
 
-
-
-
-
-
+Sedmica je nova jer mi je dala 45 i nešto posto za tri varijable 2 CLB-a.
 
 
 

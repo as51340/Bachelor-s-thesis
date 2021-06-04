@@ -1,5 +1,8 @@
 package hr.fer.zemris.bachelor.thesis.evaluator;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import hr.fer.zemris.bachelor.thesis.mapping.configuration.AIFPGAConfiguration;
 import hr.fer.zemris.fpga.FPGAModel;
 import hr.fer.zemris.fpga.FPGAModel.CLBBox;
@@ -18,6 +21,8 @@ import hr.fer.zemris.fpga.mapping.FPGAMapTask.CLB;
  */
 public class SimpleCLBInputsEvaluator implements Evaluator {
 	
+	public static int inputBlackLabel = 0, inputWrongType = 0, inputWrongName = 0;
+	
 	public boolean valid = true;
 	
 	@Override
@@ -31,6 +36,10 @@ public class SimpleCLBInputsEvaluator implements Evaluator {
 			CLBBox clbModel = clbs[conf.clbIndexes[i]]; // consider model
 			CLB clbTask = mapTaskClbs[i];
 			String[] inputsTask = clbTask.inputs;
+			
+			Set<String> used = new HashSet<>();
+			
+			
 			for (int j = 0; j < clbTask.inputs.length; j++) {
 				if(clbModel.inConnectionIndexes[j] == -1) { //ako je connection index =-1
 					throw new IllegalStateException("CLB: " + clbModel.title + " input connection index: " + j + " is -1");
@@ -39,40 +48,55 @@ public class SimpleCLBInputsEvaluator implements Evaluator {
 					throw new IllegalStateException("CLB: " + clbModel.title + " output connection index is -1");
 				}
 				if (clbModel.wiresIn[clbModel.inConnectionIndexes[j]].label == null) { //completely blackness :-/
-					sol += Coefficients.BLACK_LABEL; //too bad it isn't red
+					inputBlackLabel++;
+					sol += Coefficients.BLACK_LABEL; 
 					valid = false;
 					continue;
 				}
 				if (inputsTask[j].startsWith("CLB(")) { //ako treba naći clb
 					if (!(clbModel.wiresIn[clbModel.inConnectionIndexes[j]].label instanceof CLBBox)) {
+						inputWrongType++;
 						valid = false;
 						sol += Coefficients.INPUT_WRONG_TYPE;
 					} else { // it really is clb
 						CLBBox label = (CLBBox) clbModel.wiresIn[clbModel.inConnectionIndexes[j]].label;
 						if(label.title != null) {
-							if(!label.title.equals(inputsTask[j])) {
+							if(!used.add(label.title)) {
+								inputWrongName++;
+								valid = false;
+								sol += Coefficients.INPUT_MULTIPLES;
+							} else if(!label.title.equals(inputsTask[j])) {
+								inputWrongName++;
 								sol += Coefficients.INPUT_PENALTY;
 								valid = false;
 							}
-						} else {
-//							throw new IllegalStateException("Label is clb and its title is null");
-//							System.out.println("Label is clb and its title is null");
 						}
 					}
 				} else { // pin must be on input
 					if (!(clbModel.wiresIn[clbModel.inConnectionIndexes[j]].label instanceof Pin)) { // it's not pin
+						inputWrongType++;
 						sol += Coefficients.INPUT_WRONG_TYPE;
 						valid = false;
 					} else {
 						Pin label = (Pin) clbModel.wiresIn[clbModel.inConnectionIndexes[j]].label;
-						if(label.title != null) {
-							if (!label.title.equals(inputsTask[j])) { // it is pin but wrong
-								sol += Coefficients.INPUT_PENALTY;
-								valid = false;
-							}
+						if(!label.input) { // ako nije ulazni pin
+							sol += Coefficients.INPUT_WRONG_PIN_TYPE;
 						} else {
-							throw new IllegalStateException("Label is pin and its title is null");
+							if(!used.add(label.title)) {
+								inputWrongName++;
+								valid = false;
+								sol += Coefficients.INPUT_MULTIPLES;
+							} else if(label.title != null) {
+								if (!label.title.equals(inputsTask[j])) { // it is pin but wrong
+									inputWrongName++;
+									sol += Coefficients.INPUT_PENALTY;
+									valid = false;
+								}
+							} else { //na pinove se pazi na drugim mjestima
+								throw new IllegalStateException("Label is pin and its title is null");
+							}	
 						}
+						
 					}
 				}
 			}

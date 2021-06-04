@@ -102,7 +102,7 @@ public class EliminativeGeneticAlgorithmSelectionElitistic extends FPGAGeneticAl
 			}
 		}
 		solFounded = false;
-		System.out.println("Best fitness: " + max_value);
+//		System.out.println("Best fitness: " + max_value);
 	}
 	
 	

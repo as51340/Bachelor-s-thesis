@@ -32,11 +32,13 @@ public class SimpleAliasesEvaluator implements Evaluator {
 
 		for (String alias : aliasMap.keySet()) {
 			boolean founded = false;
+			int entered  = 0;
 			for (int i = 0; i < pins.length; i++) { // try to find matching
 				if (pins[i].input == true || pins[i].connectionIndex == -1 || pins[i].title == null
 						|| !pins[i].title.equals(alias)) { // title is null
 					continue;
-				}				
+				}
+				entered++;
 				Object v = pins[i].wires[pins[i].connectionIndex].label;
 				if (v != null) { // label is not null
 					if (v instanceof CLBBox) {
@@ -61,6 +63,7 @@ public class SimpleAliasesEvaluator implements Evaluator {
 					labelIsNull++;
 				}
 			}
+			if(entered > 1) System.out.println("Major leak!");
 			if (founded == false) { // nothing was founded
 				valid = false;
 			}
@@ -68,3 +71,4 @@ public class SimpleAliasesEvaluator implements Evaluator {
 		return sol;
 	}
 }
+

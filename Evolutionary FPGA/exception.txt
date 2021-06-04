@@ -664,3 +664,12 @@ java.lang.IllegalStateException: Label is clb and its title is null
 	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:98)
 
 
+2021:06:03_10:01:26
+Index 65 Shortcut: SV66 Full name: EliminativeGeneticAlgorithmKSelectionElitistic
+java.lang.ArrayIndexOutOfBoundsException: Index 1 out of bounds for length 1
+	at hr.fer.zemris.bachelor.thesis.evaluator.FPGAEvaluator$EvaluatorArranger.prepareModelForEvaluation(FPGAEvaluator.java:91)
+	at hr.fer.zemris.bachelor.thesis.ai.EliminativeGeneticAlgorithmSelectionElitistic.reproduction(EliminativeGeneticAlgorithmSelectionElitistic.java:46)
+	at hr.fer.zemris.bachelor.thesis.mapping.AIFPGAMapper.map(AIFPGAMapper.java:60)
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:98)
+
+

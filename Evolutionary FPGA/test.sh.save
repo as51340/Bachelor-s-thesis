@@ -1,0 +1,19 @@
+#!/bin/bash
+
+
+echo "Starting tests for EvolutionaryFPGA..."
+echo "Result are written in results.txt file"
+echo "Parameters for genetic algorithm: populationSize=50, iterations=30000, mutationRate=0.05"
+
+echo "Starting calculations for 1vs test..."
+echo "Rows: 1, Cols: 1, Pins: 1, Wires: 3, Variables: 2, testFile=1vs1.txt"
+rows=1
+cols=1
+wires=3
+testFile="./src/main/resources/1vs1.txt"
+java -jar FPGA.jar --rows 1 --cols 1 --pins 1 --variables 2 --wires 3 --file 1vs1.txt > results.txt 2>&1
+
+String fileName = -"./src/main/resources/2vs1-two-vars.txt"; // wont load with resource as stream
+
+
+

@@ -6,7 +6,7 @@ CLB(0): C B
 1001
 CLB(1): A B
 0110
-CLB(2): CLB(0) A
+CLB(2): C A
 1001
-CLB(3): CLB(2) D
+CLB(3): A D
 0110
