@@ -673,3 +673,45 @@ java.lang.ArrayIndexOutOfBoundsException: Index 1 out of bounds for length 1
 	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:98)
 
 
+2021:06:04_16:22:07
+Index 65 Shortcut: SV66 Full name: EliminativeGeneticAlgorithmKSelectionElitistic
+java.lang.NullPointerException: Cannot read field "configuration" because "bestConf" is null
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:186)
+
+
+2021:06:04_16:23:03
+Index 65 Shortcut: SV66 Full name: EliminativeGeneticAlgorithmKSelectionElitistic
+java.lang.NullPointerException: Cannot read field "configuration" because "bestConf" is null
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:186)
+
+
+2021:06:04_16:24:22
+Index 65 Shortcut: SV66 Full name: EliminativeGeneticAlgorithmKSelectionElitistic
+java.lang.NullPointerException: Cannot read field "configuration" because "bestConf" is null
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:186)
+
+
+2021:06:04_16:24:53
+Index 65 Shortcut: SV66 Full name: EliminativeGeneticAlgorithmKSelectionElitistic
+java.lang.NullPointerException: Cannot read field "configuration" because "bestConf" is null
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:186)
+
+
+2021:06:04_16:25:05
+Index 65 Shortcut: SV66 Full name: EliminativeGeneticAlgorithmKSelectionElitistic
+java.lang.NullPointerException: Cannot read field "configuration" because "bestConf" is null
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:186)
+
+
+2021:06:04_16:25:11
+Index 65 Shortcut: SV66 Full name: EliminativeGeneticAlgorithmKSelectionElitistic
+java.lang.NullPointerException: Cannot read field "configuration" because "bestConf" is null
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:186)
+
+
+2021:06:04_16:26:41
+Index 65 Shortcut: SV66 Full name: EliminativeGeneticAlgorithmKSelectionElitistic
+java.lang.NullPointerException: Cannot read field "configuration" because "bestConf" is null
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:186)
+
+

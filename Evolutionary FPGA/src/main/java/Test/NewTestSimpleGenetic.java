@@ -19,9 +19,12 @@ import hr.fer.zemris.bachelor.thesis.evaluator.FPGAEvaluator;
 import hr.fer.zemris.bachelor.thesis.evaluator.SimpleAliasesEvaluator;
 import hr.fer.zemris.bachelor.thesis.evaluator.SimpleCLBInputsEvaluator;
 import hr.fer.zemris.bachelor.thesis.mapping.AIFPGAMapper;
+import hr.fer.zemris.bachelor.thesis.mapping.configuration.AIFPGAConfiguration;
 import hr.fer.zemris.bachelor.thesis.util.AILibrary;
 import hr.fer.zemris.bool.SimpleFPGA;
 import hr.fer.zemris.fpga.FPGAModel;
+import hr.fer.zemris.fpga.FPGAModel.SwitchBox;
+import hr.fer.zemris.fpga.FPGAModel.WireSegment;
 import hr.fer.zemris.fpga.LogWriter;
 import hr.fer.zemris.fpga.StandardLogWriter;
 import hr.fer.zemris.fpga.gui.FPGATabX;
@@ -37,8 +40,8 @@ public class NewTestSimpleGenetic {
 
 	public static void main(String[] args) throws IOException {
 
-		String fileName = "./src/main/resources/2vs1-three-vars.txt"; // wont load with resource as stream
-		int rows = 2, columns = 2, pins = 1, variables = 2, wires = 5, nums = 1;
+		String fileName = "./src/main/resources/1vs1.txt"; // wont load with resource as stream
+		int rows = 2, columns = 2, pins = 1, variables = 2, wires = 3, nums = 1;
 		if (args.length == 0) {
 			System.out.println("Running program with default settings!");
 		}
@@ -177,6 +180,22 @@ public class NewTestSimpleGenetic {
 //						
 //						System.out.println();
 //					}
+					
+					for(int k = 0; k < resultModel.switchBoxes.length; k++) {
+						SwitchBox currModelBox = resultModel.switchBoxes[k];
+						byte[][] swConfig = currModelBox.configuration;
+						for(int l = 0; l < swConfig.length; l++) {
+							for(int m = 0; m < swConfig[0].length && m < l; m++) {
+								if((swConfig[l][m] == 1 && swConfig[m][l] == 2) || (swConfig[l][m] == 2 && swConfig[m][l] == 1)) {
+									WireSegment firstSegment = currModelBox.segments[l], secondSegment = currModelBox.segments[m];
+									if(firstSegment.label == null && secondSegment.label == null) {
+										swConfig[l][m] = 0;
+										swConfig[m][l] = 0;
+									}
+								}
+							}
+						}
+					}
 
 					if (alg.solFounded == true) {
 						founded++; // one more founded

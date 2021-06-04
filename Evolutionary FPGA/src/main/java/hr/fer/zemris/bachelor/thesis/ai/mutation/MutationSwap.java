@@ -5,6 +5,8 @@ import hr.fer.zemris.bachelor.thesis.mapping.configuration.AIFPGAConfiguration;
 import hr.fer.zemris.bachelor.thesis.mapping.configuration.AIFPGAConfigurationRandomizer;
 import hr.fer.zemris.fpga.FPGAModel;
 import hr.fer.zemris.fpga.FPGAModel.FPGAModelConfiguration;
+import hr.fer.zemris.fpga.FPGAModel.SwitchBox;
+import hr.fer.zemris.fpga.FPGAModel.WireSegment;
 
 /**
  * Clbs and pins simply swap two values in their array. Connection indexes are
@@ -104,11 +106,13 @@ public class MutationSwap implements Mutation {
 			int row = i / (model.columns + 1);
 			int col = i % (model.columns + 1);
 			int connections = 0;
+			
+//			SwitchBox currModelBox = model.switchBoxes[i];
+			
+			
 
 			for (int j = 0; j < swBoxes[0].length && connections < connChange; j++) { //while you can change more connections
-				for (int k = 0; k < swBoxes[0][0].length && k < j && connections < connChange; k++) { // dont iterate
-																										// over upper
-																										// half
+				for (int k = 0; k < swBoxes[0][0].length && k < j && connections < connChange; k++) { // dont iterate over upper half
 
 					if ((swBoxes[i][j][k] == 1 && swBoxes[i][k][j] == 2)
 							|| (swBoxes[i][j][k] == 2 && swBoxes[i][k][j] == 1)) { // if actualy is there conn
@@ -116,6 +120,13 @@ public class MutationSwap implements Mutation {
 						boolean valid = validIndex(row, col, j) && validIndex(row, col, k); // just to be sure if wire is okay
 						if (valid) { // if everything is valid
 
+							
+//							WireSegment firstSegment = currModelBox.segments[j], secondSegment = currModelBox.segments[k];
+//							if(firstSegment.label == null && secondSegment.label == null) {
+//								System.err.println("Both segments are null: Switch box=" + i + "j=" + j + "k=" + k);
+//							}
+							
+							
 							double y = random.nextDouble(); // for deciding if we want to create completely new
 															// connection or
 							// change only one edge

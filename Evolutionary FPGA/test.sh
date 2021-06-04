@@ -35,7 +35,6 @@ run_test 1 2 "./src/main/resources/1vs1.txt"
 echo $'\n' >> $saveFile
 
 echo "Starting calculations for mapping one logical clb into 2x2 FPGA configuration ..."
-echo "Rows: 2, Cols: 2, Pins: 1, Wires: 3, Variables: 2"
 echo "One logical clb into 2x2 FPGA configuration" >> $saveFile
 run_test 2 2 "./src/main/resources/1vs1.txt"
 echo $'\n' >> $saveFile
