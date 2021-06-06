@@ -40,8 +40,8 @@ public class NewTestSimpleGenetic {
 
 	public static void main(String[] args) throws IOException {
 
-		String fileName = "./src/main/resources/2vs1-three-vars.txt"; // wont load with resource as stream
-		int rows = 2, columns = 1, pins = 1, variables = 2, wires = 3, nums = 1;
+		String fileName = "./src/main/resources/1vs1.txt"; // wont load with resource as stream
+		int rows = 1, columns = 1, pins = 1, variables = 2, wires = 3, nums = 1;
 		int popSize = 50, iterations = 50000, librarySize = 70;
 		boolean fitnessImg = true, intensityImg = true;
 		String algName = "SV66";
