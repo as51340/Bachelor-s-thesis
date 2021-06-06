@@ -1,4 +1,3 @@
 # Bachelor-s-thesis
-FPGA routing and switching using evolutionary algorithms and simple heuristics
 
-Documentation branch.
+Documentation branch. PDF is created using LaTex. Please download this repo and open final.pdf.
