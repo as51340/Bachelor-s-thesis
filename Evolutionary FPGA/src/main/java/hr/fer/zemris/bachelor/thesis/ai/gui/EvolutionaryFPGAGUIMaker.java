@@ -116,11 +116,19 @@ public class EvolutionaryFPGAGUIMaker extends JFrame {
 		if(this.intensities == null) {
 			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy:MM:dd_HH:mm:ss");
 			LocalDateTime now = LocalDateTime.now();
+			File dir = new File("imgs/");
+			if(!dir.exists()) {
+				dir.mkdir();
+			}
 			File out = new File("imgs/" + algShort + dtf.format(now) + ".png");
 			ChartUtilities.saveChartAsPNG(out, xylineChart, width, height);
 		} else {
 			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy:MM:dd_HH:mm:ss");
 			LocalDateTime now = LocalDateTime.now();
+			File dir = new File("intensities/");
+			if(!dir.exists()) {
+				dir.mkdir();
+			}
 			File out = new File("intensities/" + algShort + dtf.format(now) + ".png");
 			ChartUtilities.saveChartAsPNG(out, xylineChart, width, height);
 		}
