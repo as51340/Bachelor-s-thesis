@@ -129,7 +129,9 @@ public class EvolutionaryFPGAGUIMaker extends JFrame {
 	private XYDataset createXYDatasetIntensity() {
 		final XYSeries series = new XYSeries("Intensities");
 		for(int i = 0; i < intensities.size(); i++) {
-			series.add((i+1) / 2, intensities.get(i));
+			if(i % 500 == 0) {
+				series.add(i, intensities.get(i));	
+			}
 		}
 		final XYSeriesCollection dataset = new XYSeriesCollection();
 		dataset.addSeries(series);

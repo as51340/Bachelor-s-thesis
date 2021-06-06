@@ -3,8 +3,7 @@
 
 echo "Starting tests for EvolutionaryFPGA..."
 echo "Each test will be run nums times for determining goodness of genetic algorithm"
-echo "Result are written in results.txt file"
-echo "Parameters for genetic algorithm: populationSize=50, iterations=70000, mutationRate=0.05, nums=300"
+echo "Result are written in destination file you specified"
 
 pins=1
 variables=2
@@ -12,10 +11,13 @@ wires=3
 nums=300
 programFile=$1
 saveFile=$2
+iterations=$3
+population=$4
+
 
 run_test() {
 	echo "Rows: $1, Cols: $2, Pins: 1, Wires: 3, Variables: 2"
-	java -jar $programFile --rows $1 --cols $2 --pins $pins --variables $variables --wires $wires --file $3 --nums $nums >> $saveFile
+	java -jar $programFile --rows $1 --cols $2 --pins $pins --variables $variables --wires $wires --file $3 --nums $nums --population $population --iterations $iterations >> $saveFile
 }
 
 

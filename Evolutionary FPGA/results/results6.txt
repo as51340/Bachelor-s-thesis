@@ -197,3 +197,20 @@ Wrong name: 14452815
 
 
 Two logical clbs into 2x2 FPGA configuration, 5 wires
+Running time: 2554.519s
+Percentage: 0.5066666666666667
+Average generations: 25162.276315789473
+***Printing output properties***
+Aliases failures: 14023658
+Label is null: 17601030
+Wrong type: 3931958
+Clb title is null: 0
+Wrong title name: 3246661
+
+***Printing input properites***
+Input failures: 14168848
+Input black label: 31704788
+Input wrong type: 7429682
+Wrong name: 10744486
+
+

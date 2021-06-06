@@ -346,9 +346,14 @@ Pokrenuta je nova verzija koja mapira clba s tri varijable u 4 clba - potencijal
 6.verzija pokrenuta, lokalno pokrenuto 100 puta tri var u 4clba.
 
 Sedmica je nova jer mi je dala 45 i nešto posto za tri varijable 2 CLB-a.
+Primjer da uči i da ima smisla: postavljena 4 clba i uvijek ako se koriste kombinacije 13 i 02 ih dobro postavi.
+
+49% što je okej jer ukupno imamo 4! različitih konfiguracija = 12 pa je očekivano 2/12 = 1/3 = 16.67%. 
 
 
 
+
+FPGA8 je 50000 generacija s koeficijentima pod rednim brojem 6.
 
 
 

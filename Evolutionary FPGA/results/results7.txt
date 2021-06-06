@@ -161,3 +161,56 @@ Wrong name: 14216454
 
 
 Two logical clbs with three variables into 2x2 FPGA configuration
+Running time: 1478.321s
+Percentage: 0.43333333333333335
+Average generations: 33232.223076923074
+***Printing output properties***
+Aliases failures: 16035758
+Label is null: 14693942
+Wrong type: 10414346
+Clb title is null: 0
+Wrong title name: 3530001
+
+***Printing input properites***
+Input failures: 16228959
+Input black label: 25085071
+Input wrong type: 19695125
+Wrong name: 14546622
+
+
+Three logical clbs into 2x2 FPGA configuration
+Running time: 1460.457s
+Percentage: 0.42
+Average generations: 32007.507936507936
+***Printing output properties***
+Aliases failures: 16026110
+Label is null: 14649538
+Wrong type: 10614689
+Clb title is null: 0
+Wrong title name: 3446266
+
+***Printing input properites***
+Input failures: 16221850
+Input black label: 24541078
+Input wrong type: 20054478
+Wrong name: 14673571
+
+
+Two logical clbs into 2x2 FPGA configuration, 5 wires
+Running time: 2473.883s
+Percentage: 0.47
+Average generations: 31250.567375886523
+***Printing output properties***
+Aliases failures: 15329341
+Label is null: 19831319
+Wrong type: 3588870
+Clb title is null: 0
+Wrong title name: 3596435
+
+***Printing input properites***
+Input failures: 15521539
+Input black label: 36721642
+Input wrong type: 7009129
+Wrong name: 11354626
+
+

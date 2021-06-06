@@ -17,7 +17,7 @@ import hr.fer.zemris.fpga.mapping.FPGAMapTask;
  */
 public class SimpleAliasesEvaluator implements Evaluator {
 
-	public static int labelIsNull = 0, wrongType = 0, clbTitleIsNull = 0, wrongTitleName = 0;
+	public static int labelIsNull = 0, wrongType = 0, wrongTitleName = 0;
 
 	/*
 	 * We are optimists at the start. How this even works?
@@ -36,24 +36,19 @@ public class SimpleAliasesEvaluator implements Evaluator {
 				if (pins[i].input == true || pins[i].connectionIndex == -1 || pins[i].title == null
 						|| !pins[i].title.equals(alias)) { // title is null
 					continue;
-				}				
+				}
 				Object v = pins[i].wires[pins[i].connectionIndex].label;
 				if (v != null) { // label is not null
 					if (v instanceof CLBBox) {
 						CLBBox clb = (CLBBox) v;
-						if (clb.title != null) {
-							if (clb.title.equals(aliasMap.get(alias))) { // da li je taj pin dobro spojen
-								founded = true;
-							} else {
-								sol += Coefficients.OUTPUT_PENALTY;
-								wrongTitleName++;
-							}
+						if (clb.title.equals(aliasMap.get(alias))) { // da li je taj pin dobro spojen
+							founded = true;
 						} else {
-							sol += Coefficients.OUTPUT_NULL_CLB; //dosa je clb s titleom null
-							clbTitleIsNull++;
+							sol += Coefficients.OUTPUT_PENALTY;
+							wrongTitleName++;
 						}
 					} else { // wrong type
-						sol += Coefficients.OUTPUT_WRONG_TYPE; //dosa je object
+						sol += Coefficients.OUTPUT_WRONG_TYPE; // dosa je object
 						wrongType++;
 					}
 				} else {

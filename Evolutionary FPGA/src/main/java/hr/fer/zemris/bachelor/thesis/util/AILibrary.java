@@ -44,13 +44,17 @@ import hr.fer.zemris.fpga.mapping.FPGAMapTask;
 public class AILibrary {
 	
 	
-	private int popSize = 50, generations = 70000, numAlgs = 100;
+	private int popSize, generations, librarySize;
 	
 	private double mutationRate = 0.05;
 
 	public FPGAGeneticAlgorithm[] instances;
 	
-	public AILibrary() {}
+	public AILibrary(int popSize, int generations, int librarySize) {
+		this.popSize = popSize;
+		this.generations = generations;
+		this.librarySize = librarySize;
+	}
 	
 	public int getPopSize() {
 		return popSize;
@@ -68,13 +72,10 @@ public class AILibrary {
 		this.generations = generations;
 	}
 
-	public int getNumAlgs() {
-		return numAlgs;
+	public int getSize() {
+		return librarySize;
 	}
 
-	public void setNumAlgs(int numAlgs) {
-		this.numAlgs = numAlgs;
-	}
 
 	public double getMutationRate() {
 		return mutationRate;
@@ -83,9 +84,18 @@ public class AILibrary {
 	public void setMutationRate(double mutationRate) {
 		this.mutationRate = mutationRate;
 	}
+	
+	public FPGAGeneticAlgorithm getByName(String algName) {
+		for(int i = 0; i < instances.length; i++) {
+			if(instances[i].shortName.equals(algName)) {
+				return instances[i];
+			}
+		}
+		return null;
+	}
 
 	public void constructLibrary(FPGAModel model, FPGAMapTask mapTask, SimpleFPGA sfpga, LogWriter logger) {
-		instances = new FPGAGeneticAlgorithm[numAlgs];
+		instances = new FPGAGeneticAlgorithm[librarySize];
 		
 		AIFPGAConfigurationInitializer initer = new AIFPGAConfigurationInitializer(popSize, model);
 		AIFPGAConfigurationRandomizer random = new AIFPGAConfigurationRandomizer(model);
@@ -402,7 +412,7 @@ public class AILibrary {
 				validCrosser, swapMutator, fpgaEvaluator, mapTask, model, sfpga, logger);
 		
 		
-		FPGAGeneticAlgorithm alg70 = new GenerationalGeneticAlgorithmSelection(true, "S70", "Generational version elitistic, selection",
+		FPGAGeneticAlgorithm alg70 = new GenerationalGeneticAlgorithmSelection(true, "SV70", "Generational version elitistic, selection",
 				popSize, generations, mutationRate, initer, random, simpleCleanerAdvancedSwitchBox, rouletteWheel, validCrosser, swapMutator,
 				fpgaEvaluator, mapTask, model, sfpga, logger);
 		
