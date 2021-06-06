@@ -1,2 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="java.lang.Double"/>
+    <fullyQualifiedTypeName name="hr.fer.zemris.fpga.FPGAModel.Pin"/>
+    <fullyQualifiedTypeName name="hr.fer.zemris.bachelor.thesis.evaluator.SimpleAliasesEvaluator"/>
+    <fullyQualifiedTypeName name="hr.fer.zemris.bachelor.thesis.evaluator.SimpleCLBInputsEvaluator"/>
+    <fullyQualifiedTypeName name="hr.fer.zemris.bachelor.thesis.evaluator.FPGAEvaluator"/>
+    <fullyQualifiedTypeName name="javax.swing.JFrame"/>
+    <fullyQualifiedTypeName name="javax.swing.WindowConstants"/>
+    <fullyQualifiedTypeName name="java.awt.BorderLayout"/>
+    <fullyQualifiedTypeName name="hr.fer.zemris.fpga.gui.FPGATabX"/>
+    <fullyQualifiedTypeName name="hr.fer.zemris.bachelor.thesis.ai.gui.EvolutionaryFPGAGUIMaker"/>
+    <fullyQualifiedTypeName name="hr.fer.zemris.fpga.FPGAModel.CLBBox"/>
+    <fullyQualifiedTypeName name="hr.fer.zemris.fpga.mapping.FPGAMapTask.CLB"/>
+    <fullyQualifiedTypeName name="java.util.Set"/>
+    <fullyQualifiedTypeName name="java.util.HashSet"/>
+    <fullyQualifiedTypeName name="hr.fer.zemris.bachelor.thesis.evaluator.Coefficients"/>
+    <fullyQualifiedTypeName name="java.lang.System"/>
+    <fullyQualifiedTypeName name="hr.fer.zemris.bachelor.thesis.mapping.configuration.AIFPGAConfiguration"/>
+    <fullyQualifiedTypeName name="hr.fer.zemris.fpga.FPGAModel.SwitchBox"/>
+    <fullyQualifiedTypeName name="hr.fer.zemris.fpga.FPGAModel.WireSegment"/>
+    <fullyQualifiedTypeName name="javax.swing.SwingUtilities"/>
+    <fullyQualifiedTypeName name="org.jfree.chart.encoders.ImageEncoder"/>
+    <fullyQualifiedTypeName name="hr.fer.zemris.bachelor.thesis.ai.FPGAGeneticAlgorithm"/>
+</qualifiedTypeNameHistroy>

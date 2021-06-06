@@ -1,0 +1,118 @@
+package hr.fer.zemris.bachelor.thesis.evaluator;
+
+import java.util.Map;
+
+import hr.fer.zemris.bachelor.thesis.mapping.configuration.AIFPGAConfiguration;
+import hr.fer.zemris.fpga.FPGAModel;
+import hr.fer.zemris.fpga.FPGAModel.CLBBox;
+import hr.fer.zemris.fpga.FPGAModel.Pin;
+import hr.fer.zemris.fpga.mapping.FPGAMapTask;
+
+/**
+ * This evaluator only sees if function is obtained from correct clb output.
+ * Valid: if we have only one correctly defined pin connector to clb output.
+ * 
+ * @author andi
+ *
+ */
+public class SimpleAliasesEvaluator implements Evaluator {
+
+	public static int labelIsNull = 0, wrongType = 0, clbTitleIsNull = 0, wrongTitleName = 0, noConnectionIndex = 0, validConf = 0;
+
+	/*
+	 * We are optimists at the start. How this even works?
+	 */
+	public boolean valid = true;
+
+	@Override
+	public double evaluate(AIFPGAConfiguration conf, FPGAModel model, FPGAMapTask mapTask) {
+		double sol = 0;
+		Pin[] pins = model.pins;
+		Map<String, String> aliasMap = mapTask.aliasMap;
+		
+		double solNewApproach = 0;
+		
+		CLBBox[] boxes = model.clbs;
+		for(int i = 0; i < boxes.length; i++) {
+			CLBBox currBox = boxes[i];
+			if(currBox.title == null) continue; //taj nije postavljen
+			String goalAlias = null;
+			for(String key: aliasMap.keySet()) {
+				if(aliasMap.get(key).equals(currBox.title)) {
+					goalAlias = key;
+				}
+			}
+			if(goalAlias == null) System.out.println("PROBLEM OCCURRED!");
+			if(currBox.outConnectionIndex == -1)  {
+				noConnectionIndex++;
+				valid = false;
+				solNewApproach += Coefficients.BLACK_LABEL;
+				continue;
+			}
+			Object label = currBox.wiresOut[currBox.outConnectionIndex].label;
+			if(label == null) {
+				labelIsNull++;
+				valid = false;
+				solNewApproach += Coefficients.BLACK_LABEL;
+				continue;
+			}
+			if(label instanceof Pin) {
+				Pin pinLabel = (Pin) label;
+				if(!pinLabel.title.equals(goalAlias)) {
+					wrongTitleName++;
+					valid = false;
+				} else {
+					validConf++;
+				}
+			} else {
+				valid = false;
+				solNewApproach += Coefficients.OUTPUT_WRONG_TYPE;
+				wrongType++;
+			}
+			
+		}
+		
+		return solNewApproach;
+//		for (String alias : aliasMap.keySet()) {
+//			int founded = 0;
+//			for (int i = 0; i < pins.length; i++) { // try to find matching
+//				if (pins[i].connectionIndex == -1 || pins[i].title == null || !pins[i].title.equals(alias)) { // title is null
+//					continue;
+//				}
+//				Object v = pins[i].wires[pins[i].connectionIndex].label;
+//				if (v != null) { // label is not null
+//					if (v instanceof CLBBox) {
+//						CLBBox clb = (CLBBox) v;
+//						if (clb.title != null) {
+//							if (clb.title.equals(aliasMap.get(alias))) { // da li je taj pin dobro spojen
+//								founded++;
+//							} else {
+//								wrongTitleName++;
+//							}
+//						} else {
+//							clbTitleIsNull++;
+//						}
+//					} else { // wrong type
+////						valid = false; // ni tu mu nemoj odmah na false postaviti kao da ne moze nista pronaci
+//						if (aliasMap.size() == pins.length) {
+//							sol += Coefficients.OUTPUT_WRONG_TYPE;
+//							wrongType++;
+//						}
+//
+//					}
+//				} else { // punish it with black label
+////					valid = false; // nemoj odmah postaviti na false jer je moguce da i ne mora biti null
+//					if (aliasMap.size() == pins.length) {
+//						sol += Coefficients.BLACK_LABEL;
+//						labelIsNull++;
+//					}
+//				}
+//			}
+//			if (founded == 0) { // nothing was founded
+////				sol += Coefficients.OUTPUT_PENALTY;
+//				valid = false;
+//			}
+//		}
+//		return sol;
+	}
+}

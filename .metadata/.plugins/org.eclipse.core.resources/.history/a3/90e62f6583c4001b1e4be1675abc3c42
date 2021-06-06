@@ -1,0 +1,361 @@
+1. Što je architecture u inputu? Da li je ovaj # u prvoj liniji, zato jer je to zakomentirano ili? Što s ovim outputima funkcije [1, 2, 3] - to još uvijek nije u funkciji jelda, pitaj za parser requirementsa 
+	koje sam napravio.
+2. Provjeri sve ove enumeracije(switch boxeva, wire segmenata itd). Wire segmenti, ide li 0, 1, 2, 3 u smjeru CW s time da je 0 gore. 
+3. Kako pokrenuti sve skupa cijeli program?
+4. Drugi primjer ima bugova vjv.je typo da je funkcija f na inputu 0.
+5. Nije sve počišćeno kako treba, zar ne bi bilo dovoljno u simplify imat umjesto && ||. 
+6. Kako radi generiranje lijevih i donjih pinova, meni ne štima? Za donje inpute za konfiguraciju 2,2 početak je 4, a uzima desni wire segment 6. switch boxa. Primjer za lijeve pinove: početni je 6.pin, a uzima 
+	se donji wire segment nultog switch boxa.n
+7. Kako funkcionira pin? On ima referencu na wire segmente. Input je 0/1,i value 0/1 to štima, što je title=vjv. ulazna varijabla? Što je connectionIndex, je to index wire segmenta na koji je spojen ako da zašto je byte?
+8. Kako funkcionira wire segment? Što je label tamo, oznaka kao za kvadratić? Da li je first index i second index način kako dobiti taj isti wire segment preko firstBox odnosno secondBox ako da onda ne štima? Npr. 
+	brojZica=3 i sad ako upišemo wireSegment s firstIndex=3, a secondIndex=9 onda on ne pokazuje na dobru žicu? Analogno za vertikalno.
+9.  Što znači da je konfiguracija switchBoxa[][] == 1 ili 2 ili 0. Da li je conf[i][j] == conf[j][i]?
+10. Bajtovi se koriste za prikazivanje A,B,C,D itd...
+11. Da li jedna žica u konfiguraciji switch boxa može biti spojena s više njih? Po meni da.
+12, Gdje je zapisano na koju je žicu spojen neki pin?
+13. Da li ja stvaram novi fpgaMapper koji će onda vratiti rezultat pa da od tamo dolje isto kao dosad? Onako samo pitanje zašto GUI-ju treba i sfpga?
+14. Da li genetski algoritam radim na fpgaModelConfiguration ili na nekoj svojoj novoj konfiguraciji?
+15. Kako stvoriti neku novu početnu konfiguraciju? Što randomizirat jer nema smisla sve randomizirat(switch boxeve i clbInpute i pineve). Postoji li algoritam koji "traži" vrijednost wire segmenta?
+16. Mora vrijediti da su na clb-ima spojeni dobri inputi, hoću li uopće dopustiti da se takva konfiguracija stvori pa to ekstremno kazniti ili?
+17. Općenito tijek tog genetskog, što napraviti, nakon svake neke promjene tražiti novu vrijednost preko switch boxeva ili? 
+18. Od koga startati, od pinova, wire segmenata ili ...
+19. Operatori križanja i mutacije: križanje => uzmi s jednakom vjerojatnošću gen jednog ili drugog. Mutacija promijeni gen( za pin to znači odaberi nešto iz skupa iz svih ulaza/izlaza + prazno)-
+20. Prema čemu evaluirati, kakve konfiguracije nagrađivati, kakve kažnjavati...  
+21. fpga map task što su aliasi, aliasMap, dataPositions. 
+22. FillLabels što onaj algoritam radi. 
+21. Ajoj.
+
+FPGAMapTask
+aliases su nam funkcije
+aliasMap su nam funkcije na izlazima, ne na pinovima, nego na clbovima
+varijable su nam inputi
+Clbovi sadržavaju detaljne upute: alias => da li je na tom clbu neki izlaz funkcije, na kojem indexu clba 
+	se ta funkcija nalazi, koje je ime tog clba. I njegovi inputi.
+Positions: 
+	za sve varijable printa isPin = true. Position je samo neka vrijednost koja ne znam za šta služi, 
+	ulazne varijable idu redoslijedom, a clbovi po tome pod kojim je rednim brojem neka funkcija na njima 
+	ostvarena
+
+FPGAMapperResult-nad konfiguracijom mi radimo genetski. Model i task dobivam to je okej, ali odkud nam 
+clbIndexi i pinIndexi?
+
+Radim svoj AiMapper. Jedan paket za GUI, vjv. JFreeChart. Jedan paket za AI u kojem će biti sučelja za selekciju, crossover, mutaciju, sam genetski algoritam itd. Evaluator koji kažnjava i ima statičku metodu evaluate na temelju
+modela i configurationa(zasad). Koristim gotov FPGAMapTask. Generacijski algoritam posebno implementiran s nekim propertyima o duplikatima i slično. Idealno bi bilo da mi GUI prima taj model i nekako prikazuje=> definirati način
+dodavanja GUI-ja u vizualizaciju. Switch boxevi imaju 1 i 2. 2 znači da je od tamo početak, 1 da tamo završava. Iz 2 može ići više njih. U 1 ne više njih niti može ona postati ulaz. Razmotri opcije u kojima onda nešto promijeniš
+ako nije zadovoljen neki od zahtjeva.
+MAVEN handles tests as other project something like that.
+Maybe add that after initialization, inputs cannot be connected to the same wire.
+!#!#!!#!#ask professor about adding third part jar file
+How to start GUI => solved
+!#!#!#!# ask => aliases evaluator i clb inputs evaluator, da li add gui? 
+TODO switch boxes last cleaning algorithm etc.
+
+
+4.4.2021. Ne cvijeca cvijece. Pri najosnovnijoj verziji algoritma aliases nam pronalazi i to cesto, a clb inpute nikako. Advanced switch box cleaner često funkcionira gore, nego najosnovniji.
+Cilj je da svaki algoritam ima svoje ime po kojem ćemo ga pamtit u izvještaju. I kratice. 
+Simplest version = SV. Default = D to je ako nismo specificirali shortcut. Ta verzija nije elitistička. 
+SimplestGeneticAlgorithmCleanNeccess čisti samo nužno, a to bi bili switch boxevi?. Kratica SVCN. EDIT:     To nema smisla, to je samo običan cleaner koji cisti switch boxeve.
+SimplestGeneticAlgorithmElitistic - SVE stavlja na 3.mjesto samo ako je bolje od ovega zadnje odabrane jedinke. Ova bi trebala biti elitistička.
+Kod nas svaka verzija koja zadovoljava hard conditions je zadovoljavajuća i ne idem naprijed od toga. 
+GGE - generacijski genetski 
+GGEE - generacijski elitisticki
+
+
+SV1 = simple cleaner, simple switch box, simple algorithm, crosser obični, mutator postoji
+SV2 = simple cleaner, advanced switch box, simple algorithm, crosser obični, mutator postoji
+SV3 = simple cleaner, simple switch box, simple algorithm, crosserAS, mutator postoji
+SV4 = simple cleaner, simple switch box, simple algorithm, crosserBreaker, mutator postoji
+SV5 = simple cleaner, advanced switch box, simple algorithm, crosserAS, mutator postoji
+SV6 = simple cleaner, advanced switch box, simple algorithm, crosserBreaker, mutator postoji
+
+SV7 = simple cleaner, simple switch box, simple algorithm, crosser obični, mutator ne postoji
+SV8 = simple cleaner, advanced switch box, simple algorithm, crosser obični, mutator ne postoji
+SV9 = simple cleaner, simple switch box, simple algorithm, crosserAS, mutator ne postoji
+SV10 = simple cleaner, simple switch box, simple algorithm, crosserBreaker, mutator ne postoji
+SV11 = simple cleaner, advanced switch box, simple algorithm, crosserAS, mutator ne postoji
+SV12 = simple cleaner, advanced switch box, simple algorithm, crosserBreaker, mutator ne postoji
+
+
+SV13 = simple cleaner, simple switch box, simple algorithm elitistic, crosser obični, mutator postoji
+SV14 = simple cleaner, advanced switch box, simple algorithm elitistic, crosser obični, mutator postoji
+SV15 = simple cleaner, simple switch box, simple algorithm elitistic, crosserAS, mutator postoji
+SV16 = simple cleaner, simple switch box, simple algorithm elitistic, crosserBreaker, mutator postoji
+SV18 = simple cleaner, advanced switch box, simple algorithm elitistic, crosserBreaker, mutator postoji
+SV17 = simple cleaner, advanced switch box, simple algorithm elitistic, crosserAS, mutator postoji
+
+SV19 = simple cleaner, simple switch box, simple algorithm elitistic, crosser obični, mutator ne postoji
+SV20 = simple cleaner, advanced switch box, simple algorithm elitistic, crosser obični, mutator ne postoji
+SV21 = simple cleaner, simple switch box, simple algorithm elitistic, crosserAS, mutator ne postoji
+SV22 = simple cleaner, simple switch box, simple algorithm elitistic, crosserBreaker, mutator ne postoji
+SV23 = simple cleaner, advanced switch box, simple algorithm elitistic, crosserAS, mutator ne postoji
+SV24 = simple cleaner, advanced switch box, simple algorithm elitistic, crosserBreaker, mutator ne postoji
+
+
+SV25 = simple cleaner, simple switch box, generational algorithm, crosser obični, mutator postoji
+SV26 = simple cleaner, advanced switch box, generational algorithm, crosser obični, mutator postoji
+SV27 = simple cleaner, simple switch box, generational algorithm, crosserAS, mutator postoji
+SV28 = simple cleaner, simple switch box, generational algorithm, crosserBreaker, mutator postoji
+SV29 = simple cleaner, advanced switch box, generational algorithm, crosserAS, mutator postoji
+SV30 = simple cleaner, advanced switch box, generational algorithm, crosserBreaker, mutator postoji
+
+SV31 = simple cleaner, simple switch box, generational algorithm, crosser obični, mutator ne postoji
+SV32 = simple cleaner, advanced switch box, generational algorithm, crosser obični, mutator ne postoji
+SV33 = simple cleaner, simple switch box, generational algorithm, crosserAS, mutator ne postoji
+SV34 = simple cleaner, simple switch box, generational algorithm, crosserBreaker, mutator ne postoji
+SV35 = simple cleaner, advanced switch box, generational algorithm, crosserAS, mutator ne postoji
+SV36 = simple cleaner, advanced switch box, generational algorithm, crosserBreaker, mutator ne postoji
+
+
+SV37 = simple cleaner, simple switch box, generational algorithm elitistic, crosser obični, mutator postoji
+SV38 = simple cleaner, advanced switch box, generational algorithm elitistic, crosser obični, mutator postoji
+SV39 = simple cleaner, simple switch box, generational algorithm elitistic, crosserAS, mutator postoji
+SV40 = simple cleaner, simple switch box, generational algorithm elitistic, crosserBreaker, mutator postoji
+SV41 = simple cleaner, advanced switch box, generational algorithm elitistic, crosserBreaker, mutator postoji
+SV42 = simple cleaner, advanced switch box, generational algorithm elitistic, crosserAS, mutator postoji
+
+SV43 = simple cleaner, simple switch box, generational algorithm elitistic, crosser obični, mutator ne postoji
+SV44 = simple cleaner, advanced switch box, generational algorithm elitistic, crosser obični, mutator ne postoji
+SV45 = simple cleaner, simple switch box, generational algorithm elitistic, crosserAS, mutator ne postoji
+SV46 = simple cleaner, simple switch box, generational algorithm elitistic, crosserBreaker, mutator ne postoji
+SV47 = simple cleaner, advanced switch box, generational algorithm elitistic, crosserAS, mutator ne postoji
+SV48 = simple cleaner, advanced switch box, generational algorithm elitistic, crosserBreaker, mutator ne postoji
+
+
+SV49 = simple cleaner, simple switch box, simple k tour algorithm elitistic, crosser obični, mutator postoji
+SV50 = simple cleaner, advanced switch box, k tour algorithm elitistic, crosser obični, mutator postoji
+SV51 = simple cleaner, simple switch box, simple k tour algorithm elitistic, crosserAS, mutator postoji
+SV52 = simple cleaner, simple switch box, simple k tour algorithm elitistic, crosserBreaker, mutator postoji
+SV53 = simple cleaner, advanced switch box, simple k tour algorithm elitistic, crosserBreaker, mutator postoji
+SV54 = simple cleaner, advanced switch box, simple k tour algorithm elitistic, crosserAS, mutator postoji
+
+SV55 = simple cleaner, simple switch box, simple k tour algorithm elitistic, crosser obični, mutator ne postoji
+SV56 = simple cleaner, advanced switch box, simple k tour algorithm elitistic, crosser obični, mutator ne postoji
+SV57 = simple cleaner, simple switch box, simple k tour algorithm elitistic, crosserAS, mutator ne postoji
+SV58 = simple cleaner, simple switch box, simple k tour algorithm elitistic, crosserBreaker, mutator ne postoji
+SV59 = simple cleaner, advanced switch box, simple k tour algorithm elitistic, crosserAS, mutator ne postoji
+SV60 = simple cleaner, advanced switch box, simple k tour algorithm elitistic, crosserBreaker, mutator ne postoji
+
+
+SV61 = simple cleaner, simple switch box, EliminativeGeneticAlgorithmKSelectionElitistic, crosserBreaker, mutator postoji, selector roulette wheel
+SV62 = simple cleaner, advanced switch box, EliminativeGeneticAlgorithmKSelectionElitistic, crosserBreaker, mutator postoji, selector roulette wheel
+SV63 = simple cleaner, advanced switch box, EliminativeGeneticAlgorithmKSelectionElitistic, crosserAS, mutator postoji, selector roulette wheel
+
+SV64 = simple cleaner, simple switch box, EliminativeGeneticAlgorithmKSelectionElitistic, crosser obični, mutator ne postoji, selector roulette wheel
+SV65 = simple cleaner, advanced switch box, EliminativeGeneticAlgorithmKSelectionElitistic, crosser obični, mutator ne postoj, selector roulette wheel
+
+SV66 = simple cleaner, advanced switch box, EliminativeGeneticAlgorithmKSelectionElitistic, valid crosser, swap mutator, roulette wheel selector
+SV67 = simplecleaner, advanced switch box, simplest genetic, valid crosser, swap mutator, null selection
+SV68 = simple cleaner, advanced switch box, generacijski elitistic, valid crosser, swap mutator, selekcija zasad random
+SV69 = simple cleaner, advanced switch box, eliminacijski elitistički, valid crosser, ktour
+SV70 = -||- generacijski elitistički sa roulette wheel, valid crosser, swap mutator
+
+
+
+
+Prvi switch box je gornji, a drugi je donji. 
+
+CrosserAS mi se čini da ne funkcionira baš najbolje. 
+Ovi generacijski mi se ne čine baš nešto predobri, prerandomizirani. Ovaj najosnovniji troturnirski elitistički diže stalno srednju vrijednost. Dodat ću na to različite selekcije. Ovi najosnovniji algoritmi
+vuču do nekih 5000 generacija, ako im digneš mutation rate na 5%. Na 10% su već mrtvi i ne generiraju ništa bolja rješenja. SV16 pokazuje neke naznake - našao je 2 3 puta samo dobre aliase, ali to je daleko
+od nečeg dobrog. Dodati nove selekcije koje će više cijeniti bolja rješenja pa ćemo vidjeti. Generacijski obični i elitistički s malo mutacije ne funkcioniraju. Generacijski ni s vecom ni s manjom mutacijom
+nista od njih. 
+
+Što je selekcijski pritisak manji to je randomiziranost odabranih jedinki veća. 
+
+EliminativeGeneticAlgorithmElitisticKTournamentSelection - da mogu kontrolirati selekcijski pritisak. Ne dozvoljava se da su odabrane jedinke iste; ni u KTournamentSelection ni baš u algoritmu.
+uvijek se stavlja na drugo mjesto
+
+Za ovaj novi selekcijski pritisak: nekako cudno se ponasa. Od 55 do 60 algoritma dobivam uzasna rjesenja - pogledaj zasto?. Od 49 do 55 su rješenja onako solidna, nešto kao prije, ali prosječna vrijednost
+ne raste nista, a to je cudno kad usporedimo s ovim obicnim elitistickim u kojem prosjecna stalno raste. Mislim da su od 55 do 60 tako losa rjesenja jer su bez mutacije, a opet selektiras konstantno ona dobra
+koja se ne uspijevaju poboljsat. Probat cemo tamo dignut mutation rate. EDIT: probano s mutacijom od 10% i k=5 selekcijom, ali nije bolje. 
+Neki potencijal pokazuju algoritmi od 49 do 53, ali tesko potvrditi. Mutation rate od 10% je preveliki za SV49 inačicu algoritma. I 0.07% nije neka sreća. Mutacija od 3% izgleda solidno. SV50 mi je generirao
+jedan aliases=true. Neka veća populacija od 50 nije nešto bolja. Probano sa 100 i 500 vel. populacije. SV50 nije neka sreća veća, SV51 izgleda ok, ne trpi mutaciju od 10%. SV52 nešto ko SV51, izbacilo jednom
+aliases=true. Kombinacija k=25 i mutacija od 7% ne daje ništa više, nego drugo još uvijek nikako da KTourSelection da neke rezultate bolje od običnog elitističkog. Izgleda nekako kao da je manji k bolji od 
+većeg, smanjivanje selekcijskog pritiska očito daje nekog rezultata. 3 dosta dobra rješenja za SV52. SV53 dao 3 aliases=true u jednoj rundi. Mutiram da digne finalnu verziju još nekako, ali ništa od toga.
+SV54 se uklapa u to ništa posebno.  Zašto kod ovog najosnovnijog algoritma tako dobro raste prosječna vrijednost, a kod geeracijskih i ovih KTour ne? Kod ovog roulette wheela zasad nije neka sreća velika, 
+ali dobro raste prosječna.
+
+
+Objašnjenje evaluator bugova: na indexu 3 je uvijek connection index -1(pogledaj da li ja to koristim negdje) i onda je error (zasad) na SimpleAliasesEvaluator kadgod se za pr. 1 dole desno ne mapira CLB(0).
+Zbog istog razloga ja mislim da zašteka i ovaj drugi evaluator - CLB(0) vjv, zašto, zato jer se CLB(O) spaja na CLB(2). samo onda kad treba, i za drugi slučaj u kojem se CLB(2) kao ulaz spaja na CLB(3), za 
+CLB(1) i CLB(3) nema frke.
+Zaključak: znamo da fillLabels radi dobro međutim našem genetskom se ne piše dobro!.
+
+Vrijeme preuzimanja je vrijeme potrebno da cijela generacija bude sastavljena samo od najboljih jedinki. Pogledaj selekcijski intenzitet i povezanost s drugim parametrima. Selekcijski intenzitet povezan
+s optimalnom mutacijom i veličinom populacije. Proučavanje razdioba različitih selekcijih postupaka uz pomoć centralnih momenata. Boltzmannova selekcija je selekcija kod koje je vjerojatnost odabira rješenja
+eksponencijalno proporcionalna dobroti rješenja. Stohaističko univerzalno uzorkovanje samo jedanput poziv generator slučajnih brojeva - zbog toga da bude računski jefitinije. Slaži na brojevni pravac i 
+uzimaj. Selekcija odsijecanjem = truncation selection - postavi vjerojatnost odabira za najboljih n rješenja na 1/n, a druge na 0. Linear ranking selection - fino podešavanje selekcijskog intenziteta, ali 
+generalno je to mali => dosta velika raznolikost populacije. Exponential ranking selection. Genetski drift => dobra rješenja se gube i ne mogu kontribuirati u finalnom rezultatu. Prerana konvergencija. 
+Elitizam nije nužno dobar, ako se koristi to znači da je čitava populacija fokusirana oko tog rješenja i može uzrokovati ostanak u lokalnom optimumu.
+Pojam susjedstva => dakle možda imamo neko početno rješenje i onda želimo dobiti druga bolja => definirati operator susjedstva i onda tražiti bolja rješenje, npr. algoritmom uspona na vrh. Teško zadovoljavaju
+tvrda ograničenja - ne dozvoliti stavljanje u početnu populaciju rješenja koja ne zadovoljavaju početne uvjete?
+Detaljnija analiza - zašto padaju rješenja. Možda dodat vrstu genetskog koja stavlja na mjesto najgore jedinke. Imamo tu još puno različitih varijacija algoritma, npr. da se generira veća generacija pa da se
+od tamo uzmu samo najbolje jedinke i sl. ili unija roditeljske generacije i djece. Selekcija linearnim rangiranjem se često koristi. 
+
+Generalna struktura završnog:
+1. Neki uvod, o problemu, zašto koristimo tu metodu šta se stim radi
+
+
+Izvori:
+https://www.researchgate.net/publication/261842296_Evolutionary_Algorithms/link/5765063408aeb4b9980170aa/download
+http://java.zemris.fer.hr/nastava/pioa/knjiga-0.1.2013-12-30.pdf
+
+Mozda da sve promijenim u funkciju kazne? Algoritmi simultanog kaljenja rade s funkcijom kazne, i tamo imaš algoritme demona koji čuvaju energiju sustava i na taj
+način dolaze do nekog validnog rješenja.
+Mravlji algoritmi - mravi ostavljaju feromone i na temelju toga donose odluke. Kad su krakovi bili jednako dugi, otprilike je razdioba bila 50-50, poslije su
+gotovo uvijek birali kraći krak. => Emerging intelligence. Čak i ako je kraći krak mravi ostaju tamo di je jači feromonski trag. Mravlji algoritmi su konstrukcijski
+algoritmi. Kad dođe do izvora hrane onda ažuriramo taj feromonski trag, ali i smanjujemo vrijednosti bridova kako bismo simulirali isparavanje feromona.
+Jednostavni mravlji algoritmi - oni rade s putevima, ne znam zasad kako bismo uopće primijenili to na naš problem. Ant system algoritam koristi heurističku funkcije
+, a to je meni poprilično neprihvatljivo graditi. Teško po meni da će ti mravlji dat neko rješenje, ono simultano kaljenje mi izgleda bolje samo jako spora 
+konvergencija?
+Algoritam roja čestica: dvije komponente osnovne se koriste - socijalni faktor i individualni faktor, socijalni za fino podešavanje već pronađenog rješenja,a 
+individualni za globalno pretraživanje prostora stanja. To je potpuno informirani algoritam roja čestica - moguća stvar koja nije dobra jest da prerano konvergira,
+odnosno zbog te socijalne interakcije da svi budu privučeni. 
+Imunoloki algoritmi - B stanice stvaraju antitijelo koji imaju određeni afinitet prema antigenima i koji se spajaju na njih
+kako bismo ih uništili. Te Bstanice se konstantno stvaraju i mutiraj pa kad se infekcija stvara drugi put tijelo ima brz i efikasan odgovor na nju. SIA - simple
+immunological algorithm - mogu se koristiti za optimizaicju i za klasifikaciju, mi ih koristimo za optimizaciju. Taj algoritam je u principu dosta sličan običnom
+genetskom, samo se ne uzima genetski materijal roditelja, nego se samo mutira. Pogledaj one operatore mutacije i kloniranja, tamo ih ima jako puno.
+
+TODO algoritam diferencijske evolucije. 
+
+Selekcijski pritisak je odnos vjerojatnosti preživljavanja dobrih i loših jedinki. Veći selekcijski pritisak => brža konvergencija u lokalno rješenje.
+On se kvantificira pomoću trajanja preuzimanja, selekcijske razlike ili selekcijskog intenziteta. Trajanje preuzimanja=> prosječan broj generacija da se u
+generaciji nalaze samo najbolja rješenja bez križanja i mutacija. Trajanje je min za random pretraživanje gdje je vjerojatnost odabira neke jedinke = 1/n.
+Selekcijska razlika je razlika u dobroti izeđu preživjelih i svih jedinki. Neke bolesno dobre formule slijede iz toga. Svi parametri se računaju za jednu
+generaciju. Funkcija cilja da se može dobro aproksimirati s normalnom razdiobom. Selekcija da ima samo jedan parametar i raspon selekcijskog pritiska da je
+što je veći moguće. U većini slučajeva k-turnirska selekcija ima veći selekcijski pritisak od proporcionalne. 
+
+
+Okej roulette wheel je proradio kako treba, daje neke malo bolje rezultate. Komentiraj odnos selekcijskog pritiska i prosjeka populacije. Sljedeći korak je dodat 
+roulette u generacijski, nakon toga izmislit da konačno nešto proradi i nakraju paralelizirat genetski.
+
+Dodat još one verzije mutacija koje su validne jer inače ne mogu ništa kombinirati.
+
+Komentiraj relativno brzu konvergenciju kad koristimo SV70-tamo zbog roulette wheela je bilo jako teško postići da se ne biraju jednake jedinke=>java heap size error.
+Gore je ako zahtjevamo da su različiti-ograničio sam na 100 broj pokušaja, ali neki max fitness je 290 šta je bad.
+From 21:33 17.04 we added valid crossover for switch boxes
+
+
+SV68 ima smisla, ti generacijski su se vratili u igru. Makar oni rade jako puno selekcija pa zato se i očekuje više od njih.
+SV70 pronalazi aliases je true bez ikakvih problema.
+
+10:16 17.04 u swapu mutationu maknuto za switch box - bez mutacije switch boxeva uzasno rjesenje koje odmah zapne u lokalnom maksimumu.
+
+Komentiraj postotak pronađenih rješenja za generacijski s ogromnim parametrima.
+
+Added that inputs must be different. Ne radit s tim nekim novim optimizacijskim algoritmima, nego radit na postojećim. Čini mi se da se poboljšala fitness funkcija jer više ne 
+generira crnila na pinovima. Razmišljat da li nastavit s verzijom ako smo već dobili aliases = true? Ima li to uopće 
+smisla. Ne!
+
+Komentiraj novu funkciju evaluacije i to kako smo počeli kažnjavat ako su žice spojene na null odnosno
+da smo kvadratno nagrađivali nešto dobro. Imaš sliku spremljenu u imgs.
+
+Komentiraj kako više kažnjavamo da dobivamo više crnila na sliki zato jer ne dopuštamo ono implicitno spajanje.
+
+Smanjili prostor pretraživanja ako maknemo da se može spajat po vanjskim krajevima. Odnosno to je taj valid index.
+
+Komentiraj da kako se gube switch box žice zbog načina na koji smo to izveli. Dakle kad smo promijenili mutaciju s dodavanja na običan change onda crossover
+sve zezne. Možemo dodat da se bira crossover s 70% vjerojatnosti ako je na drugoj strani 0. Možemo kazniti ako je broj žica=0 npr.
+
+
+Da je samo input u igri komentiraj tablicu:
+8 0 204
+7 1 135
+6 2 76
+5 3 25
+4 4 -20
+3 5 -61
+2 6 -100
+1 7 -139
+0 8 -175
+
+Cilj povećati razliku između
+
+Komentiraj: s ovakvom fitness funkcijom nismo ništa postigli osim da radi za 1vs1. Ajmo se prebaciti samo na funkciju kazne.
+Dakle imamo neke pomake u situacijama 1vs2 i 2vs1, ali ne baš uvijek. Zanimljivo je da ako povećamo broj žica da sve ide u k. Dodano da se doda i zadnja generacija u funkciju fitnessa.
+
+Uspješnost pronalaženja rješenja je nekih 1/15 * 100 posto. Za 5 žica. Za 3 žice 1/10 cirka.
+Nakon smanjenja kazne s -10 na -5 za wrong type i black label na -10 => malo poboljšanje, ali izgleda mi fitness funkcija bolje.
+
+Black label na -5, a collision na -10 => dobro izgleda fitness funkcija, ali rješenja nema jej. Na 6500 do 7000 generacija zapinje.
+
+Za 2 puta 1 i 2vs1, input wrong type = -1, collision -20, black label -5. Uspješnost generiranja rješenja = 55%!.
+
+Sa podešavanjem da više kažnjavam inpute, dvije varijable(iste) na dva clba uspješnost 100%. 3 varijable već idu teže.
+
+Dodano da se kažnjava ako idu s iste žice na više njih u istoj grupi.
+
+
+0.5 na mutaciji, v2Coefficients na 30000 generacija pronalazi uvijek 1x2.
+
+Poboljšati mutator i crosser tako da ne rade s clb boxevima koji nisu zadani. Smanjiti prostor pretraživanja.
+Kazniti ako su susjedni outputi - makar da li je to stv bitno.
+
+Testset: 3 varijable dvije okomite
+
+OUTPUT_BLACK_LABEL = -9.75
+OUTPUT_NULL_CLB -7.15
+OUTPUT_PENALTY = -1.0;
+OUTPUT_WRONG_TYPE -4.5
+84%
+
+OUTPUT_BLACK_LABEL = -9.75
+OUTPUT_NULL_CLB -7.75
+OUTPUT_PENALTY = -1.0;
+OUTPUT_WRONG_TYPE -4.5
+78%
+
+OUTPUT_BLACK_LABEL = -9.75
+OUTPUT_NULL_CLB -7.75
+OUTPUT_PENALTY = -1.0;
+OUTPUT_WRONG_TYPE -4.75
+71%
+13175.25
+
+
+OUTPUT_BLACK_LABEL = -10.0
+OUTPUT_NULL_CLB = -8.25
+OUTPUT_PENALTY = -1.0
+OUTPUT_WRONG_TYPE = -4.5
+74.6%
+12465.84
+
+-9.5
+-7.25
+75.3%
+
+BlackLabel -8.75
+75%
+12.789
+
+Updejtaj stare postotke s novim koeficijentima = prvih 5 redaka
+Bash script for testing
+
+Napomeni da nakon što smo dodatno smanjili prostor pretraživanja kako je porastao postotak pronalaska rješenja. Makar nije to neko veliko smanjenje prostora
+pretraživanja.
+Ogroman black label potencijal neki za praznine. Postotak pronalska postaje onda 27.67% i generacije 16983.93
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
