@@ -5,16 +5,8 @@
 \usepackage{float}
 \begin{document}
 	
-	\thesisnumber{108}
 	
 	\title{Rješavanje problema smještanja i povezivanja kod sklopa FPGA}
-	
-	\author{Andi Škrgat}
-	
-	\maketitle
-	
-	% Ispis stranice s napomenom o umetanju izvornika rada. Uklonite naredbu \izvornik ako želite izbaciti tu stranicu.
-	\izvornik
 	
 	% Dodavanje zahvale ili prazne stranice. Ako ne želite dodati zahvalu, naredbu ostavite radi prazne stranice.
 	\zahvala{}
@@ -25,26 +17,26 @@
 	
 	\section{Evolucijsko računarstvo}
 	
-	Evolucijsko računarstvo (eng. \emph{Evolutionary computing}) je područje računarske znanosti koje se bavi problemom optimizacije složenih funkcija, a nastali su proučavanjem procesa u prirodi. Preciznije bismo mogli evolucijsko računarstvo svrstati u područje umjetne inteligencije (eng. \emph{Artificial intelligence}) i mekog računarstva (eng. \emph{Soft computing}).\\Roditeljski koncept na kojem se temelji jest pojam metaheuristika (eng. \emph{Metaheuristic}), a to je pak vrlo općenita heuristika čija je zadaća pomoći heuristiki specifičnoj problemu, pri usmjeravanju prema prostoru u kojem se nalaze potencijalno dobra rješenja našeg konkretnog problema. Evolucijsko računarstvo možemo podijeliti na evolucijske algoritme u koje spadaju genetski algoritmi, genetsko programiranje, evolucijske strategije, evolucijsko programiranje, kategoriju koju predstavljaju algoritmi rojeva, a u njih ubrajamo mravlje algoritme, algoritme roja čestica, algoritme pčela i dr. te zadnju skupinu algoritama koju čine umjetni imunološki algoritmi, algoritam diferencijske evolucije te algoritam harmonijske pretrage.\\
-	Evolucijski algoritmi se koriste kako bi dobro aproksimirali rješenja problema koji se ne mogu jednostavno rješiti primjenom nekih drugih koncepata, npr. tehnikom grube sile. Čest problem koji se rješava evolucijskim računarstvom je problem raspoređivanja, a upravo se ovaj rad bavi razmještanjem i konfiguriranjem logičkih blokova, ulaza i izlaza kod FPGA sklopa (eng. \emph{Field- programmable gate array}). Za raspoređivanje koristim genetski algoritam koji je jedan od najčešće korištenih algoritama iz područja evolucijskog računarstva u problemima raspoređivanja.\\
-	Najprije ću opisati princip rada FPGA sklopa i samih genetskih algoritama. Nakon toga prezentirat ću implementaciju sustava koji je sposoban rješiti navedeni problem, navesti njegove prednosti, nedostatke i ograničenja u uporabi. Rezultati su prezentirani kroz tablice, grafove i slike generiranih rješenja. 
+	Evolucijsko računarstvo (eng. \emph{Evolutionary computing}) je područje računarske znanosti koje se bavi problemom optimizacije složenih funkcija, a nastali su proučavanjem procesa u prirodi. Preciznije bismo evolucijsko računarstvo mogli svrstati u područje umjetne inteligencije (eng. \emph{artificial intelligence}) i mekog računarstva (eng. \emph{soft computing}).\\Roditeljski koncept na kojem se temelji jest pojam metaheuristika (eng. \emph{metaheuristics}), a to je pak vrlo općenita heuristika čija je zadaća pomoći heuristici specifičnoj problemu, pri usmjeravanju prema prostoru u kojem se nalaze potencijalno dobra rješenja konkretnog problema. Evolucijsko računarstvo možemo podijeliti na evolucijske algoritme u koje spadaju genetski algoritmi, genetsko programiranje, evolucijske strategije, evolucijsko programiranje, kategoriju koju predstavljaju algoritmi rojeva, a u koje ubrajamo mravlje algoritme, algoritme roja čestica, algoritme pčela i dr. te zadnju skupinu algoritama koju čine umjetni imunološki algoritmi, algoritam diferencijske evolucije te algoritam harmonijske pretrage.\\
+	Evolucijski algoritmi se koriste kako bi dobro aproksimirali rješenja problema koji se ne mogu jednostavno rješiti primjenom nekih drugih koncepata, npr. tehnikom grube sile. Čest problem koji se rješava evolucijskim računarstvom je problem raspoređivanja, a upravo se ovaj rad bavi razmještanjem i konfiguriranjem logičkih blokova, ulaza i izlaza kod FPGA sklopa (eng. \emph{field- programmable gate array}). Za raspoređivanje koristim genetski algoritam koji je jedan od najčešće korištenih algoritama iz područja evolucijskog računarstva u problemima raspoređivanja.\\
+	Najprije ću opisati princip rada FPGA sklopa i samih genetskih algoritama. Nakon toga prezentirati ću implementaciju sustava koji je sposoban rješiti navedeni problem, navesti njegove prednosti, nedostatke i ograničenja u uporabi. Rezultati su prezentirani kroz tablice, grafove i slike generiranih rješenja. 
 	
 	\section{FPGA sklop}
 	
 	\subsection{Arhitektura FPGA sklopa}
 	
-	FPGA je digitalni sklop koji se koristi za realiziranje funkcija specificiranih od strane programera uporabom sklopovski specifičnih jezika za programiranje. Primjer jednog takvog jezika je VHDL.\\ Najosnovnija arhitektura FPGA sklopa podrazumijeva ulazno-izlazne spojeve (eng. \emph{Pin}) na koje se dovode ulazi željenih funkcija i odvode izlazi. Središnji dio sklopa čine LUT tablice (eng. \emph{Lookup table}). One imaju $2^n$ zapisa, a svaki je zapis zadužen za pojedinu kombinaciju ulaznih varijabli. LUT tablice su dio CLB-ova eng. \emph{configurable logic blocks}) na koje se dovode žice. Napomenimo kako su LUT tablice samo jedan od mogućnosti izvedbe, druge često korištene tehnike podrazumijevaju korištenje multipleksera i jednostavnih flip-flop bistabila. Žice najčešće ne dolaze samostalno već u snopovima i one su zadužene za provođenje signala dobivenog od ulaznih varijabla. Prospojne kutije (eng. \emph{Switch box}) spajaju žice koje se nalaze u susjednim snopovima. Ovisno o poziciji prospojne kutije moguće jest da jedna prospojna kutija spaja dva, tri ili četiri susjedna snopa žica.\\ Primijetimo na temelju slike 1.1 kako u najopćenitijem slučaju dvije žice možemo spojiti na \emph{n} načina pa ne postoji nužno samo jedna ispravna konfiguracija konkretne prospojne kutije za ostvarenje željenog spoja.
+	FPGA je digitalni sklop koji se koristi za realiziranje funkcija specificiranih od strane programera uporabom sklopovski specifičnih jezika za programiranje. Primjer jednog takvog jezika je VHDL.\\ Najosnovnija arhitektura FPGA sklopa podrazumijeva ulazno-izlazne spojeve (eng. \emph{pin}) na koje se dovode ulazi željenih funkcija i odvode izlazi. Središnji dio sklopa čine LUT tablice (eng. \emph{lookup table}). One imaju $2^n$ zapisa, a svaki je zapis zadužen za pojedinu kombinaciju ulaznih varijabli. LUT tablice su dio CLB-ova (eng. \emph{configurable logic blocks}) na koje se dovode žice. Napomenimo kako su LUT tablice samo jedan od mogućih načina izvedbe, druge često korištene tehnike podrazumijevaju korištenje multipleksera i jednostavnih flip-flop bistabila. Žice najčešće ne dolaze samostalno već u snopovima i one su zadužene za provođenje signala dobivenog od ulaznih varijabla. Prospojne kutije (eng. \emph{switch box}) spajaju žice koje se nalaze u susjednim snopovima. Ovisno o poziciji prospojne kutije moguće jest da jedna prospojna kutija spaja dva, tri ili četiri susjedna snopa žica.\\ Primijetimo na temelju slike 1.1 kako u najopćenitijem slučaju dvije žice možemo spojiti na \emph{n} načina pa ne postoji nužno samo jedna ispravna konfiguracija konkretne prospojne kutije za ostvarenje željenog spoja.
 	
 	\begin{figure}[H]
 		\centering
 		\includegraphics[width=20cm]{slike/arhFPGA.png}
-		\caption{Arhitektura FPGA sklopa s četiri CLB-a, dva ulaza koji se dovode na pojedini CLB i tri žice u snopu. Fizički pogled na sklop.}
+		\caption{Arhitektura FPGA sklopa s četiri dvoulazna CLB sklopa i tri žice u snopu. Fizički pogled na sklop.}
 		\label{fig:arh-fpga}
 	\end{figure}
 	
 	\subsection{Programski model FPGA sklopa}
 	
-	Implementacija cijelog sustava pisana je u programskom jeziku Java, a korištene su tehnologije Java 15 SDK za programiranje, Maven za upravljanje projektom, Github za verzioniziranje sustava i Java Swing za stvaranje grafičkih korisničkih sučelja (eng. \emph{GUI}).\\ Model FPGA sklopa možemo definirati na dva načina: prvi ćemo zvati fizički model jer promatramo FPGA sklop kao stvarni fizički sustav i za njega pamtimo ono što imamo na raspologanju. Kod njega je specificirano koliko CLB-ova imamo na raspologanju, broj ulaza koji se dovode na pojedini CLB, broj žica koje se nalaze u jednom snopu, broj UI spojeva(eng. \emph{Pin}) po svakom CLB-u, konfiguracija pojedine prospojne kutije te signali koji se nalaze na pojedinoj žici.\\Druga mogućnost je opisivanje FPGA sklopa kao objekt koji želimo ostvariti i taj ćemo način opisivanja zvati logički model. Njega zadajemo pomoću tekstualne datoteke u kojoj su navedeni potrebni parametri.\\Nakon opisa fizičkog i logičkog modela FPGA sklopa sada nam je lakše uvidjeti što je programski cilj ovog rada: uporabom genetskog algoritma logički model mapirati u fizički sustav. Možemo izvesti analogiju sa stvarnim životom u kojem je fizički model kutija u koju pokušavamo ubaciti specifični objekt na način da zadovoljava osnovne zahtjeve kutije.
+	Implementacija cijelog sustava pisana je u programskom jeziku Java, a korištene su tehnologije Java 15 SDK za programiranje, Maven za upravljanje projektom, Github za verzioniziranje sustava i Java Swing za stvaranje grafičkih korisničkih sučelja (eng. \emph{GUI}).\\ Model FPGA sklopa možemo definirati na dva načina: prvi ćemo zvati fizički model jer promatramo FPGA sklop kao stvarni fizički sustav i za njega pamtimo ono što imamo na raspologanju. Kod njega je specificirano koliko CLB-ova imamo na raspologanju, broj ulaza koji se dovode na svaki CLB, broj žica koje se nalaze u jednom snopu, broj UI spojeva po svakom CLB-u, konfiguracija svih prospojnih kutija te signali koji se nalaze na pojedinoj žici.\\Druga mogućnost je opisivanje FPGA sklopa kao objekt koji želimo ostvariti i taj ćemo način opisivanja zvati logički model. Njega zadajemo pomoću tekstualne datoteke u kojoj su navedeni potrebni parametri.\\Nakon opisa fizičkog i logičkog modela FPGA sklopa sada nam je lakše uvidjeti što je programski cilj ovog rada: uporabom genetskog algoritma logički model mapirati u fizički sustav. Možemo izvesti analogiju sa stvarnim životom u kojem je fizički model kutija u koju pokušavamo ubaciti specifični objekt na način da zadovoljava osnovne zahtjeve kutije.
 	
 	
 	\begin{figure}[H]
@@ -81,7 +73,7 @@
 	\begin{figure}[!htb]
 		\centering
 		\includegraphics[width=15cm]{slike/darwin.jpg}
-		\caption{Darwinova teorija evolucije. Iz generacije u generaciju vrijednost funkcije dobrote prosječno raste. }
+		\caption{Darwinova teorija evolucije. Iz generacije u generaciju vrijednost funkcije dobrote prosječno raste.}
 		\label{fig:darwin}
 	\end{figure}
 	
@@ -99,14 +91,14 @@
 	\end{figure}
 	
 	
-	Sada smo sposobni definirati proces stvaranja genetskog algoritma. Prvi je korak odrediti prikaz jedinke. Tu možemo genetski algoritam podijeliti na one koji rade s bitovima i na one koji rade s nekakvom drugom strukturom podataka. U većini je slučajeva najpogodnije raditi sa strukturom polje (eng. \emph{Array}) jer algoritam radi sa fiksnom veličinom populacije pa operacije dohvaćanja, postavljanja i zamjene možemo raditi u O(1) vremenskoj složenosti (eng. \emph{Big O notation}). Nakon toga slijedi fino podešavanje parametara genetskog algoritma kako bismo dobili što je moguće bolje rješenje. Nerijetko se u praksi parametri najprije odrede na temelju nekog jednostavnog problema, nakon čega se prelazi na glavni slučaj. Ovisno o izvedbi, dijelovi algoritma se paraleliziraju kako bi se maksimalno ubrzalo izvođenje. Spomenimo za kraj ovog dijela kako genetski algoritmi nisu deterministički algoritam koji uvijek pronađe najbolje rješenje, već postupak koji u zadanom vremenu pronalazi najkvalitetnije moguće. 
+	Sada smo sposobni definirati proces stvaranja genetskog algoritma. Prvi je korak odrediti prikaz jedinke. Tu možemo genetski algoritam podijeliti na one koji rade s bitovima i na one koji rade s nekakvom drugom strukturom podataka. U većini je slučajeva najpogodnije raditi sa strukturom polje (eng. \emph{array}) jer algoritam radi sa fiksnom veličinom populacije pa operacije dohvaćanja, postavljanja i zamjene možemo raditi u O(1) vremenskoj složenosti (eng. \emph{big O notation}). Nakon toga slijedi fino podešavanje parametara genetskog algoritma kako bismo dobili što je moguće bolje rješenje. Nerijetko se u praksi parametri najprije odrede na temelju nekog jednostavnog problema, nakon čega se prelazi na glavni slučaj. Ovisno o izvedbi, dijelovi algoritma se paraleliziraju kako bi se maksimalno ubrzalo izvođenje. Spomenimo za kraj ovog dijela kako genetski algoritam nije deterministički algoritam koji uvijek pronađe najbolje rješenje, već postupak koji u zadanom vremenu pronalazi najkvalitetnije moguće. 
 	
 	\section{Evolucijski operatori}
 	
 	\subsection{Selekcija}
 	\label{selekcija}
 	
-	Selekcija je evolucijski operator čiji je zadatak osigurati da bolje jedinke češće sudjeluju u produkciji novih rješenja kako bismo usmjerenim pretraživanjem došli u prostor koji nam može ponuditi optimalno rješenje. Takav mehanizam možemo opisivati kroz više parametara, a prvi od njih je vrijeme preuzimanja (eng. \emph{Takeover time}). To je vrijeme potrebno operatoru selekcije da generira populaciju u kojoj se nalaze samo najbolja rješenje [\citet{GoldAndDeb}]. Radi se o tome da kada bi novu populaciju stvarali samo operatorom selekcije koji favorizira bolje jedinke, tada je logično očekivati da će u svakoj novoj generaciji biti sve više i više kopija najboljeg rješenja. Vrijeme preuzimanja se najčešće mjeri u generacijama, a za k-turnirsku selekciju aproksimativan izraz je odredio \citet{EvAlgsinTheoryAndPractise} 
+	Selekcija je evolucijski operator čiji je zadatak osigurati da bolje jedinke češće sudjeluju u produkciji novih rješenja kako bismo usmjerenim pretraživanjem došli u prostor koji nam može ponuditi optimalno rješenje. Takav mehanizam možemo opisivati kroz više parametara, a prvi od njih je vrijeme preuzimanja (eng. \emph{takeover time}). To je vrijeme potrebno operatoru selekcije da generira populaciju u kojoj se nalaze samo najbolja rješenje [\citet{GoldAndDeb}]. Radi se o tome da kada bi novu populaciju stvarali samo operatorom selekcije koji favorizira bolje jedinke, tada je logično očekivati da će u svakoj novoj generaciji biti sve više i više kopija najboljeg rješenja. Vrijeme preuzimanja se najčešće mjeri u generacijama, a za k-turnirsku selekciju aproksimativan izraz je odredio \citet{EvAlgsinTheoryAndPractise} 
 	
 	\begin{equation}
 		\rho=\frac{1}{\ln{n}} (\ln{k} + \ln{(\ln{k})})) 
@@ -134,7 +126,7 @@
 	
 	Drugi parametri koji se koriste u okviru selekcije nisu toliko česti pa ih preskačem. 
 	
-	Postoji velik broj selekcija, a u ovom radu ću se radu dotaknuti dvije najpoznatije, a to su k-turnirska selekcija i proporcionalna selekcija (eng. \emph{Roulette-wheel selection}).
+	Postoji velik broj selekcija, a u ovom radu ću se radu dotaknuti dvije najpoznatije, a to su k-turnirska selekcija i proporcionalna selekcija (eng. \emph{roulette-wheel selection}).
 	
 	\subsubsection{K-turnirska selekcija}
 	K-turnirska selekcija spada u turnirske selekcije, a neki od ostalih predstavnika te grupe su binarna turnirska selekcija i Boltzmannova turnirska selekcija.
@@ -250,9 +242,9 @@
 	\begin{enumerate}
 		\item veličinu populacije
 		\item broj generacija
-		\item selekciju
-		\item mutiranje
-		\item križanje
+		\item način selekcije
+		\item način mutiranja
+		\item način križanja
 	\end{enumerate}
 	
 	Također, važno je reći da ne postoje točne vrijednosti parametara, nego se do njih dolazi eksperimentiranjem i iskustvom. Posebice su nam bitni mutacija i križanje s kojima pretražujemo prostor rješenja. Ako je kontrakcijsko djelovanje mutacije prejako, ono će konzistentno uništavati sve pozitivno što je postupak pretraživanja do tada pronašao i pretragu će svesti na slučajnu [\citep{UI}]. Treba težiti tome da su mutacija i križanje u balansu kako bismo osigurali napredak u pretraživanju. 
@@ -283,7 +275,7 @@
 	Generacijski genetski algoritmi u svakoj generaciji stvaraju potpuno novu populaciju te roditeljsku zamjenjuju populacijom djece. 
 	
 	
-	\begin{figure}[!htb]
+	\begin{figure}[htb]
 		\centering
 		\includegraphics[width=15cm]{slike/genGenAlg.png}
 		\caption{Pseudokod generacijskog genetskog algoritma}
@@ -380,7 +372,7 @@
 	
 	\subsubsection{Prospojna kutija}
 	
-	Prvo što ćemo opisati kod ovog razreda jest konfiguracija prospojne kutije. One su definirane kao 3D polje gdje je jedna dimenzija određena brojem prospojnih kutija, a druge dvije dimenzije su veličine 4*broj žica u jednom snopu. Razlog zašto broj množimo s 4 je zato što prospojna kutija može spajati do 4 susjedna snopa žica, a 2D je polje zato što su veze usmjerene, a ne dvosmjerne pa je primjerice vezu od žice 2 jednog snop do žice 1 drugog snopa potrebno zapisati na dva mjesta. U svakom od \emph{n} prospojnih kutija nalazi se 2D polje bajtova, a u svako od polja može biti upisano 0, 1 ili 2. Ako je upisana 0, onda spoj ne postoji. Ako je upisana 1 to znači da spoj prima signal na toj žici, a svaka žica može primiti najviše jedan signal iz prospojne kutije. Ako je upisana 2 onda spoj šalje signal iz te žice pa je žica izlazna. Iz ovdje navedenih svojstava možemo izvesti zaključak kako je validna konfiguracija prospojne kutije ona koja u svakom retku ima najviše jednu 1 ili više 2 i ako je na mjestu [j][k] upisana 1 onda na poziciji [k][j] mora biti upisana 2 te ako je na [j][k] = 0 onda je i na [k][j] = 0. Također, žice iz istog snopa ne smiju biti povezane.
+	Prvo što ćemo opisati kod ovog razreda jest konfiguracija prospojne kutije. One su definirane kao 3D polje gdje je jedna dimenzija određena brojem prospojnih kutija, a druge dvije dimenzije su veličine 4*broj žica u jednom snopu. Razlog zašto broj množimo s 4 je zato što prospojna kutija može spajati do 4 susjedna snopa žica, a 2D je polje zato što su veze usmjerene, a ne dvosmjerne pa je primjerice vezu od žice 2 jednog snop do žice 1 drugog snopa potrebno zapisati na dva mjesta. U svakom od \emph{n} prospojnih kutija nalazi se 2D polje bajtova, a u svako od polja može biti upisano 0, 1 ili 2. Ako je upisana 0, onda spoj ne postoji. Ako je upisana 1 to znači da spoj prima signal na toj žici, a svaka žica može primiti najviše jedan signal iz prospojne kutije. Ako je upisana 2 onda spoj šalje signal iz te žice pa je žica izlazna. Iz ovdje navedenih svojstava možemo izvesti zaključak kako je validna konfiguracija prospojne kutije ona koja u svakom retku ima najviše jednu 1 ili više 2 i ako je na mjestu [j][k] upisana 1 onda na poziciji [k][j] mora biti upisana 2 i obrnuto te ako je na [j][k] = 0 onda je i na [k][j] = 0. Također, žice iz istog snopa ne smiju biti povezane.
 	
 	
 	\begin{table}[htb]
@@ -433,21 +425,16 @@
 	Inicijalizator koristi \textbf{\emph{AIFPGAConfigurationRandomizer}} koji je zadužen za početno generiranje populacije. Radi tako da generira jednu po jednu jedinku koristeći pritom postavljene startne postavke:
 	
 	\begin{enumerate}
-		\item U svakoj prospojnoj kutiji napravi se m validnih spojeva gdje je m nasumični broj iz intervala $[1, dohvatiMaxBrojVezaZaProspKutiju()]$. Maksimalan broj veza koji se može napraviti u svakoj prospojnoj kutiji je:
-		
-		\begin{equation}
-			maxVeze=2\ast brojUlaza -1
-		\end{equation}
-		
-		\item ClbInIndexes, clbOutIndexes i pinIndexes iz FPGAModelConfiguration se generiraju potpuno nasumično
-		\item clbIndexes i pinIndexes su nasumični različiti brojevi
+		\item U svakoj prospojnoj kutiji napravi se m validnih spojeva gdje je m nasumični broj iz intervala $[1, dohvatiMaxBrojVezaZaProspKutiju()]$. Maksimalan broj veza koji se može napraviti u svakoj prospojnoj kutiji je 3. 
+		\item ClbInIndexes, clbOutIndexes i pinIndexes iz FPGAModelConfiguration se generiraju potpuno nasumično. 
+		\item clbIndexes i pinIndexes su nasumični različiti brojevi. 
 	\end{enumerate}
 	
 	
 	\subsection{SV66}
 	\label{SV66}
 	
-	Ovaj algoritam koristi napredni čistač prospojne kutije, križanje \emph{ValidCrosser} koje je opisano u poglavlju \label{ValidCrosser}, \emph{SwapMutation} koji je opisan u poglavlju \label{EndMutation} te proporcionalnu selekciju. Koristi se eliminacijski algoritam na način da je omogućen elitizam, a nova se jedinka stavlja na mjesto najlošije u roditeljskoj populaciji. 
+	Ovaj algoritam koristi napredni čistač prospojne kutije, križanje \emph{ValidCrosser}, \emph{SwapMutation} koji su opisani u poglavlju \ref{EndMutation} te proporcionalnu selekciju. Koristi se eliminacijski algoritam na način da je omogućen elitizam, a nova se jedinka stavlja na mjesto najlošije u roditeljskoj populaciji.
 	
 	\subsection{SV70}
 	\label{SV70}
@@ -655,7 +642,7 @@
 		\label{fig:sv16-alg-hibrid}
 	\end{figure} 
 	
-	Iako je po samom principu rada vrlo sličan algoritmu SV66, pri gotovo svakom pokretanju algoritma, možemo uvidjeti kako postoji puno više manjih skokova kod najbolje dobrote jedinke, a prosječna dobrota raste puno brže, nego kod SV66. Zanimljivo, je da SV16 ne koristi nikakvu posebnu selekciju već, kao što je navedeno u \ref{SV16}, nasumično odabire tri jedinke, križa dvije od tri te stavi na mjesto treće ako ima veću dobrotu. 
+	Iako je po samom principu rada vrlo sličan algoritmu SV66, pri gotovo svakom pokretanju algoritma, možemo uvidjeti kako postoji puno više manjih skokova kod najbolje dobrote jedinke, a prosječna dobrota raste puno brže, nego kod SV66. Zanimljivo, SV16 ne koristi nikakvu posebnu selekciju već, kao što je navedeno u \ref{SV16}, nasumično odabire tri jedinke, križa dvije od tri te dijete stavi na mjesto treće ako ima veću dobrotu. 
 	
 	\subsubsection{Neuspješna nadogradnja hibridne funkcije dobrote}
 	
@@ -685,7 +672,7 @@
 		\end{tabular}
 	\end{table}
 	
-	Funkcija dobrote za izlaze modelirana je na isti način kao i za ulaze samo što su te vrijednosti skalirane s parametrom 0.5. Time sam želio postići da se jedinke s dobrim ulazima više koriste u reprodukciji novih, nego one s točnim izlazima. Nažalost, ni ovo nije dovelo do pronalaska nikakvih potpunih rješenja. \\
+	Funkcija dobrote za izlaze modelirana je na isti način kao i za ulaze samo što su te vrijednosti skalirane s parametrom 0.5. Time sam želio postići da se jedinke s dobrim ulazima više koriste u reprodukciji novih, nego one s točnim izlazima. Nažalost, ni ovo nije dovelo do pronalaska nikakvih potpunih rješenja. 
 	
 	Jedan tipičan primjer kako je izgledala funkcija dobrote dok se koristio ovakav model(samo s drugim faktorima) prikazan je na slici \ref{fig:sv54-convergence}. 
 	
@@ -751,13 +738,13 @@
 	
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=6cm]{slike/isjecakSusjedneVeze.png}
-		\caption{Signal se jedne veze se prosljeđuje na više žica u istom snopu. To često dovodi do toga da je na više ulaza spojen isti signal. }
+		\includegraphics[width=10cm]{slike/isjecakSusjedneVeze.png}
+		\caption{Signal B se prosljeđuje na više žica u istom snopu, ipak to u ovom slučaju nije problem. }
 		\label{fig:susjedne-veze}
 	\end{figure} 
 	
 	
-	Stvar je u tome da na niti jedan CLB sklop nikad nećemo dovoditi više istih ulaza pa jedinku kod koje je takav slučaj uočen, kažnjavamo. 
+	Razlog je što na niti jedan CLB sklop nikad nećemo dovoditi više istih ulaza pa jedinku kod koje je takav slučaj uočen, kažnjavamo. 
 	
 	Naravno, kao što je i problem ako imamo previše veza u nekoj prospojnoj kutiji, ako nemamo nijednu isto nije dobro pa svaki put kada je prospojna kutija prazna, dobroti jedinke dodamo kaznu. Takvo kažnjavanje nije zato jer nju ne želimo koristiti, moguće je da ona ima dobrih veza u drugim prospojnim kutijama koje nam trebaju, ali će ipak u većini slučajeva prazna prospojna kutija biti znak loše kvalitete rješenja. 
 	
@@ -769,7 +756,7 @@
 		\label{fig:prazna-skatula-isjecak}
 	\end{figure} 
 	
-	Dodavanjem ovih parametara u dobrotu funkcije došli smo do stanja u kojem prospojne kutije više manje imaju uvijek optimalan broj veza. Sljedeća situacija za koju smo uvidjeli da nije dobra i da bi je trebalo popraviti je ona u kojoj se signal s nekog ulaznog pin ne prosljeđuje na niti jednu susjednu prospojnu kutiju. U tom slučaju jedinka zapravo zaboravlja na taj ulaz pa će sigurno gdje god bi se on trebao koristiti, tamo naći praznina ili nešto drugo. 
+	Dodavanjem ovih parametara u dobrotu funkcije došli smo do stanja u kojem prospojne kutije više manje imaju uvijek optimalan broj veza. Sljedeća situacija za koju smo uvidjeli da nije dobra i da bi je trebalo popraviti je ona u kojoj se signal s nekog ulaznog pin ne prosljeđuje na niti jednu susjednu prospojnu kutiju. U tom slučaju jedinka zapravo zaboravlja na taj ulaz pa će sigurno, gdje god bi se on trebao koristiti, tamo naći praznina ili krivi signal. 
 	
 	\begin{figure}[H]
 		\centering
@@ -803,7 +790,7 @@
 		Zadatak u kojem postoji više fizičkih CLB-ova, nego logičkih, sustav ne rješava uvijek. Iako se na prvu čini da bi sustav takvo rješenje trebao lakše pronaći, to nije tako. Naime, genetski algoritam sada barata s većom količinom potencijalnih informacija, a to što on mapira samo jedan logički sklop, samo olakšava provjeru je li rješenje pronađeno.
 		Kako bismo smanjili prostor pretraživanja, u takvoj se situaciji ulazne i izlazne pozicije CLB sklopa drže na -1 pa se u tom dijelu signali uopće ne prosljeđuju. Time je postotak pronalaska rješenja povećan za 10\%.
 		
-		Iz tablice naravno vidimo da i sve što je zadatak mapiranja složeniji, to je i postotak pronalaska rješenja manji, a sustav ne pronalazi uopće rješenja za 4 i više CLB sklopa. 
+		Iz tablice \ref{gen-alg-result} naravno vidimo da i sve što je zadatak mapiranja složeniji, to je i postotak pronalaska rješenja manji, a sustav ne pronalazi uopće rješenja za 4 i više CLB sklopa. 
 		
 		Zbog toga sam odlučio konstruirati eksperiment kojim ću pokazati da se taj sustav ipak kreće u dobrom smjeru. U tu sam svrhu kreirao logički zadatak u kojem se izlaz nultog sklopa šalje na drugi, a izlaz prvog na treći sklop. Kada bi ljudi rješavali takav problem intuicija nam govori kako je puno lakše dobro posložiti ulaze kada se nulti sklop nalazi prije drugog odnosno prvi sklop ispred trećeg, vodoravno gledano. To znači da su nam, od mogućih 4!=12 konfiguracija validne dvije, a prikazane su na slikama ispod.
 		
@@ -825,25 +812,13 @@
 		
 		
 		Genetski algoritam je jedan oblik umjetne inteligencije i to je u ovom primjeru jasno potvrđeno. Pri pokretanju algoritma 200 puta, u 49\% slučajeva on je CLB sklopove posložio na jedan od dva gore opisana načina, iako je matematički očekivana vjerojatnost da se to dogodi 2/12 = 16.67\%. 
-		
-		Najnovija verzija parametara sustava koja se koristila u mjerenjima prikazana je na slici ispod:
-		
-		
-		\begin{figure}[H]
-			\centering
-			\includegraphics[width=18cm]{slike/koeficijenti.png}
-			\caption{Posljednja verzija korištenih koeficijenata. }
-			\label{fig:coeffs-last-version}
-		\end{figure} 
-		
-		
-		
-		Složenost problema očituje se i kroz vrijeme potrebno algoritmu da pronađe rješenja. Vrijeme se mjeri u generacijama. Tablica \ref{gen-alg} pokazuje koliko je u prosjeku potrebno algoritmu da pronađe rješenja za različite slučajeve:
+				
+		Složenost problema očituje se i kroz vrijeme potrebno algoritmu da pronađe rješenja. Vrijeme se mjeri u generacijama. Tablice \ref{gen-alg} i \ref{gen-alg-result} pokazuju koliko je u prosjeku potrebno algoritmu da pronađe rješenja za različite slučajeve:
 		
 		
 		\begin{table}[htb]
 			\caption{\emph{Rezultati algoritma SV66, s parametrima: Mutacija 5\%, maksimalan broj generacija: 50000, veličina populacije: 50. Broj ponavljanja algoritma: 300}}
-			\label{gen-alg}
+			\label{gen-alg-result}
 			\centering
 			\begin{tabular}{|c | c | c|} \hline
 				\thead{Opis} & \thead{Vrijeme u generacijama} & \thead{Uspješnost} \\ \hline
