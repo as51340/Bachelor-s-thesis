@@ -6,7 +6,7 @@
 \begin{document}
 	
 	
-	\title{Nema naslova}
+	\title{Rješavanje problema smještanja i povezivanja kod sklopa FPGA}
 	
 	% Dodavanje zahvale ili prazne stranice. Ako ne želite dodati zahvalu, naredbu ostavite radi prazne stranice.
 	\zahvala{}
@@ -563,7 +563,7 @@
 	\begin{figure}[H]
 		\centering
 		\includegraphics[width=18cm]{slike/swapMutate.png}
-		\caption{Vjerojatnosna mutacija pozicija. }
+		\caption{Mutacija premještanjem. }
 		\label{fig:sw-boxes-mutation}
 	\end{figure} 
 	
@@ -792,7 +792,7 @@
 		
 		Iz tablice \ref{gen-alg-result} naravno vidimo da i sve što je zadatak mapiranja složeniji, to je i postotak pronalaska rješenja manji, a sustav ne pronalazi uopće rješenja za 4 i više CLB sklopa. 
 		
-		Zbog toga sam odlučio konstruirati eksperiment kojim ću pokazati da se taj sustav ipak kreće u dobrom smjeru. U tu sam svrhu kreirao logički zadatak u kojem se izlaz nultog sklopa šalje na drugi, a izlaz prvog na treći sklop. Kada bi ljudi rješavali takav problem intuicija nam govori kako je puno lakše dobro posložiti ulaze kada se nulti sklop nalazi prije drugog odnosno prvi sklop ispred trećeg, vodoravno gledano. To znači da su nam, od mogućih 4!=12 konfiguracija validne dvije, a prikazane su na slikama ispod.
+		Zbog toga sam odlučio konstruirati eksperiment kojim ću pokazati da se taj sustav ipak kreće u dobrom smjeru. U tu sam svrhu kreirao logički zadatak u kojem se izlaz nultog sklopa šalje na drugi, a izlaz prvog na treći sklop. Kada bi ljudi rješavali takav problem intuicija nam govori kako je puno lakše dobro posložiti ulaze kada se nulti sklop nalazi prije drugog odnosno prvi sklop ispred trećeg, vodoravno gledano. To znači da su nam, od mogućih 4!=24 konfiguracija validne dvije, a prikazane su na slikama ispod.
 		
 		
 		\begin{figure}[H]
@@ -811,7 +811,7 @@
 		\end{figure} 
 		
 		
-		Genetski algoritam je jedan oblik umjetne inteligencije i to je u ovom primjeru jasno potvrđeno. Pri pokretanju algoritma 200 puta, u 49\% slučajeva on je CLB sklopove posložio na jedan od dva gore opisana načina, iako je matematički očekivana vjerojatnost da se to dogodi 2/12 = 16.67\%. 
+		Genetski algoritam je jedan oblik umjetne inteligencije i to je u ovom primjeru jasno potvrđeno. Pri pokretanju algoritma 200 puta, u 49\% slučajeva on je CLB sklopove posložio na jedan od dva gore opisana načina, iako je matematički očekivana vjerojatnost da se to dogodi 2/24 = 8.33\%. 
 				
 		Složenost problema očituje se i kroz vrijeme potrebno algoritmu da pronađe rješenja. Vrijeme se mjeri u generacijama. Tablice \ref{gen-alg} i \ref{gen-alg-result} pokazuju koliko je u prosjeku potrebno algoritmu da pronađe rješenja za različite slučajeve:
 		
