@@ -114,6 +114,7 @@ public class FPGAEvaluator implements Evaluator {
 					model.pins[i].input = false;
 				}
 			}
+			
 			for(int i = 0; i < model.clbs.length; i++) {
 				CLBBox currBox = model.clbs[i];
 				if(currBox.title == null) {

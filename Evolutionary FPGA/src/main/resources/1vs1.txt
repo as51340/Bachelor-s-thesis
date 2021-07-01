@@ -1,4 +1,4 @@
-Architecture: 2, 4
+Architecture: 2, 1
 Variables: [A,B]
 Function(s) [F] is/are at outputs: [0]
 CLB(0): A B

@@ -1,0 +1,176 @@
+One logical clb into 1x1 FPGA configuration
+Running time: 7.102s
+Percentage: 1.0
+Average generations: 174.72333333333333
+***Printing output properties***
+Aliases failures: 59405
+Label is null: 21981
+Wrong type: 37424
+Wrong title name: 0
+
+***Printing input properites***
+Input failures: 64903
+Input black label: 40130
+Input wrong type: 59772
+Wrong name: 18745
+
+
+One logical clb into 2x1 FPGA configuration
+Running time: 18.696s
+Percentage: 1.0
+Average generations: 361.74
+***Printing output properties***
+Aliases failures: 110399
+Label is null: 55338
+Wrong type: 55061
+Wrong title name: 0
+
+***Printing input properites***
+Input failures: 121491
+Input black label: 98380
+Input wrong type: 91695
+Wrong name: 32099
+
+
+One logical clb into 1x2 FPGA configuration
+Running time: 27.274s
+Percentage: 1.0
+Average generations: 517.9366666666666
+***Printing output properties***
+Aliases failures: 152974
+Label is null: 73785
+Wrong type: 79189
+Wrong title name: 0
+
+***Printing input properites***
+Input failures: 168116
+Input black label: 147843
+Input wrong type: 122329
+Wrong name: 40078
+
+
+One logical clb into 2x2 FPGA configuration
+Running time: 62.07s
+Percentage: 1.0
+Average generations: 825.67
+***Printing output properties***
+Aliases failures: 238577
+Label is null: 157117
+Wrong type: 81460
+Wrong title name: 0
+
+***Printing input properites***
+Input failures: 259679
+Input black label: 296239
+Input wrong type: 119418
+Wrong name: 62217
+
+
+Two logical clbs into 2x1 FPGA configuration
+Running time: 351.32s
+Percentage: 0.9766666666666667
+Average generations: 6104.655290102389
+***Printing output properties***
+Aliases failures: 2104765
+Label is null: 1114994
+Wrong type: 1944428
+Wrong title name: 679112
+
+***Printing input properites***
+Input failures: 2146253
+Input black label: 2336493
+Input wrong type: 3767600
+Wrong name: 1544105
+
+
+Two logical clbs into 1x2 FPGA configuration
+Running time: 878.486s
+Percentage: 0.83
+Average generations: 12623.389558232931
+***Printing output properties***
+Aliases failures: 5617081
+Label is null: 3327409
+Wrong type: 4602501
+Wrong title name: 1865160
+
+***Printing input properites***
+Input failures: 5677509
+Input black label: 7013033
+Input wrong type: 8587812
+Wrong name: 4623968
+
+
+Two logical clbs into 2x2 FPGA configuration
+Running time: 1935.926s
+Percentage: 0.6866666666666666
+Average generations: 18649.85922330097
+***Printing output properties***
+Aliases failures: 8447646
+Label is null: 7232299
+Wrong type: 6152667
+Wrong title name: 1793851
+
+***Printing input properites***
+Input failures: 8538587
+Input black label: 12540347
+Input wrong type: 13022606
+Wrong name: 5165659
+
+
+Two logical clbs with three variables nto 2x1 FPGA configuration
+Running time: 893.27s
+Percentage: 0.8066666666666666
+Average generations: 12820.078512396694
+***Printing output properties***
+Aliases failures: 5868365
+Label is null: 3234386
+Wrong type: 5153007
+Wrong title name: 2050730
+
+***Printing input properites***
+Input failures: 6014162
+Input black label: 6068594
+Input wrong type: 9169726
+Wrong name: 6403872
+
+
+Two logical clbs with three variables into 1x2 FPGA configuration
+Running time: 1419.676s
+Percentage: 0.5766666666666667
+Average generations: 18887.028901734106
+***Printing output properties***
+Aliases failures: 9484611
+Label is null: 5815229
+Wrong type: 7874564
+Wrong title name: 3031949
+
+***Printing input properites***
+Input failures: 9627549
+Input black label: 11202441
+Input wrong type: 13241569
+Wrong name: 10387071
+
+
+Two logical clbs with three variables into 2x2 FPGA configuration
+Running time: 3006.004s
+Percentage: 0.3433333333333333
+Average generations: 30217.844660194176
+***Printing output properties***
+Aliases failures: 12825256
+Label is null: 10687058
+Wrong type: 9928013
+Wrong title name: 2559311
+
+***Printing input properites***
+Input failures: 12973273
+Input black label: 17645930
+Input wrong type: 19443287
+Wrong name: 10585470
+
+
+Three logical clbs into 2x2 FPGA configuration
+
+
+Two logical clbs into 2x2 FPGA configuration, 5 wires
+
+

@@ -40,15 +40,16 @@ public class NewTestSimpleGenetic {
 
 	public static void main(String[] args) throws IOException {
 
-		String fileName = "./src/main/resources/1vs1.txt"; // wont load with resource as stream
-		int rows = 1, columns = 1, pins = 1, variables = 2, wires = 3, nums = 1;
-		int popSize = 50, iterations = 50000, librarySize = 70;
+		String fileName = "./src/main/resources/2vs1-three-vars.txt"; // wont load with resource as stream
+		int rows = 2, columns = 1, pins = 1, variables = 2, wires = 3, nums = 1;
+		int popSize = 50, iterations = 30000, librarySize = 70;
 		boolean fitnessImg = true, intensityImg = true;
 		String algName = "SV66";
 		
 		if (args.length == 0) {
 			System.out.println("Running program with default settings!");
 		}
+		
 		for (int i = 0; i < args.length - 1; i++) {
 			if (args[i].equals("--rows")) {
 				rows = Integer.parseInt(args[i + 1]);
@@ -240,6 +241,7 @@ public class NewTestSimpleGenetic {
 					}).start();
 				}
 				//main GUI maker
+				
 				if (nums == 1) { // run mode, othewise "train" mode
 					SwingUtilities.invokeLater(() -> {
 						JFrame f = new JFrame("Preglednik rezultata mapiranja");

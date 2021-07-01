@@ -715,3 +715,59 @@ java.lang.NullPointerException: Cannot read field "configuration" because "bestC
 	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:186)
 
 
+2021:06:29_17:48:50
+Shortcut: SV36 Full name: Generational version
+java.lang.NullPointerException: Cannot read field "switchBoxes" because "resultModel" is null
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:188)
+
+
+2021:06:29_17:49:54
+Shortcut: SV18 Full name: Simplest version elitistic
+java.lang.NullPointerException: Cannot read field "label" because "swBoxes[i].segments[k]" is null
+	at hr.fer.zemris.bachelor.thesis.evaluator.ConnectionQualityEvaluator.evaluate(ConnectionQualityEvaluator.java:43)
+	at hr.fer.zemris.bachelor.thesis.evaluator.FPGAEvaluator.evaluate(FPGAEvaluator.java:198)
+	at hr.fer.zemris.bachelor.thesis.ai.SimplestGeneticAlgorithmElitistic.reproduction(SimplestGeneticAlgorithmElitistic.java:77)
+	at hr.fer.zemris.bachelor.thesis.mapping.AIFPGAMapper.map(AIFPGAMapper.java:60)
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:113)
+
+
+2021:06:29_17:49:58
+Shortcut: SV17 Full name: Simplest version elitistic
+java.lang.NullPointerException: Cannot read field "label" because "swBoxes[i].segments[k]" is null
+	at hr.fer.zemris.bachelor.thesis.evaluator.ConnectionQualityEvaluator.evaluate(ConnectionQualityEvaluator.java:43)
+	at hr.fer.zemris.bachelor.thesis.evaluator.FPGAEvaluator.evaluate(FPGAEvaluator.java:198)
+	at hr.fer.zemris.bachelor.thesis.ai.SimplestGeneticAlgorithmElitistic.reproduction(SimplestGeneticAlgorithmElitistic.java:77)
+	at hr.fer.zemris.bachelor.thesis.mapping.AIFPGAMapper.map(AIFPGAMapper.java:60)
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:113)
+
+
+2021:06:29_17:52:36
+Shortcut: SV66 Full name: EliminativeGeneticAlgorithmKSelectionElitistic
+java.lang.NullPointerException: Cannot read field "switchBoxes" because "resultModel" is null
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:188)
+
+
+2021:06:29_17:53:01
+Shortcut: SV66 Full name: EliminativeGeneticAlgorithmKSelectionElitistic
+java.lang.NullPointerException: Cannot read field "switchBoxes" because "resultModel" is null
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:188)
+
+
+2021:06:29_18:18:16
+Shortcut: SV66 Full name: EliminativeGeneticAlgorithmKSelectionElitistic
+java.lang.NullPointerException: Cannot read field "switchBoxes" because "resultModel" is null
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:188)
+
+
+2021:06:29_18:18:22
+Shortcut: SV66 Full name: EliminativeGeneticAlgorithmKSelectionElitistic
+java.lang.NullPointerException: Cannot read field "switchBoxes" because "resultModel" is null
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:188)
+
+
+2021:06:29_18:18:26
+Shortcut: SV66 Full name: EliminativeGeneticAlgorithmKSelectionElitistic
+java.lang.NullPointerException: Cannot read field "switchBoxes" because "resultModel" is null
+	at Test.NewTestSimpleGenetic.main(NewTestSimpleGenetic.java:188)
+
+
